@@ -1,4 +1,4 @@
-## BeerXP - Mobile
+## Project title
 
 A little info about your project and/ or overview that explains **what** the project is about.
 
@@ -69,4 +69,4 @@ Give proper credits. This could be a link to any repo which inspired you to buil
 
 A short snippet describing the license (MIT, Apache etc)
 
-MIT © [Gustavo Baptista]()
+MIT © [Yourname]()
