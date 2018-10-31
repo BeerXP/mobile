@@ -1,4 +1,4 @@
-## Project title
+## BeerXP - Mobile
 
 A little info about your project and/ or overview that explains **what** the project is about.
 
@@ -10,8 +10,7 @@ A short description of the motivation behind the creation and maintenance of the
 
 Build status of continus integration i.e. travis, appveyor etc. Ex. -
 
-[![Build Status](https://travis-ci.org/akashnimare/foco.svg?branch=master)](https://travis-ci.org/akashnimare/foco)
-[![Windows Build Status](https://ci.appveyor.com/api/projects/status/github/akashnimare/foco?branch=master&svg=true)](https://ci.appveyor.com/project/akashnimare/foco/branch/master)
+[![Build Status](https://travis-ci.com/gustavobaptista/BeerXp.svg?branch=master)](https://travis-ci.com/gustavobaptista/BeerXp)
 
 ## Code style
 
@@ -69,4 +68,4 @@ Give proper credits. This could be a link to any repo which inspired you to buil
 
 A short snippet describing the license (MIT, Apache etc)
 
-MIT © [Yourname]()
+MIT © [Gustavo Baptista]()

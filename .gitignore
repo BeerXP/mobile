@@ -1,6 +1,49 @@
 
-# Created by https://www.gitignore.io/api/reactnative
-# Edit at https://www.gitignore.io/?templates=reactnative
+# Created by https://www.gitignore.io/api/git,buck,fastlane,reactnative,visualstudiocode
+# Edit at https://www.gitignore.io/?templates=git,buck,fastlane,reactnative,visualstudiocode
+
+### Buck ###
+buck-out/
+.buckconfig.local
+.buckd/
+.buckversion
+.fakebuckversion
+
+### fastlane ###
+# fastlane - A streamlined workflow tool for Cocoa deployment
+#
+# It is recommended to not store the screenshots in the git repo. Instead, use fastlane to re-generate the
+# screenshots whenever they are needed.
+# For more information about the recommended setup visit:
+# https://docs.fastlane.tools/best-practices/source-control/#source-control
+
+# fastlane specific
+fastlane/report.xml
+
+# deliver temporary files
+fastlane/Preview.html
+
+# snapshot generated screenshots
+fastlane/screenshots/**/*.png
+fastlane/screenshots/screenshots.html
+
+# scan temporary files
+fastlane/test_output
+
+### Git ###
+# Created by git for backups. To disable backups in Git:
+# $ git config --global mergetool.keepBackup false
+*.orig
+
+# Created by git when using merge tools for conflicts
+*.BACKUP.*
+*.BASE.*
+*.LOCAL.*
+*.REMOTE.*
+*_BACKUP_*.txt
+*_BASE_*.txt
+*_LOCAL_*.txt
+*_REMOTE_*.txt
 
 ### ReactNative ###
 # React Native Stack Base
@@ -51,11 +94,6 @@ gradle-app.setting
 # gradle/wrapper/gradle-wrapper.properties
 
 ### ReactNative.Buck Stack ###
-buck-out/
-.buckconfig.local
-.buckd/
-.buckversion
-.fakebuckversion
 
 ### ReactNative.Node Stack ###
 # Logs
@@ -147,8 +185,6 @@ typings/
 # Java class files
 *.class
 
-android/app/.classpath
-
 # Generated files
 bin/
 gen/
@@ -199,10 +235,7 @@ freeline/
 freeline_project_description.json
 
 # fastlane
-fastlane/report.xml
-fastlane/Preview.html
 fastlane/screenshots
-fastlane/test_output
 fastlane/readme.md
 
 ### ReactNative.Xcode Stack ###
@@ -223,9 +256,6 @@ DerivedData/
 *.perspectivev3
 !default.perspectivev3
 xcuserdata/
-
-android/app/.settings
-
 
 ## Other
 *.moved-aside
@@ -275,7 +305,6 @@ Carthage/Build
 # For more information about the recommended setup visit:
 # https://docs.fastlane.tools/best-practices/source-control/#source-control
 
-fastlane/screenshots/**/*.png
 
 # Code Injection
 #
@@ -300,5 +329,13 @@ iOSInjectionProject/
 # .nfs files are created when an open file is removed but is still being accessed
 .nfs*
 
-# End of https://www.gitignore.io/api/reactnative
+### VisualStudioCode ###
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
 
+# End of https://www.gitignore.io/api/git,buck,fastlane,reactnative,visualstudiocode
+
+android/app/.*

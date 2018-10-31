@@ -19,10 +19,10 @@ ENV["CRASHLYTICS_BUILD_SECRET"] = "secret_key"
 
 before_all do
     update_fastlane
-#    yarn(
-#        command: "install",
-#        package_path: "./package.json"
-#    )
+    yarn(
+        command: "install",
+        package_path: "./package.json"
+    )
 #    ensure_git_branch
 #    ensure_git_status_clean
 #    git_pull
@@ -75,18 +75,24 @@ platform :android do
     )
   end
 
-  if options[:badge]
-    add_badge(
-      shield: "#{ANDROID_VERSION_NAME}-#{ANDROID_VERSION_CODE}-
-               blue",
-      glob: "/android/app/src/main/res/mipmap-*/ic_launcher.png",
-      shield_scale: "0.75"
-    )
-  end
+#  if options[:badge]
+#    add_badge(
+#      shield: "#{ANDROID_VERSION_NAME}-#{ANDROID_VERSION_CODE}-
+#               blue",
+#      glob: "/android/app/src/main/res/mipmap-*/ic_launcher.png",
+#      shield_scale: "0.75"
+#    )
+#  end
 
   desc "Runs all the tests"
   lane :test do
     gradle(task: "test")
+  end
+
+  desc 'Build the Android application.'
+  private_lane :build do
+    gradle(task: 'clean', project_dir: 'android/')
+    gradle(task: 'assemble', build_type: 'Release', project_dir: 'android/')
   end
 
   
