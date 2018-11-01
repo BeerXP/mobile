@@ -11,18 +11,18 @@
 #
 
 # Uncomment the line if you want fastlane to automatically update itself
-# update_fastlane
+update_fastlane
 
 ENV["CRASHLYTICS_API_TOKEN"] = "123abc"
 ENV["CRASHLYTICS_BUILD_SECRET"] = "secret_key"
 
 
 before_all do
-    update_fastlane
-    yarn(
-        command: "install",
-        package_path: "./package.json"
-    )
+#  update_fastlane
+  yarn(
+      command: "install",
+      package_path: "./package.json"
+  )
 #    ensure_git_branch
 #    ensure_git_status_clean
 #    git_pull
@@ -35,7 +35,7 @@ platform :ios do
   lane :tests do
   notification(subtitle: "Testing", message: "Executando testes")
 
-  run_tests(scheme: "iOS Tests",
+  run_tests(project: "ios/BeerXP.xcodeproj", scheme: "BeerXP", devices: ["iPhone 6s", "iPad Air"],
     slack_url: "https://hooks.slack.com/services/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", 
     slack_channel: "#ios_build")
 
@@ -60,11 +60,6 @@ platform :android do
 
   # Android Lanes
   before_all do
-    update_fastlane
-    yarn(
-        command: "install",
-        package_path: "./package.json"
-    )
     ANDROID_VERSION_NAME = get_version_name(
             gradle_file_path:"android/app/build.gradle",
             ext_constant_name:"versionName"
