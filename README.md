@@ -10,7 +10,7 @@ A short description of the motivation behind the creation and maintenance of the
 
 Build status of continus integration i.e. travis, appveyor etc. Ex. -
 
-[![Build Status](https://travis-ci.com/gustavobaptista/BeerXp.svg?branch=master)](https://travis-ci.com/gustavobaptista/BeerXp)
+[![Build Status](https://travis-ci.com/BeerXP/mobile.svg?branch=master)](https://travis-ci.com/BeerXP/mobile)
 
 ## Code style
 

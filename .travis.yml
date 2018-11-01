@@ -1,8 +1,16 @@
 install:
   - bundle install
-  - nvm install && nvm use
-  - npm install -g "npm@$(jq -r '.engines.npm' package.json)"
+  - brew install watchman,
+  - npm install
   - npm ci
+  before_script: [
+    "npm test",
+    "(npm start > packager.log 2>&1 &) && echo $! > packager.pid"
+  ],
+  "before_install": [
+    "brew update",
+    "brew reinstall xctool"
+  ]
 matrix:
   include:
     - os: osx
@@ -18,6 +26,7 @@ matrix:
       script:
         - './android/gradlew assembleRelease -p android/'
     - os: osx
+      language: swift
       osx_image: xcode10
       before_install:
         - brew install jq
