@@ -16,7 +16,6 @@ update_fastlane
 ENV["CRASHLYTICS_API_TOKEN"] = "123abc"
 ENV["CRASHLYTICS_BUILD_SECRET"] = "secret_key"
 
-
 before_all do
 #  update_fastlane
   yarn(
@@ -28,19 +27,17 @@ before_all do
 #    git_pull
 end
 
-
 platform :ios do
   # iOS Lanes
-
   lane :tests do
-  notification(subtitle: "Testing", message: "Executando testes")
+    notification(subtitle: "Testing", message: "Executando testes")
 
-  run_tests(project: "ios/BeerXP.xcodeproj", scheme: "BeerXP", devices: ["iPhone 6s", "iPad Air"],
-    slack_url: "https://hooks.slack.com/services/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", 
-    slack_channel: "#ios_build")
+    run_tests(project: "ios/BeerXP.xcodeproj", scheme: "BeerXP", devices: ["iPhone 6s", "iPad Air"],
+      slack_url: "https://hooks.slack.com/services/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", 
+      slack_channel: "#ios_build")
 
-    notification(subtitle: "Finished", message: "Executado")
-  end
+      notification(subtitle: "Finished", message: "Executado")
+    end
 
   desc 'Fetch certificates and provisioning profiles'
   lane :certificates do
@@ -48,16 +45,9 @@ platform :ios do
 #    match(app_identifier: 'com.app.bundle', type: 'appstore', readonly: true)
   end
 
-
-
 end
 
-
-
-
-
 platform :android do
-
   # Android Lanes
   before_all do
     ANDROID_VERSION_NAME = get_version_name(
@@ -70,18 +60,9 @@ platform :android do
     )
   end
 
-#  if options[:badge]
-#    add_badge(
-#      shield: "#{ANDROID_VERSION_NAME}-#{ANDROID_VERSION_CODE}-
-#               blue",
-#      glob: "/android/app/src/main/res/mipmap-*/ic_launcher.png",
-#      shield_scale: "0.75"
-#    )
-#  end
-
   desc "Runs all the tests"
-  lane :test do
-    gradle(task: "test")
+  lane :tests do
+    gradle(task: 'test', project_dir: 'android/')
   end
 
   desc 'Build the Android application.'
@@ -90,6 +71,22 @@ platform :android do
     gradle(task: 'assemble', build_type: 'Release', project_dir: 'android/')
   end
 
-  
+  lane :beta do
+    # Generate the changelog based on commit messages since your last tag
+    changelog_from_git_commits
+
+    # Adjust the 'build_type' and 'flavor' params as needed to build the right APK for your setup
+    gradle(
+      task: 'assemble',
+      build_type: 'Release'
+    )
+    add_badge(
+      shield: "Version-#{ANDROID_VERSION_NAME}-blue",
+      dark: true,
+      glob: "/android/app/src/main/res/mipmap-*/ic_launcher.png",
+      shield_scale: "0.75"
+    )
+    # ...
+  end
 
 end
