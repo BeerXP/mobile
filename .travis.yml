@@ -1,17 +1,18 @@
 install:
   - bundle install
-  - brew install watchman,
+  - brew install watchman
   - npm install
   - npm ci
 matrix:
   include:
     - os: osx
       language: android
-      jdk: oraclejdk8
       android:
         components:
-          - build-tools-28.0.3
-          - android-28
+          - tools
+          - platform-tools
+          # - build-tools-28.0.3
+          # - android-28
       before_install:
         - yes | sdkmanager "platforms;android-28"
         - yes | sdkmanager "build-tools;28.0.3"
