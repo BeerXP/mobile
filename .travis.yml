@@ -3,12 +3,6 @@ install:
   - brew install watchman,
   - npm install
   - npm ci
-  before_script:
-    - npm test
-    - (npm start > packager.log 2>&1 &) && echo $! > packager.pid
-  before_install:
-    - brew update
-    - brew reinstall xctool
 matrix:
   include:
     - os: osx
