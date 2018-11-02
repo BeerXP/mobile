@@ -26,6 +26,7 @@ matrix:
         # - chmod 600 ~/.ssh/deploy_key
       install:
         - travis_retry yarn
+        - bundle install
       script:
         # - cd ios
         - fastlane ios tests #--capture_output
@@ -69,6 +70,7 @@ matrix:
         - gem install fastlane --no-rdoc --no-ri --no-document --quiet
       install:
         - yarn install
+        - bundle install
       script:
         # - cd android
         # - ./gradlew clean
