@@ -35,6 +35,7 @@ platform :ios do
 
     # https://docs.fastlane.tools/actions/scan/
     scan(
+      clean:true, 
       project: "ios/BeerXP.xcodeproj", scheme: "BeerXP", devices: ["iPhone X", "iPhone 6s"],
       slack_url: "https://hooks.slack.com/services/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", 
       slack_channel: "#ios_build"
@@ -99,7 +100,7 @@ platform :android do
     )
   end
 
-  desc "Submit a new Alpha Build"
+  desc "Deploy a new alpha version to the Google Play Store"
   lane :alpha do
     # Generate the changelog based on commit messages since your last tag
     # changelog_from_git_commits
@@ -107,7 +108,8 @@ platform :android do
     # Adjust the 'build_type' and 'flavor' params as needed to build the right APK for your setup
     gradle(
       task: 'assemble',
-      build_type: 'Release'
+      build_type: 'Release',
+      project_dir: 'android/'
     )
     add_badge(
       alpha: true,
@@ -116,6 +118,10 @@ platform :android do
       glob: "/android/app/src/main/res/mipmap-*/ic_launcher.png",
       shield_scale: "0.75"
     )
+    # supply(
+    #   track: "alpha",
+    #   apk: "#{lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH]}"
+    # )
   end
 
   desc "Submit a new Beta Build to Crashlytics Beta"

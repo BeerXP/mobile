@@ -6,6 +6,8 @@
 [![Coverage Status](https://coveralls.io/repos/github/BeerXP/mobile/badge.svg?branch=master)](https://coveralls.io/github/BeerXP/mobile?branch=master)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 
+<a href='https://play.google.com/store/apps/details?id=com.thebeerxp.android&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png'/></a>
+
 A little info about your project and/ or overview that explains **what** the project is about.
 
 ## Motivation

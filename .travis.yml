@@ -8,7 +8,7 @@ install:
   - brew install yarn
 matrix:
   include:
-    - language: swift
+    - language: objective-c
       os: osx
       osx_image: xcode10.1
       xcode_project: ios/BeerXP.xcodeproj
@@ -33,7 +33,7 @@ matrix:
         # - cd node_modules/react-native/scripts && ./ios-install-third-party.sh && cd ../../../
         - cd node_modules/react-native/third-party/glog-0.3.5/ ; ../../scripts/ios-configure-glog.sh ; cd ../../../../
         # - cd node_modules/react-native/third-party/glog-0.3.5/ && ../../scripts/ios-configure-glog.sh && cd ../../../../
-        - fastlane ios tests #--capture_output
+        - bundle exec fastlane ios tests
     - language: android
       # os: osx
       # osx_image: xcode10.1
@@ -81,7 +81,7 @@ matrix:
         # - ./gradlew assembleDebug
         # - ./gradlew assembleDebugAndroidTest
         # - cd android && ./gradlew clean
-        - fastlane android tests
+        - bundle exec fastlane android tests
       after_script:
         # - ./gradlew assembleRelease crashlyticsUploadDistributionRelease -Pandroid.injected.signing.store.file=./app/$RNSAMPLE_RELEASE_STORE_FILE -Pandroid.injected.signing.store.password=$RNSAMPLE_RELEASE_STORE_PASSWORD -Pandroid.injected.signing.key.alias=$RNSAMPLE_RELEASE_KEY_ALIAS -Pandroid.injected.signing.key.password=$RNSAMPLE_RELEASE_KEY_PASSWORD
       branches:
