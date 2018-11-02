@@ -1,5 +1,5 @@
 git_url "git@github.com:***/certificates.git" # ssh key
  
 type "development" # The default type, can be: appstore, adhoc, enterprise or development
-app_identifier "com.kangsta.smapleApp"
-username "tj@***.com" # Your Apple Developer Portal username
+app_identifier "com.thebeerxp.mobile.ios.BeerXP"
+username "eng.gustavosilva@gmail.com" # Your Apple Developer Portal username

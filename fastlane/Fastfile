@@ -43,10 +43,25 @@ platform :ios do
     notification(subtitle: "Finished", message: "Executado")
   end
 
+  desc 'Build the iOS application.'
+  private_lane :build do
+    # certificates
+    # increment_build_number(xcodeproj: './ios/BeerXP.xcodeproj')
+    gym(scheme: 'BeerXP', project: './ios/BeerXP.xcodeproj', export_xcargs: "-allowProvisioningUpdates")
+  end
+
   desc 'Fetch certificates and provisioning profiles'
   lane :certificates do
     match(app_identifier: 'com.thebeerxp.mobile.ios.BeerXP', type: 'development', readonly: true)
-    # match(app_identifier: 'com.thebeerxp.mobile.ios.BeerXP', type: 'appstore', readonly: true)
+    match(app_identifier: 'com.thebeerxp.mobile.ios.BeerXP', type: 'appstore', readonly: true)
+  end
+
+  desc 'Ship to Testflight.'
+  lane :beta do
+    build
+    # pilot
+    # commit_version_bump(message: 'Bump build', xcodeproj: './ios/name.xcodeproj')
+    # push_to_git_remote
   end
 
 end

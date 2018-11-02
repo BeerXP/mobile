@@ -27,8 +27,8 @@ matrix:
       install:
         - travis_retry yarn
       script:
-        # - cd ios
-        # - fastlane beta --capture_output
+        - cd ios
+        - fastlane build --capture_output
     - language: android
       # os: osx
       # osx_image: xcode10.1
@@ -70,6 +70,7 @@ matrix:
       install:
         - yarn install
       script:
+        - cd android
         - ./gradlew clean
         - ./gradlew assembleDebug
         - ./gradlew assembleDebugAndroidTest
