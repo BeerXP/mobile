@@ -3,7 +3,8 @@
 [![GNU General Public License](https://img.shields.io/badge/license-GPL%20v3-orange.svg?style=flat-square)](http://www.gnu.org/licenses/gpl-3.0.en.html)
 [![GitHub](https://img.shields.io/github/release/user/repository.svg?style=flat-square)](https://github.com/BeerXP/mobile/releases)
 [![Build Status](https://travis-ci.com/BeerXP/mobile.svg?branch=master)](https://travis-ci.com/BeerXP/mobile)
-[![Coverage Status](https://coveralls.io/repos/github/BeerXP/mobile/badge.svg?branch=master)](https://coveralls.io/github/BeerXP/mobile?branch=master)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/d74c426e21f44e74bbf0afaed84d253d)](https://www.codacy.com/app/BeerXP/mobile?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=BeerXP/mobile&amp;utm_campaign=Badge_Grade)
+[![code factor](https://www.codefactor.io/repository/github/beerxp/mobile/badge?style=flat-square)](https://www.codefactor.io/repository/github/beerxp/mobile/badge?style=flat-square)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 
 <a href='https://play.google.com/store/apps/details?id=com.thebeerxp.android&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png'/></a>
