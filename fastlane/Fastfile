@@ -15,6 +15,7 @@ update_fastlane
 
 ENV["CRASHLYTICS_API_TOKEN"] = "123abc"
 ENV["CRASHLYTICS_BUILD_SECRET"] = "secret_key"
+ENV["SLACK_URL"] = "https://hooks.slack.com/services/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"
 
 before_all do
 #  update_fastlane
@@ -33,7 +34,7 @@ platform :ios do
     notification(subtitle: "Testing", message: "Executando testes")
 
     # https://docs.fastlane.tools/actions/scan/
-    run_tests(
+    scan(
       project: "ios/BeerXP.xcodeproj", scheme: "BeerXP", devices: ["iPhone X", "iPhone 6s", "iPad Air 2"],
       slack_url: "https://hooks.slack.com/services/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", 
       slack_channel: "#ios_build"
@@ -44,8 +45,8 @@ platform :ios do
 
   desc 'Fetch certificates and provisioning profiles'
   lane :certificates do
-#    match(app_identifier: 'com.app.bundle', type: 'development', readonly: true)
-#    match(app_identifier: 'com.app.bundle', type: 'appstore', readonly: true)
+    match(app_identifier: 'com.thebeerxp.mobile.ios.BeerXP', type: 'development', readonly: true)
+    # match(app_identifier: 'com.thebeerxp.mobile.ios.BeerXP', type: 'appstore', readonly: true)
   end
 
 end
@@ -65,6 +66,7 @@ platform :android do
 
   desc "Runs all the tests"
   lane :tests do
+    notification(subtitle: "Testing", message: "Executando testes")
     gradle(task: 'test', project_dir: 'android/')
   end
 
@@ -74,9 +76,18 @@ platform :android do
     gradle(task: 'assemble', build_type: 'Release', project_dir: 'android/')
   end
 
-  lane :beta do
+  lane :debug do
+    gradle(   
+      task: "assemble",   
+      build_type: "Debug",   
+      print_command: false
+    )
+  end
+
+  desc "Submit a new Alpha Build"
+  lane :alpha do
     # Generate the changelog based on commit messages since your last tag
-    changelog_from_git_commits
+    # changelog_from_git_commits
 
     # Adjust the 'build_type' and 'flavor' params as needed to build the right APK for your setup
     gradle(
@@ -84,10 +95,64 @@ platform :android do
       build_type: 'Release'
     )
     add_badge(
+      alpha: true,
       shield: "Version-#{ANDROID_VERSION_NAME}-blue",
       dark: true,
       glob: "/android/app/src/main/res/mipmap-*/ic_launcher.png",
       shield_scale: "0.75"
     )
   end
+
+  desc "Submit a new Beta Build to Crashlytics Beta"
+  lane :beta do
+    # Generate the changelog based on commit messages since your last tag
+    # changelog_from_git_commits
+
+    # Adjust the 'build_type' and 'flavor' params as needed to build the right APK for your setup
+    gradle(
+      task: 'assemble',
+      build_type: 'Release',
+      project_dir: 'android/'#,
+      # properties: {
+      #   'android.useDeprecatedNdk' => true,
+      #   'android.injected.signing.store.file' => 'app/rn-sample-key.keystore',
+      #   'android.injected.signing.store.password' => ENV["RNSAMPLE_RELEASE_STORE_PASSWORD"],
+      #   'android.injected.signing.key.alias'=> ENV["RNSAMPLE_RELEASE_KEY_ALIAS"],
+      #   'android.injected.signing.key.password' => ENV["RNSAMPLE_RELEASE_KEY_PASSWORD"]
+      # }
+    )
+
+    # crashlytics(
+    #   api_token: '[apiToken]',
+    #   build_secret: '[build_secret]',
+    #   emails: emails,
+    #   groups: groups,
+    #   debug: true,
+    #   notes: 'Distributed with fastlane', # Check out the changelog_from_git_commits action
+    #   notifications: true  # Should this distribution notify your testers via email?
+    # )
+
+    add_badge(
+      beta: true,
+      shield: "Version-#{ANDROID_VERSION_NAME}-blue",
+      dark: true,
+      glob: "/android/app/src/main/res/mipmap-*/ic_launcher.png",
+      shield_scale: "0.75"
+    )
+  end
+end
+
+desc "Upload the APK to Slack channel"
+private_lane :upload_to_slack do |options|
+  file_path = lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH]
+  file_name = file_path.gsub(/\/.*\//,"")
+  sh "echo Uploading " + file_name + " to Slack"
+  sh "curl https://slack.com/api/files.upload -F token=\"xoxp-169743071077-169684263492-469173104320-4ec3bfe81efee657cd5931ec31e8395a\" -F channels=\"#android_" + (options[:build] ? options[:build] : "build") + "\" -F title=\"" + file_name + "\" -F filename=\"" + file_name + "\" -F file=@" + file_path
+end
+
+lane :slackbuild do |options|
+  gradle(task: 'clean', project_dir: 'android/')
+  gradle(task: 'assemble', build_type: 'Release', project_dir: 'android/')
+  upload_to_slack options[:build]
+  slack(message: "Build Successful!", channel: "#android_"+(options[:build] ? options[:build] : "build"))
 end
