@@ -1,4 +1,4 @@
-git_url "git@github.com:***/certificates.git" # ssh key
+git_url "git@bitbucket.org:beerxp/certs.git" # ssh key
  
 type "development" # The default type, can be: appstore, adhoc, enterprise or development
 app_identifier "com.thebeerxp.mobile.ios.BeerXP"

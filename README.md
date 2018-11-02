@@ -3,7 +3,6 @@
 [![GNU General Public License](https://img.shields.io/badge/license-GPL%20v3-orange.svg?style=flat-square)](http://www.gnu.org/licenses/gpl-3.0.en.html)
 [![GitHub](https://img.shields.io/github/release/user/repository.svg?style=flat-square)](https://github.com/BeerXP/mobile/releases)
 [![Build Status](https://travis-ci.com/BeerXP/mobile.svg?branch=master)](https://travis-ci.com/BeerXP/mobile)
-[![Travis CI](https://img.shields.io/travis/BeerXP/mobile.svg?style=flat-square)](https://travis-ci.org/BeerXP/mobile)
 [![Coverage Status](https://coveralls.io/repos/github/BeerXP/mobile/badge.svg?branch=master)](https://coveralls.io/github/BeerXP/mobile?branch=master)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 

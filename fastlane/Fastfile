@@ -35,7 +35,7 @@ platform :ios do
 
     # https://docs.fastlane.tools/actions/scan/
     scan(
-      project: "ios/BeerXP.xcodeproj", scheme: "BeerXP", devices: ["iPhone X", "iPhone 6s", "iPad Air 2"],
+      project: "ios/BeerXP.xcodeproj", scheme: "BeerXP", devices: ["iPhone X", "iPhone 6s"],
       slack_url: "https://hooks.slack.com/services/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", 
       slack_channel: "#ios_build"
     )
