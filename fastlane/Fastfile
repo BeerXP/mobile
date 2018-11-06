@@ -13,6 +13,9 @@
 # Uncomment the line if you want fastlane to automatically update itself
 update_fastlane
 
+# this should be the folder name under `ios` for your project
+project_name = 'BeerXP'
+
 ENV["CRASHLYTICS_API_TOKEN"] = "123abc"
 ENV["CRASHLYTICS_BUILD_SECRET"] = "secret_key"
 ENV["SLACK_URL"] = "https://hooks.slack.com/services/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"
@@ -30,6 +33,15 @@ end
 
 platform :ios do
   # iOS Lanes
+  ENV["GYM_PROJECT"] = "./ios/BeerXP.xcodeproj"
+
+  lane :clean do
+    clean_build_artifacts
+    clear_derived_data
+    gym(clean: true, scheme: 'BeerXP', project: './ios/BeerXP.xcodeproj', export_xcargs: "-allowProvisioningUpdates")
+    # xcclean (project: "ios/BeerXP.xcodeproj")
+  end
+
   lane :tests do
     notification(subtitle: "Testing", message: "Executando testes")
 
