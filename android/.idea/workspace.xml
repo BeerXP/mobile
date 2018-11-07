@@ -17,14 +17,7 @@
   <component name="ChangeListManager">
     <list default="true" id="5ef60b43-c5ec-40cd-8686-18fed02e9f15" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/../.travis.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../.travis.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../App.js" beforeDir="false" afterPath="$PROJECT_DIR$/../App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/components/Loading.js" beforeDir="false" afterPath="$PROJECT_DIR$/../src/components/Loading.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/components/Login.js" beforeDir="false" afterPath="$PROJECT_DIR$/../src/components/Login.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/components/SideMenu/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/components/SideMenu/styles.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/components/stacknav.js" beforeDir="false" afterPath="$PROJECT_DIR$/../src/components/stacknav.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Gemfile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../Gemfile.lock" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -3413,17 +3406,6 @@
     </navigator>
     <panes>
       <pane id="Scope" />
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="BeerXP" type="b2602c69:ProjectViewProjectNode" />
-              <item name="android" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
       <pane id="PackagesPane" />
       <pane id="AndroidView">
         <subPane>
@@ -3461,6 +3443,17 @@
             <path>
               <item name="BeerXP" type="1abcf292:AndroidViewProjectNode" />
               <item name="Gradle Scripts" type="ae0cef3a:AndroidBuildScriptsGroupNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="BeerXP" type="b2602c69:ProjectViewProjectNode" />
+              <item name="android" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -3642,9 +3635,9 @@
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="right" id="Palette&#9;" order="3" />
       <window_info id="Image Layers" order="2" />
-      <window_info id="Build Variants" order="2" sideWeight="0.20535715" side_tool="true" visible="true" weight="0.19466881" />
+      <window_info id="Build Variants" order="2" sideWeight="0.20712695" side_tool="true" visible="true" weight="0.19466881" />
       <window_info anchor="right" id="Capture Analysis" order="3" />
-      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.4361874" side_tool="true" visible="true" weight="0.36182335" />
+      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.43699515" side_tool="true" visible="true" weight="0.36039886" />
       <window_info anchor="bottom" id="Run" order="2" />
       <window_info anchor="bottom" id="Version Control" order="7" sideWeight="0.49682286" weight="0.3292683" />
       <window_info anchor="bottom" id="Terminal" order="7" sideWeight="0.49682286" weight="0.3292683" />
@@ -3652,8 +3645,8 @@
       <window_info id="Captures" order="2" weight="0.25" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="2" />
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.79464287" visible="true" weight="0.19466881" />
-      <window_info active="true" anchor="bottom" id="Build" order="7" sideWeight="0.5638126" visible="true" weight="0.36182335" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.792873" visible="true" weight="0.19466881" />
+      <window_info anchor="bottom" id="Build" order="7" sideWeight="0.5638126" weight="0.36182335" />
       <window_info anchor="right" id="Gradle" order="3" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.24980143" />
       <window_info anchor="right" id="Device File Explorer" order="3" side_tool="true" />

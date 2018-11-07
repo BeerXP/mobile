@@ -115,26 +115,41 @@ android {
             include "armeabi-v7a", "x86"
         }
     }
-    // flavorDimensions "default"
-    // productFlavors {
-    //     production {dimension "default"}
-    //     development {dimension "default"}
-    // }
+    flavorDimensions "default"
+    productFlavors {
+        prd {dimension "default"}
+        dev {dimension "default"}
+    }
 
     buildTypes {
-        // debug {
-            // debuggable true
+        debug {
+            debuggable true
             // applicationIdSuffix ".debug"
             // versionNameSuffix '-DEBUG'
-        // }
+        }
         release {
             // signingConfig signingConfigs.release
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }
     }
+
+
     // applicationVariants are e.g. debug, release
     applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            def project = "BeerXP"
+            def SEP = "_"
+            def flavor = variant.productFlavors[0].name
+            def buildType = variant.variantData.variantConfiguration.buildType.name
+            def version = variant.versionName
+            def date = new Date();
+            def formattedDate = date.format('yyyyMMdd')
+
+            def newApkName = project + SEP + flavor + SEP + buildType + SEP + version + SEP + formattedDate + ".apk"
+
+            outputFileName = new File(newApkName)
+        }
         variant.outputs.each { output ->
             // For each separate APK per architecture, set a unique version code as described here:
             // http://tools.android.com/tech-docs/new-build-system/user-guide/apk-splits
