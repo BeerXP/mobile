@@ -1,11 +1,5 @@
-import React, { Component } from "react";
-import {
-  Platform,
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity
-} from "react-native";
+import React from "react";
+import { TouchableOpacity } from "react-native";
 
 import { StackNavigator } from "react-navigation";
 import IOSIcon from "react-native-vector-icons/Ionicons";
@@ -16,10 +10,10 @@ const stackNav = StackNavigator({
   Main: {
     screen: MainScreen,
     navigationOptions: ({ navigation }) => ({
-      title: "Main",
+      title: "Home",
       headerLeft: (
-        <TouchableOpacity onPress={() => navigation.navigate("DrawerOpen")}>
-          <IOSIcon name="ios-menu" size={30} />
+        <TouchableOpacity onPress={() => navigation.openDrawer()}>
+          <IOSIcon name="ios-menu" size={50} />
         </TouchableOpacity>
       ),
       headerStyle: { paddingRight: 10, paddingLeft: 15 }
@@ -28,7 +22,7 @@ const stackNav = StackNavigator({
   Detail: {
     screen: DetailScreen,
     navigationOptions: ({ navigation }) => ({
-      title: "Detail"
+      title: "Detalhes"
     })
   }
 });

@@ -1,14 +1,29 @@
-import React from "react";
-import { StyleSheet, Platform, Image, Text, View } from "react-native";
-import { createSwitchNavigator, createStackNavigator } from "react-navigation";
+import { Dimensions } from "react-native";
+import {
+  createSwitchNavigator,
+  createStackNavigator,
+  DrawerNavigator
+} from "react-navigation";
+
+import SideMenu from "./src/components/SideMenu/SideMenu";
+import stackNav from "./src/components/stacknav";
 
 // import the different screens
 import Loading from "./src/components/Loading";
 import SignUp from "./src/components/SignUp";
 import Login from "./src/components/Login";
-import FeedScreen from "./src/components/FeedScreen";
 
-const AppStack = createStackNavigator({ FeedScreen: FeedScreen });
+const AppStack = DrawerNavigator(
+  {
+    Item1: {
+      screen: stackNav
+    }
+  },
+  {
+    contentComponent: SideMenu,
+    drawerWidth: Dimensions.get("window").width - 80
+  }
+);
 const AuthStack = createStackNavigator({
   Login: { screen: Login, title: "Login" },
   SignUp: { screen: SignUp, title: "SignUp" }
@@ -25,5 +40,3 @@ export default createSwitchNavigator(
     initialRouteName: "Loading"
   }
 );
-
-// export default App;
