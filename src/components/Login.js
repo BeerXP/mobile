@@ -4,23 +4,43 @@ import {
   Image,
   ImageBackground,
   Text,
-  TextInput,
-  View
+  View,
+  Dimensions
 } from "react-native";
 
-import * as firebase from "firebase";
+import { Button, Input, SocialIcon } from "react-native-elements";
+import LinearGradient from "react-native-linear-gradient";
 
-import { Icon, Button, SocialIcon } from "react-native-elements";
+import * as firebase from "firebase";
+import { COLOR_PRIMARY, COLOR_SECONDARY } from "./styles/common";
 
 export default class Login extends React.Component {
-  state = { email: "", password: "", errorMessage: null };
+  state = { email: "", password: "", errorMessage: null, loading: false };
   handleLogin = () => {
+    this.setState({
+      // When waiting for the firebase server show the loading indicator.
+      loading: true
+    });
     // TODO: Firebase stuff...
     firebase
       .auth()
       .signInWithEmailAndPassword(this.state.email, this.state.password)
-      .then(() => this.props.navigation.navigate("Main"))
-      .catch(error => this.setState({ errorMessage: error.message }));
+      .then(() => {
+        this.props.navigation.navigate("Main");
+        this.setState({
+          // Clear out the fields when the user logs in and hide the progress indicator.
+          email: "",
+          password: "",
+          loading: false
+        });
+      })
+      .catch(error => {
+        // Leave the fields filled when an error occurs and hide the progress indicator.
+        this.setState({ loading: false });
+        this.setState({
+          errorMessage: error.message
+        });
+      });
     console.log("handleLogin");
   };
   render() {
@@ -35,29 +55,30 @@ export default class Login extends React.Component {
           )}
           <View style={{ alignSelf: "center" }}>
             <Image
-              resizeMode="center"
+              style={styles.image}
+              resizeMode={"contain"}
               source={require("../assets/logo.png")}
               loadingIndicatorSource={require("../assets/loading.gif")}
             />
           </View>
           <View style={styles.container}>
             <View style={styles.row}>
-              <Icon style={{ marginRight: 10 }} name="email" type="entypo" />
-              <TextInput
-                placeholder="Email"
+              <Input
+                placeholder="E-mail"
                 autoCapitalize="none"
-                style={styles.textInput}
+                shake={true}
+                leftIcon={{ name: "email" }}
                 onChangeText={email => this.setState({ email })}
                 value={this.state.email}
               />
             </View>
             <View style={styles.row}>
-              <Icon name="lock" type="material-community" />
-              <TextInput
+              <Input
                 secureTextEntry
-                placeholder="Password"
+                placeholder="Senha"
                 autoCapitalize="none"
-                style={styles.textInput}
+                shake={true}
+                leftIcon={{ name: "lock" }}
                 onChangeText={password => this.setState({ password })}
                 value={this.state.password}
               />
@@ -65,14 +86,64 @@ export default class Login extends React.Component {
             <View style={styles.row}>
               <Button
                 title="Entrar"
+                style={{ padding: 5 }}
                 icon={{ name: "login", type: "material-community" }}
                 onPress={this.handleLogin}
+                loading={this.state.loading}
+                loadingProps={{ size: "large" }}
+                buttonStyle={{
+                  width: 150,
+                  height: 45,
+                  borderColor: "transparent",
+                  borderWidth: 0,
+                  borderRadius: 25
+                }}
+                ViewComponent={LinearGradient}
+                linearGradientProps={{
+                  colors: [COLOR_PRIMARY, COLOR_SECONDARY],
+                  start: { x: 0, y: 0.5 },
+                  end: { x: 1, y: 0.5 }
+                }}
               />
               <Button
                 title="Cadastrar"
-                containerViewStyle={{ alignSelf: "stretch" }}
+                style={{ padding: 5 }}
                 icon={{ name: "account-plus", type: "material-community" }}
                 onPress={() => this.props.navigation.navigate("SignUp")}
+                buttonStyle={{
+                  width: 160,
+                  height: 45,
+                  borderColor: "transparent",
+                  borderWidth: 0,
+                  borderRadius: 25
+                }}
+                ViewComponent={LinearGradient}
+                linearGradientProps={{
+                  colors: [COLOR_PRIMARY, COLOR_SECONDARY],
+                  start: { x: 0, y: 0.5 },
+                  end: { x: 1, y: 0.5 }
+                }}
+              />
+            </View>
+            <View style={styles.row}>
+              <Button
+                title="Esqueci minha senha"
+                style={{ with: "100%" }}
+                icon={{ name: "account-key", type: "material-community" }}
+                onPress={() => this.props.navigation.navigate("")}
+                buttonStyle={{
+                  width: win.width - 50,
+                  height: 40,
+                  borderColor: "transparent",
+                  borderWidth: 0,
+                  borderRadius: 25
+                }}
+                ViewComponent={LinearGradient}
+                linearGradientProps={{
+                  colors: [COLOR_PRIMARY, COLOR_SECONDARY],
+                  start: { x: 0, y: 0.5 },
+                  end: { x: 1, y: 0.5 }
+                }}
               />
             </View>
             <View style={styles.row}>
@@ -80,7 +151,15 @@ export default class Login extends React.Component {
                 title="Entrar com o Facebook"
                 button
                 type="facebook"
-                containerViewStyle={{ width: "100%" }}
+                style={{ width: "100%" }}
+              />
+            </View>
+            <View style={styles.row}>
+              <SocialIcon
+                title="Entrar com o Twitter"
+                button
+                type="twitter"
+                style={{ width: "100%" }}
               />
             </View>
             <View style={styles.row}>
@@ -88,6 +167,7 @@ export default class Login extends React.Component {
                 title="Sign In With Google"
                 button
                 type="google-plus-official"
+                style={{ width: "100%" }}
               />
             </View>
           </View>
@@ -96,24 +176,24 @@ export default class Login extends React.Component {
     );
   }
 }
+const win = Dimensions.get("window");
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 10,
     alignContent: "center",
-    alignItems: "stretch"
+    alignItems: "center",
+    justifyContent: "center"
   },
   row: {
     flexDirection: "row",
-    justifyContent: "space-between",
-    alignSelf: "center"
+    justifyContent: "space-around",
+    alignSelf: "center",
+    padding: 10
   },
-  textInput: {
-    height: 40,
-    width: "90%",
-    // borderColor: "gray",
-    borderWidth: 1,
-    marginTop: 8,
-    marginBottom: 8
+  image: {
+    alignSelf: "stretch",
+    width: win.width - 50
   }
 });

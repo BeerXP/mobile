@@ -17,7 +17,8 @@ export default {
   },
   sectionHeadingStyle: {
     paddingVertical: 10,
-    paddingHorizontal: 5
+    paddingHorizontal: 5,
+    paddingLeft: 50
   },
   footerContainer: {
     padding: 20,

@@ -4,12 +4,11 @@ import {
   Image,
   ImageBackground,
   Text,
-  TextInput,
-  View
+  View,
+  Dimensions
 } from "react-native";
 
 import {
-  Icon,
   Button,
   FormLabel,
   FormInput,
@@ -53,7 +52,8 @@ export default class SignUp extends React.Component {
           )}
           <View style={{ alignSelf: "center" }}>
             <Image
-              resizeMode="center"
+              style={styles.image}
+              resizeMode={"contain"}
               source={require("../assets/logo.png")}
               loadingIndicatorSource={require("../assets/loading.gif")}
             />
@@ -86,6 +86,8 @@ export default class SignUp extends React.Component {
     );
   }
 }
+const win = Dimensions.get("window");
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -98,12 +100,9 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignSelf: "center"
   },
-  textInput: {
-    height: 40,
-    width: "90%",
-    // borderColor: "gray",
-    borderWidth: 1,
-    marginTop: 8,
-    marginBottom: 8
+  image: {
+    margin: 20,
+    alignSelf: "stretch",
+    width: win.width
   }
 });

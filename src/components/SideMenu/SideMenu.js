@@ -1,10 +1,9 @@
 import PropTypes from "prop-types";
 import React, { Component } from "react";
-import styles from "./SideMenu.style";
 import { NavigationActions } from "react-navigation";
 import { TouchableOpacity, ScrollView, Text, View, Image } from "react-native";
 import { Button, Icon } from "react-native-elements";
-
+import styles from "./SideMenu.style";
 import * as firebase from "firebase";
 
 class SideMenu extends Component {
@@ -21,7 +20,8 @@ class SideMenu extends Component {
   };
   navigateToScreen = route => () => {
     const navigateAction = NavigationActions.navigate({
-      routeName: route
+      routeName: route,
+      action: NavigationActions.navigate({ routeName: route })
     });
     this.props.navigation.dispatch(navigateAction);
   };
@@ -36,15 +36,18 @@ class SideMenu extends Component {
             source={require("./../../assets/banner.jpg")}
             loadingIndicatorSource={require("./../../assets/loading.gif")}
           />
+          <Text>{firebase.auth().currentUser.displayName}</Text>
           <View>
-            <Text style={styles.sectionHeadingStyle}>Feed</Text>
+            <Text style={styles.sectionHeadingStyle}>Home</Text>
             <View style={styles.navSectionStyle}>
-              <Text
-                style={styles.navItemStyle}
-                onPress={this.navigateToScreen("Page1")}
+              <TouchableOpacity
+                onPress={() => this.props.navigation.navigate("Main")}
               >
-                Page1
-              </Text>
+                <View style={{ flexDirection: "row" }}>
+                  <Icon name="home" type="material-community" />
+                  <Text style={styles.navItemStyle}>Home</Text>
+                </View>
+              </TouchableOpacity>
             </View>
           </View>
           <View>
@@ -78,7 +81,7 @@ class SideMenu extends Component {
             <Text style={styles.sectionHeadingStyle}>Amigos</Text>
             <View style={styles.navSectionStyle}>
               <TouchableOpacity
-                onPress={() => this.navigateToScreen("ProfileScreen")}
+                onPress={() => this.props.navigation.navigate("Profile")}
               >
                 <View style={{ flexDirection: "row" }}>
                   <Icon name="account-circle" type="material-community" />

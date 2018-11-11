@@ -1,7 +1,14 @@
 import React, { Component } from "react";
 import { Text, View, StyleSheet, Button } from "react-native";
 
+import * as firebase from "firebase"
+
 class MainScreen extends Component {
+  componentDidMount() {
+    firebase.auth().onAuthStateChanged(user => {
+      this.setState({ loading: false, user });
+    });
+  }
   render() {
     return (
       <View style={styles.container}>

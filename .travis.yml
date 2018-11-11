@@ -55,10 +55,10 @@ matrix:
       before_install:
         - nvm install node
         - node --version
-        - travis_retry curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key
-          add -
+        - travis_retry curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
         - echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
         - travis_retry sudo apt-get update -qq
+        - travis_retry sudo apt-get install --no-install-recommends yarn
         - travis_retry sudo apt-get install -y -qq yarn
         - chmod +x ./android/gradlew
         - gem install fastlane --no-rdoc --no-ri --no-document --quiet
@@ -83,6 +83,7 @@ deploy:
   file_glob: true
   file:
     - android/app/build/outputs/apk/prd/release/*.apk
+    - ios/build/Build/Products/Release-iphonesimulator/BeerXP.app
   on:
     repo: BeerXP/mobile
     branch: master

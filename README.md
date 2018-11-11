@@ -45,6 +45,8 @@ Include logo/demo screenshot etc.
 
 - [React Native Elements](https://github.com/react-native-training/react-native-elements)
 
+- [React Native Gradient](https://github.com/react-native-community/react-native-linear-gradient)
+
 - [Icons](https://oblador.github.io/react-native-vector-icons/)
 
 ## Features
