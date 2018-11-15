@@ -68,7 +68,6 @@ matrix:
         - chmod +x ./android/gradlew
         - ./gradlew dependencies || true
       install:
-        - npm ci
         - npm install
         # - yarn install
         - bundle install
