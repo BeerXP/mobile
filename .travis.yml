@@ -68,8 +68,11 @@ matrix:
         # - yarn install
         - bundle install
       script:
+        - cd android
+        - "./gradlew clean"
+        - "./gradlew assembleDebug"
+        - "./gradlew assembleDebugAndroidTest"
         - cd android && ./gradlew clean
-        # - ./gradlew build connectedCheck
       after_script:
         # - ./gradlew assembleRelease crashlyticsUploadDistributionRelease -Pandroid.injected.signing.store.file=./app/$RNSAMPLE_RELEASE_STORE_FILE -Pandroid.injected.signing.store.password=$RNSAMPLE_RELEASE_STORE_PASSWORD -Pandroid.injected.signing.key.alias=$RNSAMPLE_RELEASE_KEY_ALIAS -Pandroid.injected.signing.key.password=$RNSAMPLE_RELEASE_KEY_PASSWORD
 notifications:
