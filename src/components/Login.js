@@ -11,7 +11,8 @@ import {
 import { Button, Input, SocialIcon } from "react-native-elements";
 import LinearGradient from "react-native-linear-gradient";
 
-import * as firebase from "firebase";
+import firebase from "react-native-firebase";
+
 import { COLOR_PRIMARY, COLOR_SECONDARY } from "./styles/common";
 
 export default class Login extends React.Component {
@@ -27,6 +28,9 @@ export default class Login extends React.Component {
       .signInWithEmailAndPassword(this.state.email, this.state.password)
       .then(() => {
         this.props.navigation.navigate("Main");
+        if (credential) {
+          console.log("default app user ->", credential.user.toJSON());
+        }
         this.setState({
           // Clear out the fields when the user logs in and hide the progress indicator.
           email: "",
@@ -44,6 +48,7 @@ export default class Login extends React.Component {
     console.log("handleLogin");
   };
   render() {
+    firebase.analytics().setCurrentScreen("Login");
     return (
       <ImageBackground
         source={require("../assets/background.png")}
@@ -84,46 +89,46 @@ export default class Login extends React.Component {
               />
             </View>
             <View style={styles.row}>
-              <Button
-                title="Entrar"
-                style={{ padding: 5 }}
-                icon={{ name: "login", type: "material-community" }}
-                onPress={this.handleLogin}
-                loading={this.state.loading}
-                loadingProps={{ size: "large" }}
-                buttonStyle={{
-                  width: 150,
-                  height: 45,
-                  borderColor: "transparent",
-                  borderWidth: 0,
-                  borderRadius: 25
-                }}
-                ViewComponent={LinearGradient}
-                linearGradientProps={{
-                  colors: [COLOR_PRIMARY, COLOR_SECONDARY],
-                  start: { x: 0, y: 0.5 },
-                  end: { x: 1, y: 0.5 }
-                }}
-              />
-              <Button
-                title="Cadastrar"
-                style={{ padding: 5 }}
-                icon={{ name: "account-plus", type: "material-community" }}
-                onPress={() => this.props.navigation.navigate("SignUp")}
-                buttonStyle={{
-                  width: 160,
-                  height: 45,
-                  borderColor: "transparent",
-                  borderWidth: 0,
-                  borderRadius: 25
-                }}
-                ViewComponent={LinearGradient}
-                linearGradientProps={{
-                  colors: [COLOR_PRIMARY, COLOR_SECONDARY],
-                  start: { x: 0, y: 0.5 },
-                  end: { x: 1, y: 0.5 }
-                }}
-              />
+              <View style={styles.cell}>
+                <Button
+                  title="Entrar"
+                  icon={{ name: "login", type: "material-community" }}
+                  onPress={this.handleLogin}
+                  loading={this.state.loading}
+                  loadingProps={{ size: "large" }}
+                  buttonStyle={{
+                    height: 45,
+                    borderColor: "transparent",
+                    borderWidth: 0,
+                    borderRadius: 25
+                  }}
+                  ViewComponent={LinearGradient}
+                  linearGradientProps={{
+                    colors: [COLOR_PRIMARY, COLOR_SECONDARY],
+                    start: { x: 0, y: 0.5 },
+                    end: { x: 1, y: 0.5 }
+                  }}
+                />
+              </View>
+              <View style={styles.cell}>
+                <Button
+                  title="Cadastrar"
+                  icon={{ name: "account-plus", type: "material-community" }}
+                  onPress={() => this.props.navigation.navigate("SignUp")}
+                  buttonStyle={{
+                    height: 45,
+                    borderColor: "transparent",
+                    borderWidth: 0,
+                    borderRadius: 25
+                  }}
+                  ViewComponent={LinearGradient}
+                  linearGradientProps={{
+                    colors: [COLOR_PRIMARY, COLOR_SECONDARY],
+                    start: { x: 0, y: 0.5 },
+                    end: { x: 1, y: 0.5 }
+                  }}
+                />
+              </View>
             </View>
             <View style={styles.row}>
               <Button
@@ -190,7 +195,15 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-around",
     alignSelf: "center",
-    padding: 10
+    padding: 5
+  },
+  cell: {
+    padding: 5,
+    flexBasis: 0.5,
+    flexGrow: 0.5,
+    flexShrink: 0.5,
+    alignContent: "space-around",
+    justifyContent: "space-around"
   },
   image: {
     alignSelf: "stretch",

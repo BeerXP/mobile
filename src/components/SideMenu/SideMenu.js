@@ -4,7 +4,7 @@ import { NavigationActions } from "react-navigation";
 import { TouchableOpacity, ScrollView, Text, View, Image } from "react-native";
 import { Button, Icon } from "react-native-elements";
 import styles from "./SideMenu.style";
-import * as firebase from "firebase";
+import firebase from "react-native-firebase";
 
 class SideMenu extends Component {
   state = { email: "", password: "", errorMessage: null };
@@ -36,7 +36,6 @@ class SideMenu extends Component {
             source={require("./../../assets/banner.jpg")}
             loadingIndicatorSource={require("./../../assets/loading.gif")}
           />
-          <Text>{firebase.auth().currentUser.displayName}</Text>
           <View>
             <Text style={styles.sectionHeadingStyle}>Home</Text>
             <View style={styles.navSectionStyle}>

@@ -2,15 +2,15 @@ import React from "react";
 import { Text, View, StyleSheet } from "react-native";
 import { Avatar, Divider, Card, Button, Icon } from "react-native-elements";
 
-import * as firebase from "firebase";
+import firebase from "react-native-firebase";
 
 class ProfileScreen extends React.Component {
-  // let user = await firebase.auth().currentUser;
   componentDidMount() {
     firebase.auth().onAuthStateChanged(user => {
       this.setState({ loading: false, user });
     });
   }
+
   render() {
     return (
       <View style={styles.container}>
@@ -19,8 +19,7 @@ class ProfileScreen extends React.Component {
           image={firebase.auth().currentUser.photoURL}
         >
           <Text style={{ marginBottom: 10 }}>
-            The idea with React Native Elements is more about component
-            structure than actual design.
+            E-mail: {firebase.auth().currentUser.email}
           </Text>
           <Button
             title="VIEW NOW"

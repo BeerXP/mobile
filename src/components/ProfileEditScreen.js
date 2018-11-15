@@ -9,7 +9,7 @@ import {
   FormInput
 } from "react-native-elements";
 
-import * as firebase from "firebase";
+import firebase from "react-native-firebase";
 
 class ProfileScreen extends Component {
   render() {

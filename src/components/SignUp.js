@@ -8,15 +8,13 @@ import {
   Dimensions
 } from "react-native";
 
-import {
-  Button,
-  FormLabel,
-  FormInput,
-  FormValidationMessage
-} from "react-native-elements";
+import { Button, Input } from "react-native-elements";
+import LinearGradient from "react-native-linear-gradient";
+
+import { COLOR_PRIMARY, COLOR_SECONDARY } from "./styles/common";
 
 import * as common from "./styles/common";
-import * as firebase from "firebase";
+import firebase from "react-native-firebase";
 
 export default class SignUp extends React.Component {
   state = { email: "", password: "", errorMessage: null };
@@ -35,9 +33,13 @@ export default class SignUp extends React.Component {
     firebase
       .auth()
       .createUserWithEmailAndPassword(this.state.email, this.state.password)
-      .then(() => this.props.navigation.navigate("FeedScreen"))
+      .then(() => {
+        firebase
+          .auth()
+          .currentUser.updateProfile({ displayName: this.state.name });
+        this.props.navigation.navigate("Main");
+      })
       .catch(error => this.setState({ errorMessage: error.message }));
-    firebase.console.log("handleSignUp");
   };
 
   render() {
@@ -58,29 +60,59 @@ export default class SignUp extends React.Component {
               loadingIndicatorSource={require("../assets/loading.gif")}
             />
           </View>
-          <FormLabel>Nome</FormLabel>
-          <FormInput ref={input => (this.input = input)} />
-          <FormValidationMessage>
-            {"This field is required"}
-          </FormValidationMessage>
-          <FormLabel>Sobrenome</FormLabel>
-          <FormInput ref={input => (this.input = input)} />
-          <FormLabel>E-mail</FormLabel>
-          <FormInput ref={email => (this.email = email)} />
-          <FormLabel>Data de Nascimento</FormLabel>
-          <FormInput ref={input => (this.input = input)} />
-          <FormLabel>Senha</FormLabel>
-          <FormInput ref={password => (this.password = password)} />
-          <FormValidationMessage>
-            {"This field is required"}
-          </FormValidationMessage>
-          <FormLabel>Confirme a senha</FormLabel>
-          <FormInput ref={input => (this.input = input)} />
-          <FormValidationMessage>
-            {"This field is required"}
-          </FormValidationMessage>
 
-          <Button title="Registrar" onPress={this.handleSignUp} />
+          <Input
+            placeholder="Nome completo"
+            autoCapitalize="words"
+            shake={true}
+            leftIcon={{ type: "font-awesome", name: "user" }}
+            onChangeText={name => this.setState({ name })}
+            value={this.state.name}
+          />
+          <Input
+            placeholder="E-mail"
+            autoCapitalize="none"
+            shake={true}
+            leftIcon={{ name: "email" }}
+            onChangeText={email => this.setState({ email })}
+            value={this.state.email}
+          />
+          <Input
+            secureTextEntry
+            placeholder="Senha"
+            autoCapitalize="none"
+            shake={true}
+            leftIcon={{ name: "lock" }}
+            onChangeText={password => this.setState({ password })}
+            value={this.state.password}
+          />
+          <Input
+            secureTextEntry
+            placeholder="Confirmar senha"
+            autoCapitalize="none"
+            shake={true}
+            leftIcon={{ name: "lock" }}
+            onChangeText={password2 => this.setState({ password2 })}
+            value={this.state.password2}
+          />
+          <Button
+            title="Registrar"
+            onPress={this.handleSignUp}
+            style={{ marginTop: 20 }}
+            loadingProps={{ size: "large" }}
+            buttonStyle={{
+              height: 45,
+              borderColor: "transparent",
+              borderWidth: 0,
+              borderRadius: 25
+            }}
+            ViewComponent={LinearGradient}
+            linearGradientProps={{
+              colors: [COLOR_PRIMARY, COLOR_SECONDARY],
+              start: { x: 0, y: 0.5 },
+              end: { x: 1, y: 0.5 }
+            }}
+          />
         </View>
       </ImageBackground>
     );

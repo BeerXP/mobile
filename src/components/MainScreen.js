@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Text, View, StyleSheet, Button } from "react-native";
 
-import * as firebase from "firebase"
+import firebase from "react-native-firebase";
 
 class MainScreen extends Component {
   componentDidMount() {

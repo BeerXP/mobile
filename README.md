@@ -1,6 +1,6 @@
 ## BeerXP - Mobile
 
-[![GNU General Public License](https://img.shields.io/badge/license-GPL%20v3-orange.svg?style=flat-square)](http://www.gnu.org/licenses/gpl-3.0.en.html)
+[![GNU General Public License](https://img.shields.io/badge/license-GPL%20v3-orange.svg?style=flat-square)](https://github.com/BeerXP/mobile/blob/master/LICENSE)
 [![GitHub](https://img.shields.io/github/release/user/repository.svg?style=flat-square)](https://github.com/BeerXP/mobile/releases)
 [![Build Status](https://travis-ci.com/BeerXP/mobile.svg?branch=master)](https://travis-ci.com/BeerXP/mobile)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/d74c426e21f44e74bbf0afaed84d253d)](https://www.codacy.com/app/BeerXP/mobile?utm_source=github.com&utm_medium=referral&utm_content=BeerXP/mobile&utm_campaign=Badge_Grade)
@@ -38,6 +38,8 @@ Include logo/demo screenshot etc.
 - [Visual Studio Code](https://code.visualstudio.com/)
 
 - [Firebase](https://firebase.google.com/docs/)
+
+- [React Native Firebase](https://rnfirebase.io/)
 
 - [React Native](https://facebook.github.io/react-native/)
 

@@ -1,3 +1,9 @@
+env:
+  global:
+    - ANDROID_API=28
+    - EMULATOR_API=21
+    - ANDROID_BUILD_TOOLS=28.0.3
+    - ADB_INSTALL_TIMEOUT=5 # minutes
 install:
   - bundle install
   - brew install watchman
@@ -26,9 +32,8 @@ matrix:
       script:
         - cd node_modules/react-native ; ./scripts/ios-install-third-party.sh ; cd ../../
         - cd node_modules/react-native/third-party/glog-0.3.5/ ; ../../scripts/ios-configure-glog.sh; cd ../../../../
-
     - language: android
-      sudo: false
+      sudo: required
       jdk: oraclejdk8
       before_cache:
         - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
@@ -41,36 +46,29 @@ matrix:
           - node_modules
       android:
         components:
-          - platform-tools
           - tools
-          - build-tools-28.0.3
-          - android-28
-          - extra-android-m2repository
+          - platform-tools
+          # The BuildTools version used by your project
+          - build-tools-$ANDROID_BUILD_TOOLS_VERSION
+          # The SDK version used to compile your project
+          - android-$ANDROID_API_LEVEL
+          # Additional components
           - extra-google-google_play_services
           - extra-google-m2repository
+          - extra-android-m2repository
+          - addon-google_apis-google-$ANDROID_API_LEVEL
       licenses:
         - android-sdk-preview-license-.+
         - android-sdk-license-.+
         - google-gdk-license-.+
       before_install:
-        - nvm install node
-        - node --version
-        - travis_retry curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
-        - echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
-        - travis_retry sudo apt-get update -qq
-        - travis_retry sudo apt-get install --no-install-recommends yarn
-        - travis_retry sudo apt-get install -y -qq yarn
         - chmod +x ./android/gradlew
-        - gem install fastlane --no-rdoc --no-ri --no-document --quiet
+        - ./gradlew dependencies || true
       install:
-        - yarn install
+        # - yarn install
         - bundle install
       script:
-        - cd android
-        - "./gradlew clean"
-        - "./gradlew assembleDebug"
-        - "./gradlew assembleDebugAndroidTest"
-        - cd android && ./gradlew clean
+        - ./gradlew build connectedCheck
       after_script:
         # - ./gradlew assembleRelease crashlyticsUploadDistributionRelease -Pandroid.injected.signing.store.file=./app/$RNSAMPLE_RELEASE_STORE_FILE -Pandroid.injected.signing.store.password=$RNSAMPLE_RELEASE_STORE_PASSWORD -Pandroid.injected.signing.key.alias=$RNSAMPLE_RELEASE_KEY_ALIAS -Pandroid.injected.signing.key.password=$RNSAMPLE_RELEASE_KEY_PASSWORD
 notifications:
