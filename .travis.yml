@@ -62,9 +62,11 @@ matrix:
         - android-sdk-license-.+
         - google-gdk-license-.+
       before_install:
+        - npm install
         - chmod +x ./android/gradlew
         - ./gradlew dependencies || true
       install:
+        - npm ci
         # - yarn install
         - bundle install
       script:
