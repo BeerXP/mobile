@@ -83,12 +83,11 @@ platform :android do
   # Android Lanes
   before_all do
     ANDROID_VERSION_NAME = get_version_name(
-            gradle_file_path:"android/app/build.gradle",
-            ext_constant_name:"versionName"
+            
+            
     )
     ANDROID_VERSION_CODE = get_version_code(
-        gradle_file_path:"android/app/build.gradle",
-        ext_constant_name:"versionCode"
+        
     )
   end
 
