@@ -22,10 +22,10 @@ ENV["SLACK_URL"] = "https://hooks.slack.com/services/T4ZMV2329/BBH7TMR9U/Tcvz5gq
 
 before_all do
 #  update_fastlane
-  yarn(
-      command: "install",
-      package_path: "./package.json"
-  )
+  # yarn(
+  #     command: "install",
+  #     package_path: "./package.json"
+  # )
 #    ensure_git_branch
 #    ensure_git_status_clean
 #    git_pull
