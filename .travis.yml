@@ -19,12 +19,13 @@ matrix:
       osx_image: xcode10.1
       xcode_project: ios/BeerXP.xcodeproj
       xcode_scheme: BeerXP
-      node_js: false
+      cache:
+        yarn: true
       before_install:
         - nvm install node
         - node --version
-        - travis_retry npm install -g yarn
-        - yarn -version
+        - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version 1.12.3
+        - export PATH=$HOME/.yarn/bin:$PATH
         - gem install fastlane --no-rdoc --no-ri --no-document --quiet
       install:
         - travis_retry yarn
@@ -33,10 +34,7 @@ matrix:
         - cd node_modules/react-native ; ./scripts/ios-install-third-party.sh ; cd ../../
         - cd node_modules/react-native/third-party/glog-0.3.5/ ; ../../scripts/ios-configure-glog.sh; cd ../../../../
     - language: android
-      sudo: false
-      os: osx
-      osx_image: xcode10.1
-      # jdk: oraclejdk8
+      jdk: oraclejdk8
       before_cache:
         - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
         - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
@@ -66,10 +64,8 @@ matrix:
       before_install:
         - nvm install node
         - node --version
-        # - travis_retry curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
-        # - echo \"deb https://dl.yarnpkg.com/debian/ stable main\" | sudo tee /etc/apt/sources.list.d/yarn.list
-        # - travis_retry sudo apt-get update -qq
-        # - travis_retry sudo apt-get install -y -qq yarn
+        - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version 1.12.3
+        - export PATH=$HOME/.yarn/bin:$PATH
         - chmod +x ./android/gradlew
         - gem install fastlane --no-rdoc --no-ri --no-document --quiet
       install:
