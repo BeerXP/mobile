@@ -26,7 +26,7 @@ matrix:
         - gem install fastlane --no-rdoc --no-ri --no-document --quiet
       install:
         - bundle install
-        - yarn install --force
+        # - yarn install --force
       script:
         - cd node_modules/react-native ; ./scripts/ios-install-third-party.sh ; cd ../../
         - cd node_modules/react-native/third-party/glog-0.3.5/ ; ../../scripts/ios-configure-glog.sh; cd ../../../../
@@ -67,9 +67,9 @@ matrix:
         - gem install fastlane --no-rdoc --no-ri --no-document --quiet
       install:
         - bundle install
-        - yarn install --force
+        # - yarn install --force
       script:
-        - bundle exec fastlane android tests
+        # - bundle exec fastlane android tests
       after_script:
         # - ./gradlew assembleRelease crashlyticsUploadDistributionRelease -Pandroid.injected.signing.store.file=./app/$RNSAMPLE_RELEASE_STORE_FILE -Pandroid.injected.signing.store.password=$RNSAMPLE_RELEASE_STORE_PASSWORD -Pandroid.injected.signing.key.alias=$RNSAMPLE_RELEASE_KEY_ALIAS -Pandroid.injected.signing.key.password=$RNSAMPLE_RELEASE_KEY_PASSWORD
 notifications:
