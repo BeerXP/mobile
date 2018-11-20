@@ -68,6 +68,7 @@ matrix:
         - gem install fastlane --no-rdoc --no-ri --no-document --quiet
       install:
         - bundle install
+        - npm install
       script:
         - bundle exec fastlane android tests
       after_script:
