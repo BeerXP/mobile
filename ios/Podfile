@@ -10,6 +10,13 @@ target 'BeerXP' do
   pod 'Firebase/Core', '~> 5.11.0'
   pod 'Firebase/Auth', '~> 5.11.0'
 
+  pod 'FBSDKLoginKit'
+  pod 'FacebookSDK'
+  
+  pod 'react-native-fbsdk', :path => '../node_modules/react-native-fbsdk'
+  pod 'React', :path => '../node_modules/react-native'
+  pod 'yoga', :path => '../node_modules/react-native/ReactCommon/yoga'
+
   target 'BeerXPTests' do
     inherit! :search_paths
     # Pods for testing

@@ -33,8 +33,10 @@ matrix:
         - cd node_modules/react-native ; ./scripts/ios-install-third-party.sh ; cd ../../
         - cd node_modules/react-native/third-party/glog-0.3.5/ ; ../../scripts/ios-configure-glog.sh; cd ../../../../
     - language: android
-      sudo: required
-      jdk: oraclejdk8
+      sudo: false
+      os: osx
+      osx_image: xcode10.1
+      # jdk: oraclejdk8
       before_cache:
         - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
         - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
@@ -64,12 +66,14 @@ matrix:
       before_install:
         - nvm install node
         - node --version
-        - gem install fastlane --no-rdoc --no-ri --no-document --quiet
+        # - travis_retry curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+        # - echo \"deb https://dl.yarnpkg.com/debian/ stable main\" | sudo tee /etc/apt/sources.list.d/yarn.list
+        # - travis_retry sudo apt-get update -qq
+        # - travis_retry sudo apt-get install -y -qq yarn
         - chmod +x ./android/gradlew
-        - ./gradlew dependencies || true
+        - gem install fastlane --no-rdoc --no-ri --no-document --quiet
       install:
-        - npm install
-        # - yarn install
+        - yarn install
         - bundle install
       script:
         - bundle exec fastlane android tests

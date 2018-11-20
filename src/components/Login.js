@@ -5,11 +5,14 @@ import {
   ImageBackground,
   Text,
   View,
-  Dimensions
+  Dimensions,
+  ToastAndroid
 } from "react-native";
 
 import { Button, Input, SocialIcon } from "react-native-elements";
 import LinearGradient from "react-native-linear-gradient";
+
+import { AccessToken, LoginManager } from "react-native-fbsdk";
 
 import firebase from "react-native-firebase";
 
@@ -47,6 +50,62 @@ export default class Login extends React.Component {
       });
     console.log("handleLogin");
   };
+
+  // Calling the following function will open the FB login dialogue:
+  facebookLogin = async () => {
+    this.setState({
+      // When waiting for the firebase server show the loading indicator.
+      FacebookLoading: true
+    });
+    try {
+      const result = await LoginManager.logInWithReadPermissions([
+        "public_profile",
+        "email"
+      ]);
+
+      if (result.isCancelled) {
+        throw new Error("User cancelled request"); // Handle this however fits the flow of your app
+      }
+
+      console.log(
+        "Login success with permissions: ${result.grantedPermissions.toString()}"
+      );
+
+      // get the access token
+      const data = await AccessToken.getCurrentAccessToken();
+
+      if (!data) {
+        throw new Error(
+          "Something went wrong obtaining the users access token"
+        ); // Handle this however fits the flow of your app
+      }
+
+      // create a new firebase credential with the token
+      const credential = firebase.auth.FacebookAuthProvider.credential(
+        data.accessToken
+      );
+
+      // login with credential
+      const currentUser = await firebase
+        .auth()
+        .signInAndRetrieveDataWithCredential(credential)
+        .then(() => {
+          this.props.navigation.navigate("Main");
+          this.setState({
+            // Clear out the fields when the user logs in and hide the progress indicator.
+            FacebookLoading: false
+          });
+        })
+        .catch(error => {
+          // Leave the fields filled when an error occurs and hide the progress indicator.
+          this.setState({ FacebookLoading: false });
+          this.setState({ errorMessage: error.message });
+        });
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
   render() {
     firebase.analytics().setCurrentScreen("Login");
     return (
@@ -156,6 +215,8 @@ export default class Login extends React.Component {
                 title="Entrar com o Facebook"
                 button
                 type="facebook"
+                loading={this.state.FacebookLoading}
+                onPress={this.facebookLogin}
                 style={{ width: "100%" }}
               />
             </View>
