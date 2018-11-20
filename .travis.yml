@@ -5,7 +5,6 @@ env:
     - ANDROID_BUILD_TOOLS=28.0.3
     - ADB_INSTALL_TIMEOUT=5 # minutes
 install:
-  - bundle install
   - brew install watchman
   - npm install
   - npm ci
@@ -68,7 +67,7 @@ matrix:
         - gem install fastlane --no-rdoc --no-ri --no-document --quiet
       install:
         - bundle install
-        - npm install
+        - yarn install
       script:
         - bundle exec fastlane android tests
       after_script:
