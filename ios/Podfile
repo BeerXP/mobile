@@ -9,6 +9,10 @@ target 'BeerXP' do
   # Required by RNFirebase
   pod 'Firebase/Core', '~> 5.11.0'
   pod 'Firebase/Auth', '~> 5.11.0'
+  pod 'Firebase/Performance', '~> 5.11.0'
+  
+  pod 'Fabric', '~> 1.7.13'
+  pod 'Crashlytics', '~> 3.10.7'
 
   pod 'FBSDKLoginKit'
   pod 'FacebookSDK'

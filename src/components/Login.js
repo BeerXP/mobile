@@ -88,7 +88,7 @@ export default class Login extends React.Component {
       // login with credential
       const currentUser = await firebase
         .auth()
-        .signInAndRetrieveDataWithCredential(credential)
+        .signInWithCredential(credential)
         .then(() => {
           this.props.navigation.navigate("Main");
           this.setState({

@@ -13,11 +13,10 @@ import LinearGradient from "react-native-linear-gradient";
 
 import { COLOR_PRIMARY, COLOR_SECONDARY } from "./styles/common";
 
-import * as common from "./styles/common";
 import firebase from "react-native-firebase";
 
 export default class SignUp extends React.Component {
-  state = { email: "", password: "", errorMessage: null };
+  state = { email: "", password: "", errorMessage: null, loading: false };
   handleSignUp = () => {
     // async signup(email, pass) {
     //   try {
@@ -34,12 +33,16 @@ export default class SignUp extends React.Component {
       .auth()
       .createUserWithEmailAndPassword(this.state.email, this.state.password)
       .then(() => {
-        firebase
-          .auth()
-          .currentUser.updateProfile({ displayName: this.state.name });
+        firebase.auth().currentUser.updateProfile({
+          displayName: this.state.name
+        });
         this.props.navigation.navigate("Main");
       })
-      .catch(error => this.setState({ errorMessage: error.message }));
+      .catch(error =>
+        this.setState({
+          errorMessage: error.message
+        })
+      );
   };
 
   render() {
@@ -99,6 +102,7 @@ export default class SignUp extends React.Component {
             title="Registrar"
             onPress={this.handleSignUp}
             style={{ marginTop: 20 }}
+            loading={this.state.loading}
             loadingProps={{ size: "large" }}
             buttonStyle={{
               height: 45,

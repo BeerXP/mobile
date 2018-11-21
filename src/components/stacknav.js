@@ -5,6 +5,7 @@ import IOSIcon from "react-native-vector-icons/Ionicons";
 import MainScreen from "./MainScreen";
 import DetailScreen from "./DetailScreen";
 import ProfileScreen from "./ProfileScreen";
+import ProfileEditScreen from "./ProfileEditScreen";
 
 const stackNav = StackNavigator({
   Main: {
@@ -21,7 +22,12 @@ const stackNav = StackNavigator({
   Detail: {
     screen: DetailScreen,
     navigationOptions: ({ navigation }) => ({
-      title: "Detalhes"
+      title: "Detalhes",
+      headerLeft: (
+        <TouchableOpacity onPress={() => navigation.openDrawer()}>
+          <IOSIcon name="ios-menu" size={35} style={{ marginLeft: 10 }} />
+        </TouchableOpacity>
+      )
     })
   },
   Profile: {
@@ -33,6 +39,12 @@ const stackNav = StackNavigator({
           <IOSIcon name="ios-menu" size={35} style={{ marginLeft: 10 }} />
         </TouchableOpacity>
       )
+    })
+  },
+  ProfileEdit: {
+    screen: ProfileEditScreen,
+    navigationOptions: ({ navigation }) => ({
+      title: "Edit"
     })
   }
 });

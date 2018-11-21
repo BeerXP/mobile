@@ -23,5 +23,15 @@ export default {
   footerContainer: {
     padding: 20,
     backgroundColor: COLOR_PRIMARY
+  },
+  headerContainer: {
+    flexDirection: "column",
+    padding: 20
+  },
+  headerDisplay: {
+    color: "white",
+    fontSize: 16,
+    fontWeight: "bold",
+    padding: 5
   }
 };

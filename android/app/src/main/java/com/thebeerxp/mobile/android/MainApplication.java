@@ -18,7 +18,10 @@ import com.facebook.reactnative.androidsdk.FBSDKPackage;
 import com.facebook.appevents.AppEventsLogger;
 
 import io.invertase.firebase.RNFirebasePackage;
+import io.invertase.firebase.auth.RNFirebaseAuthPackage;
+import io.invertase.firebase.perf.RNFirebasePerformancePackage;
 import io.invertase.firebase.analytics.RNFirebaseAnalyticsPackage;
+import io.invertase.firebase.fabric.crashlytics.RNFirebaseCrashlyticsPackage;
 
 import java.util.Arrays;
 import java.util.List;
@@ -35,15 +38,16 @@ public class MainApplication extends Application implements ReactApplication {
 
     @Override
     public boolean getUseDeveloperSupport() {
-      // return BuildConfig.DEBUG;
-      return false;
+      return BuildConfig.DEBUG;
+      // return false;
     }
 
     @Override
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(new MainReactPackage(), new FBSDKPackage(mCallbackManager),
-          new RNFirebasePackage(), new RNFirebaseAnalyticsPackage(), new LinearGradientPackage(),
-          new VectorIconsPackage());
+          new RNFirebasePackage(), new RNFirebaseAuthPackage(), new RNFirebaseAnalyticsPackage(),
+          new RNFirebasePerformancePackage(), new RNFirebaseCrashlyticsPackage(), new VectorIconsPackage(),
+          new LinearGradientPackage());
     }
 
     @Override

@@ -1,10 +1,21 @@
 import PropTypes from "prop-types";
 import React, { Component } from "react";
 import { NavigationActions } from "react-navigation";
-import { TouchableOpacity, ScrollView, Text, View, Image } from "react-native";
-import { Button, Icon } from "react-native-elements";
+import {
+  TouchableOpacity,
+  ScrollView,
+  Text,
+  View,
+  ImageBackground
+} from "react-native";
+import { Button, Icon, Avatar } from "react-native-elements";
 import styles from "./SideMenu.style";
 import firebase from "react-native-firebase";
+
+// Import para evitar o erro
+import "core-js/es6/map";
+import "core-js/es6/symbol";
+import "core-js/fn/symbol/iterator";
 
 class SideMenu extends Component {
   state = { email: "", password: "", errorMessage: null };
@@ -30,12 +41,35 @@ class SideMenu extends Component {
     return (
       <View style={styles.container}>
         <ScrollView>
-          <Image
-            style={{ width: "100%", height: "100%" }}
+          <ImageBackground
+            style={{ width: "100%" }}
             resizeMode="cover"
             source={require("./../../assets/banner.jpg")}
             loadingIndicatorSource={require("./../../assets/loading.gif")}
-          />
+          >
+            <View style={styles.headerContainer}>
+              <Avatar
+                size="xlarge"
+                rounded
+                avatarStyle={{
+                  borderRadius: -10,
+                  borderWidth: -20,
+                  borderColor: "white"
+                }}
+                source={{
+                  uri: firebase.auth().currentUser.photoURL + "?type=large"
+                }}
+                onPress={() => this.props.navigation.navigate("Profile")}
+                activeOpacity={0.7}
+              />
+              <Text style={styles.headerDisplay}>
+                {firebase.auth().currentUser.displayName}
+              </Text>
+              <Text style={styles.headerDisplay}>
+                {firebase.auth().currentUser.email}
+              </Text>
+            </View>
+          </ImageBackground>
           <View>
             <Text style={styles.sectionHeadingStyle}>Home</Text>
             <View style={styles.navSectionStyle}>
