@@ -4,43 +4,53 @@ env:
     - EMULATOR_API=21
     - ANDROID_BUILD_TOOLS=28.0.3
     - ADB_INSTALL_TIMEOUT=5 # minutes
+
 install:
   - brew install watchman
   - npm install
   - npm ci
   - node --version
+
 matrix:
   include:
     - language: objective-c
+
       os: osx
       osx_image: xcode10.1
       xcode_project: ios/BeerXP.xcodeproj
       xcode_scheme: BeerXP
+
       cache:
         yarn: true
+
       before_install:
         - nvm install node
         - node --version
         - curl -o- -L https://yarnpkg.com/install.sh | bash
         - export PATH=$HOME/.yarn/bin:$PATH
         - gem install fastlane --no-rdoc --no-ri --no-document --quiet
+
       install:
         - bundle install
         # - yarn install --force
+
       script:
         - cd node_modules/react-native ; ./scripts/ios-install-third-party.sh ; cd ../../
         - cd node_modules/react-native/third-party/glog-0.3.5/ ; ../../scripts/ios-configure-glog.sh; cd ../../../../
+
     - language: android
       #jdk: oraclejdk8
       before_cache:
         - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
         - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+
       cache:
         yarn: true
         directories:
           - "$HOME/.gradle/caches/"
           - "$HOME/.gradle/wrapper/"
           - node_modules
+
       android:
         components:
           - tools
@@ -54,39 +64,50 @@ matrix:
           - extra-google-m2repository
           - extra-android-m2repository
           - addon-google_apis-google-$ANDROID_API_LEVEL
+
       licenses:
         - android-sdk-preview-license-.+
         - android-sdk-license-.+
         - google-gdk-license-.+
+
       before_install:
         - nvm install node
         - node --version
         - curl -o- -L https://yarnpkg.com/install.sh | bash
         - export PATH=$HOME/.yarn/bin:$PATH
         - chmod +x ./android/gradlew
+        - yes | sdkmanager "platforms;android-28"
         #- gem install fastlane --no-rdoc --no-ri --no-document --quiet
+
       install:
         - bundle install
         - npm install #--force
+
       script:
         # - bundle exec fastlane android tests
         - cd android && ./gradlew clean
+
       after_script:
         # - ./gradlew assembleRelease crashlyticsUploadDistributionRelease -Pandroid.injected.signing.store.file=./app/$RNSAMPLE_RELEASE_STORE_FILE -Pandroid.injected.signing.store.password=$RNSAMPLE_RELEASE_STORE_PASSWORD -Pandroid.injected.signing.key.alias=$RNSAMPLE_RELEASE_KEY_ALIAS -Pandroid.injected.signing.key.password=$RNSAMPLE_RELEASE_KEY_PASSWORD
+
 notifications:
   slack:
     secure: ZFGUXSLG5RWNe6u+o9QQEExSNfX2HvbFKYXulocTDu/2KWDIqONvFQd3LBjQU5CKlB47f2ArIIbZCEypPLAUYlex8dyie5cyxvtJT/+HcpkMtv3/J7AWfe/RuWt8N9eEpAViY5yJEWVrsPWOXQyypj++xWN1aBVSiwQNYkd4uaU1GxUCqwXPU6GflPHpoh6ouMOLXkGcKT7HOvNGohO55PbqNhvRT2MIAZmgAOMm/r76oZ5djprrUgt558IM0KMXORYfMZVC5j6V+oqnpK2YEIx3xjjS5KyUy/IWg2Li43KHe2AUTrR97Dw+qPHeIHBs6AdxhCp3Nuwn7nlxLXfXZuK+VsIyRwuLuZKdmLm+N0HNcwtOC2aCUyoOEkABWKYTwAznZOkvb2+OEaU5xWlcMM93m5Fr1hxANbyolYQFLsffiYPbbk1QX7y4QxzDF0b5vXxWm52FTSSodBhP5u6ZDsIxOoo4Qoib03nrCFDj/qjM2yjZh9emjYYEYAxjLB1tfrGmVrly/uKR39v10MjSfZGxZisKtRZMhCKIHzN3yz5U4jTprxhWDrNcWRhxzQYBjx2STdVD4p6HonLvG4ug/D2iPBZvQSgpS1pbMFKJIenG+OAJENZSMsGKmCjHlpiHjpVqQ5aTxTGA0tzLNJkEGQvUbI/do1Mqey2cLeZJsZU=
+
 deploy:
   provider: releases
   overwrite: true
   skip_cleanup: true
   file_glob: true
+
   file:
     - android/app/build/outputs/apk/prd/release/*.apk
     - ios/build/Build/Products/Release-iphonesimulator/BeerXP.app
+
   on:
     repo: BeerXP/mobile
     branch: master
     tags: true
+
   api_key:
     secure: GzoN5YYmwo5cjP/I03bXyJ06E+A89J/5hAfphJ3JlRmi3IRbZj7MFfNTCsB8vX9KhrNx6mTueMvgI+uHkuJi9QIJFuLajUaeurdkYEs4O1JV/4XKb85C9W2icTTTysOACsB838tqrZElQIeA1iNaq76FDHh1sh+RcakFJFoXfAlUKpiWXpIjdlhoZS1LA5vk49pIhwq/56tpmpcz1xhK56/xwAGYa7c9OF18EFQYC+310FN8/2XEQERkzLlDJ9GOVjtAYA60n22/kX1ptIqjY61OMrvC0jrEqCTxc/IEhOxfqEO6khrwb8+ScN77p1OsZ8W1OdL4ktJ/FKQPerYS/7d5fHohXyQDsi0jYsMOM/PYm6XXz/shCGN6osxzY0peQMowmONEO2gry1NwqI4dLUshESNFypKwZISfP5qj2nZXm8O8THxqHA2kDfzwpPzuZ7MreBLTXKZO0yVCfEMVjW8gS1ZdPfFESJ63+g++965GIH1p1wSO86OI1oGs0jz/PO7TdqOf0t4Ifkm/tX6GH9rLxp25BNNc5Xf+EsB5vGQeXdsrYhDM58alqJRlpixbkoDVwdZ94POZORsdZk8kZ1dEByy6Jod9Bm9sHKuenlf57WkOam5w7okadPBkz6JwaTjt7W0ychRNX3VbLd/7Z7ajPljYVDkgNZE79gkOkW8=
