@@ -67,7 +67,7 @@ matrix:
         #- gem install fastlane --no-rdoc --no-ri --no-document --quiet
       install:
         - bundle install
-        - yarn install --force
+        - npm install #--force
       script:
         # - bundle exec fastlane android tests
         - cd android && ./gradlew clean
