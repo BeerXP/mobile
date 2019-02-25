@@ -6,7 +6,7 @@ import {
   Text,
   View,
   Dimensions,
-  ToastAndroid
+  ScrollView
 } from "react-native";
 
 import { Button, Input, SocialIcon } from "react-native-elements";
@@ -113,50 +113,91 @@ export default class Login extends React.Component {
         source={require("../assets/background.png")}
         style={{ width: "100%", height: "100%" }}
       >
-        <View style={styles.container}>
-          {this.state.errorMessage && (
-            <Text style={{ color: "red" }}>{this.state.errorMessage}</Text>
-          )}
-          <View style={{ alignSelf: "center" }}>
-            <Image
-              style={styles.image}
-              resizeMode={"contain"}
-              source={require("../assets/logo.png")}
-              loadingIndicatorSource={require("../assets/loading.gif")}
-            />
-          </View>
+        <ScrollView>
           <View style={styles.container}>
-            <View style={styles.row}>
-              <Input
-                placeholder="E-mail"
-                autoCapitalize="none"
-                shake={true}
-                leftIcon={{ name: "email" }}
-                onChangeText={email => this.setState({ email })}
-                value={this.state.email}
+            {this.state.errorMessage && (
+              <Text style={{ color: "red" }}>{this.state.errorMessage}</Text>
+            )}
+            <View style={{ alignSelf: "center" }}>
+              <Image
+                style={styles.image}
+                resizeMode={"contain"}
+                source={require("../assets/logo.png")}
+                loadingIndicatorSource={require("../assets/loading.gif")}
               />
             </View>
-            <View style={styles.row}>
-              <Input
-                secureTextEntry
-                placeholder="Senha"
-                autoCapitalize="none"
-                shake={true}
-                leftIcon={{ name: "lock" }}
-                onChangeText={password => this.setState({ password })}
-                value={this.state.password}
-              />
-            </View>
-            <View style={styles.row}>
-              <View style={styles.cell}>
+            <View style={styles.container}>
+              <View style={styles.row}>
+                <Input
+                  placeholder="E-mail"
+                  autoCapitalize="none"
+                  shake={true}
+                  leftIcon={{ name: "email" }}
+                  onChangeText={email => this.setState({ email })}
+                  value={this.state.email}
+                />
+              </View>
+              <View style={styles.row}>
+                <Input
+                  secureTextEntry
+                  placeholder="Senha"
+                  autoCapitalize="none"
+                  shake={true}
+                  leftIcon={{ name: "lock" }}
+                  onChangeText={password => this.setState({ password })}
+                  value={this.state.password}
+                />
+              </View>
+              <View style={styles.row}>
+                <View style={styles.cell}>
+                  <Button
+                    title="Entrar"
+                    icon={{ name: "login", type: "material-community" }}
+                    onPress={this.handleLogin}
+                    loading={this.state.loading}
+                    loadingProps={{ size: "large" }}
+                    buttonStyle={{
+                      height: 45,
+                      borderColor: "transparent",
+                      borderWidth: 0,
+                      borderRadius: 25
+                    }}
+                    ViewComponent={LinearGradient}
+                    linearGradientProps={{
+                      colors: [COLOR_PRIMARY, COLOR_SECONDARY],
+                      start: { x: 0, y: 0.5 },
+                      end: { x: 1, y: 0.5 }
+                    }}
+                  />
+                </View>
+                <View style={styles.cell}>
+                  <Button
+                    title="Cadastrar"
+                    icon={{ name: "account-plus", type: "material-community" }}
+                    onPress={() => this.props.navigation.navigate("SignUp")}
+                    buttonStyle={{
+                      height: 45,
+                      borderColor: "transparent",
+                      borderWidth: 0,
+                      borderRadius: 25
+                    }}
+                    ViewComponent={LinearGradient}
+                    linearGradientProps={{
+                      colors: [COLOR_PRIMARY, COLOR_SECONDARY],
+                      start: { x: 0, y: 0.5 },
+                      end: { x: 1, y: 0.5 }
+                    }}
+                  />
+                </View>
+              </View>
+              <View style={styles.row}>
                 <Button
-                  title="Entrar"
-                  icon={{ name: "login", type: "material-community" }}
-                  onPress={this.handleLogin}
-                  loading={this.state.loading}
-                  loadingProps={{ size: "large" }}
+                  title="Esqueci minha senha"
+                  icon={{ name: "account-key", type: "material-community" }}
+                  onPress={() => this.props.navigation.navigate("")}
                   buttonStyle={{
-                    height: 45,
+                    width: "100%",
+                    height: 40,
                     borderColor: "transparent",
                     borderWidth: 0,
                     borderRadius: 25
@@ -169,75 +210,35 @@ export default class Login extends React.Component {
                   }}
                 />
               </View>
-              <View style={styles.cell}>
-                <Button
-                  title="Cadastrar"
-                  icon={{ name: "account-plus", type: "material-community" }}
-                  onPress={() => this.props.navigation.navigate("SignUp")}
-                  buttonStyle={{
-                    height: 45,
-                    borderColor: "transparent",
-                    borderWidth: 0,
-                    borderRadius: 25
-                  }}
-                  ViewComponent={LinearGradient}
-                  linearGradientProps={{
-                    colors: [COLOR_PRIMARY, COLOR_SECONDARY],
-                    start: { x: 0, y: 0.5 },
-                    end: { x: 1, y: 0.5 }
-                  }}
+              <View style={styles.row}>
+                <SocialIcon
+                  title="Entrar com o Facebook"
+                  button
+                  type="facebook"
+                  loading={this.state.FacebookLoading}
+                  onPress={this.facebookLogin}
+                  style={{ width: "100%" }}
                 />
               </View>
-            </View>
-            <View style={styles.row}>
-              <Button
-                title="Esqueci minha senha"
-                style={{ with: "100%" }}
-                icon={{ name: "account-key", type: "material-community" }}
-                onPress={() => this.props.navigation.navigate("")}
-                buttonStyle={{
-                  width: win.width - 50,
-                  height: 40,
-                  borderColor: "transparent",
-                  borderWidth: 0,
-                  borderRadius: 25
-                }}
-                ViewComponent={LinearGradient}
-                linearGradientProps={{
-                  colors: [COLOR_PRIMARY, COLOR_SECONDARY],
-                  start: { x: 0, y: 0.5 },
-                  end: { x: 1, y: 0.5 }
-                }}
-              />
-            </View>
-            <View style={styles.row}>
-              <SocialIcon
-                title="Entrar com o Facebook"
-                button
-                type="facebook"
-                loading={this.state.FacebookLoading}
-                onPress={this.facebookLogin}
-                style={{ width: "100%" }}
-              />
-            </View>
-            <View style={styles.row}>
-              <SocialIcon
-                title="Entrar com o Twitter"
-                button
-                type="twitter"
-                style={{ width: "100%" }}
-              />
-            </View>
-            <View style={styles.row}>
-              <SocialIcon
-                title="Sign In With Google"
-                button
-                type="google-plus-official"
-                style={{ width: "100%" }}
-              />
+              <View style={styles.row}>
+                <SocialIcon
+                  title="Entrar com o Twitter"
+                  button
+                  type="twitter"
+                  style={{ width: "100%" }}
+                />
+              </View>
+              <View style={styles.row}>
+                <SocialIcon
+                  title="Sign In With Google"
+                  button
+                  type="google-plus-official"
+                  style={{ width: "100%" }}
+                />
+              </View>
             </View>
           </View>
-        </View>
+        </ScrollView>
       </ImageBackground>
     );
   }
@@ -254,6 +255,7 @@ const styles = StyleSheet.create({
   },
   row: {
     flexDirection: "row",
+    flexGrow: 1,
     justifyContent: "space-around",
     alignSelf: "center",
     padding: 5

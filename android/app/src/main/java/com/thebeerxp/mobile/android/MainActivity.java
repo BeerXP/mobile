@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
+import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
 
@@ -32,19 +33,23 @@ public class MainActivity extends ReactActivity {
         return "BeerXP";
     }
 
-    public static void printHashKey(Context pContext) {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        printhashkey();
+    }
+
+    public void printhashkey() {
         try {
-            PackageInfo info = getPackageManager().getPackageInfo(getPackageName(), PackageManager.GET_SIGNATURES);
+            PackageInfo info = getPackageManager().getPackageInfo("com.thebeerxp.mobile.android",
+                    PackageManager.GET_SIGNATURES);
             for (Signature signature : info.signatures) {
                 MessageDigest md = MessageDigest.getInstance("SHA");
                 md.update(signature.toByteArray());
-                String hashKey = new String(Base64.encode(md.digest(), 0));
-                Log.i(TAG, "printHashKey() Hash Key: " + hashKey);
+                Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
             }
+        } catch (PackageManager.NameNotFoundException e) {
         } catch (NoSuchAlgorithmException e) {
-            Log.e(TAG, "printHashKey()", e);
-        } catch (Exception e) {
-            Log.e(TAG, "printHashKey()", e);
         }
     }
 }

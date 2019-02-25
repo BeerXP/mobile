@@ -6,6 +6,7 @@ import {
   ScrollView,
   Text,
   View,
+  SafeAreaView,
   ImageBackground
 } from "react-native";
 import { Button, Icon, Avatar } from "react-native-elements";
@@ -39,7 +40,7 @@ class SideMenu extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
+      <SafeAreaView style={styles.container}>
         <ScrollView>
           <ImageBackground
             style={{ width: "100%" }}
@@ -51,11 +52,6 @@ class SideMenu extends Component {
               <Avatar
                 size="xlarge"
                 rounded
-                avatarStyle={{
-                  borderRadius: -10,
-                  borderWidth: -20,
-                  borderColor: "white"
-                }}
                 source={{
                   uri: firebase.auth().currentUser.photoURL + "?type=large"
                 }}
@@ -143,7 +139,7 @@ class SideMenu extends Component {
             title="Logout"
           />
         </View>
-      </View>
+      </SafeAreaView>
     );
   }
 }

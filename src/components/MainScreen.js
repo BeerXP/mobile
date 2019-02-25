@@ -3,6 +3,12 @@ import { Text, View, StyleSheet, Button } from "react-native";
 
 import firebase from "react-native-firebase";
 
+// Import para evitar o erro
+import "core-js/es6/map";
+import "core-js/es6/symbol";
+import "core-js/fn/symbol/iterator";
+// Import para evitar o erro
+
 class MainScreen extends Component {
   constructor() {
     super();

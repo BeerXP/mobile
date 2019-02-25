@@ -3,6 +3,7 @@ import { Dimensions } from "react-native";
 import {
   createSwitchNavigator,
   createStackNavigator,
+  createDrawerNavigator,
   DrawerNavigator
 } from "react-navigation";
 
@@ -14,7 +15,7 @@ import Loading from "./src/components/Loading";
 import SignUp from "./src/components/SignUp";
 import Login from "./src/components/Login";
 
-const AppStack = DrawerNavigator(
+const AppStack = createDrawerNavigator(
   {
     Item1: {
       screen: stackNav

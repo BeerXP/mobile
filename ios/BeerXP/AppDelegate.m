@@ -12,6 +12,9 @@
 
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 
+#import <GoogleAnalytics/GAI.h>
+#import <GoogleAnalytics/GAIDictionaryBuilder.h>
+
 #import <Firebase.h>
 
 @implementation AppDelegate
@@ -26,6 +29,18 @@
   
   [[FBSDKApplicationDelegate sharedInstance] application:application
                            didFinishLaunchingWithOptions:launchOptions];
+
+
+  GAI *gai = [GAI sharedInstance];
+  [gai trackerWithTrackingId:@"UA-71052638-2"];
+
+  // Optional: automatically report uncaught exceptions.
+  gai.trackUncaughtExceptions = YES;
+
+  // Optional: set Logger to VERBOSE for debug information.
+  // Remove before app release.
+  //gai.logger.logLevel = kGAILogLevelVerbose;
+
     
   NSURL *jsCodeLocation;
 

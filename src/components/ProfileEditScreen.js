@@ -76,43 +76,48 @@ class ProfileEditScreen extends Component {
               loadingIndicatorSource={require("../assets/loading.gif")}
             />
           </View>
-
-          <Input
-            placeholder="Nome completo"
-            autoCapitalize="words"
-            shake={true}
-            leftIcon={{ type: "font-awesome", name: "user" }}
-            onChangeText={name => this.setState({ name })}
-            value={this.state.name}
-          />
-          <Input
-            placeholder="E-mail"
-            autoCapitalize="none"
-            shake={true}
-            leftIcon={{ name: "email" }}
-            onChangeText={email => this.setState({ email })}
-            value={this.state.email}
-          />
-
-          <Button
-            title="Salvar"
-            onPress={this.handleUpdate}
-            style={{ marginTop: 20 }}
-            loading={this.state.loading}
-            loadingProps={{ size: "large" }}
-            buttonStyle={{
-              height: 45,
-              borderColor: "transparent",
-              borderWidth: 0,
-              borderRadius: 25
-            }}
-            ViewComponent={LinearGradient}
-            linearGradientProps={{
-              colors: [COLOR_PRIMARY, COLOR_SECONDARY],
-              start: { x: 0, y: 0.5 },
-              end: { x: 1, y: 0.5 }
-            }}
-          />
+          <View style={styles.row}>
+            <Input
+              placeholder="Nome completo"
+              autoCapitalize="words"
+              shake={true}
+              leftIcon={{ type: "font-awesome", name: "user" }}
+              onChangeText={name => this.setState({ name })}
+              value={this.state.name}
+            />
+          </View>
+          <View style={styles.row}>
+            <Input
+              placeholder="E-mail"
+              autoCapitalize="none"
+              shake={true}
+              leftIcon={{ name: "email" }}
+              onChangeText={email => this.setState({ email })}
+              value={this.state.email}
+            />
+          </View>
+          <View style={styles.row}>
+            <Button
+              title="Salvar"
+              onPress={this.handleUpdate}
+              style={{ marginTop: 20 }}
+              loading={this.state.loading}
+              loadingProps={{ size: "large" }}
+              buttonStyle={{
+                height: 45,
+                borderColor: "transparent",
+                borderWidth: 0,
+                borderRadius: 25
+              }}
+              ViewComponent={LinearGradient}
+              linearGradientProps={{
+                colors: [COLOR_PRIMARY, COLOR_SECONDARY],
+                start: { x: 0, y: 0.5 },
+                end: { x: 1, y: 0.5 }
+              }}
+              style={{ width: "100%", flexGrow: 1 }}
+            />
+          </View>
         </View>
       </ImageBackground>
     );
@@ -126,12 +131,15 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 10,
     alignContent: "center",
-    alignItems: "stretch"
+    alignItems: "center",
+    justifyContent: "center"
   },
   row: {
     flexDirection: "row",
-    justifyContent: "space-between",
-    alignSelf: "center"
+    flexGrow: 1,
+    justifyContent: "space-around",
+    alignSelf: "center",
+    padding: 5
   },
   image: {
     margin: 20,

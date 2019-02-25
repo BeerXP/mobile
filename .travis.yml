@@ -31,7 +31,7 @@ matrix:
         - cd node_modules/react-native ; ./scripts/ios-install-third-party.sh ; cd ../../
         - cd node_modules/react-native/third-party/glog-0.3.5/ ; ../../scripts/ios-configure-glog.sh; cd ../../../../
     - language: android
-      jdk: oraclejdk8
+      #jdk: oraclejdk8
       before_cache:
         - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
         - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
@@ -64,7 +64,7 @@ matrix:
         - curl -o- -L https://yarnpkg.com/install.sh | bash
         - export PATH=$HOME/.yarn/bin:$PATH
         - chmod +x ./android/gradlew
-        - gem install fastlane --no-rdoc --no-ri --no-document --quiet
+        #- gem install fastlane --no-rdoc --no-ri --no-document --quiet
       install:
         - bundle install
         # - yarn install --force
