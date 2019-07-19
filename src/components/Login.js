@@ -52,6 +52,33 @@ export default class Login extends React.Component {
   };
 
   // Calling the following function will open the FB login dialogue:
+  resetPassword = async () => {
+    this.setState({
+      // When waiting for the firebase server show the loading indicator.
+      loading: true
+    });
+    // TODO: Firebase stuff...
+    firebase
+      .auth()
+      .sendPasswordResetEmail(this.state.email)
+      .then(() => {
+        this.setState({
+          // Clear out the fields when the user logs in and hide the progress indicator.
+          password: "",
+          loading: false
+        });
+      })
+      .catch(error => {
+        // Leave the fields filled when an error occurs and hide the progress indicator.
+        this.setState({ loading: false });
+        this.setState({
+          errorMessage: error.message
+        });
+      });
+    console.log("resetPassowrd");
+  };
+
+  // Calling the following function will open the FB login dialogue:
   facebookLogin = async () => {
     this.setState({
       // When waiting for the firebase server show the loading indicator.
@@ -114,7 +141,7 @@ export default class Login extends React.Component {
         style={{ width: "100%", height: "100%" }}
       >
         <ScrollView>
-          <View style={styles.container}>
+          <View>
             {this.state.errorMessage && (
               <Text style={{ color: "red" }}>{this.state.errorMessage}</Text>
             )}
@@ -173,7 +200,10 @@ export default class Login extends React.Component {
                 <View style={styles.cell}>
                   <Button
                     title="Cadastrar"
-                    icon={{ name: "account-plus", type: "material-community" }}
+                    icon={{
+                      name: "account-plus",
+                      type: "material-community"
+                    }}
                     onPress={() => this.props.navigation.navigate("SignUp")}
                     buttonStyle={{
                       height: 45,
@@ -190,11 +220,13 @@ export default class Login extends React.Component {
                   />
                 </View>
               </View>
-              <View style={styles.row}>
+              <View style={{ width: "100%", flexGrow: 1 }}>
                 <Button
                   title="Esqueci minha senha"
                   icon={{ name: "account-key", type: "material-community" }}
-                  onPress={() => this.props.navigation.navigate("")}
+                  onPress={() =>
+                    this.props.navigation.navigate(this.resetPassword)
+                  }
                   buttonStyle={{
                     width: "100%",
                     height: 40,
@@ -228,14 +260,6 @@ export default class Login extends React.Component {
                   style={{ width: "100%" }}
                 />
               </View>
-              <View style={styles.row}>
-                <SocialIcon
-                  title="Sign In With Google"
-                  button
-                  type="google-plus-official"
-                  style={{ width: "100%" }}
-                />
-              </View>
             </View>
           </View>
         </ScrollView>
@@ -248,25 +272,30 @@ const win = Dimensions.get("window");
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 10,
-    alignContent: "center",
+    justifyContent: "center",
     alignItems: "center",
-    justifyContent: "center"
+    alignContent: "center",
+    padding: 10
   },
   row: {
     flexDirection: "row",
-    flexGrow: 1,
+    flex: 1,
+    width: "100%",
     justifyContent: "space-around",
+    alignItems: "center",
     alignSelf: "center",
-    padding: 5
+    alignContent: "center",
+    flexBasis: 1,
+    flexGrow: 1,
+    padding: 3
   },
   cell: {
-    padding: 5,
+    justifyContent: "space-around",
+    alignContent: "space-around",
+    padding: 3,
     flexBasis: 0.5,
     flexGrow: 0.5,
-    flexShrink: 0.5,
-    alignContent: "space-around",
-    justifyContent: "space-around"
+    flexShrink: 0.5
   },
   image: {
     alignSelf: "stretch",
