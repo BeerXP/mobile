@@ -13,7 +13,7 @@ import LinearGradient from "react-native-linear-gradient";
 
 import { COLOR_PRIMARY, COLOR_SECONDARY } from "./styles/common";
 
-import firebase from "react-native-firebase";
+import firebase from "@react-native-firebase/app";
 
 export default class SignUp extends React.Component {
   state = { email: "", password: "", errorMessage: null, loading: false };

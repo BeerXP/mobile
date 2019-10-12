@@ -1,20 +1,21 @@
 import React from "react";
 import { TouchableOpacity } from "react-native";
-import { StackNavigator } from "react-navigation";
-import IOSIcon from "react-native-vector-icons/Ionicons";
+import { createStackNavigator } from "react-navigation-stack";
+// import IOSIcon from "react-native-vector-icons/Ionicons";
+
 import MainScreen from "./MainScreen";
 import DetailScreen from "./DetailScreen";
 import ProfileScreen from "./ProfileScreen";
 import ProfileEditScreen from "./ProfileEditScreen";
 
-const stackNav = StackNavigator({
+const stackNav = createStackNavigator({
   Main: {
     screen: MainScreen,
     navigationOptions: ({ navigation }) => ({
       title: "Home",
       headerLeft: (
         <TouchableOpacity onPress={() => navigation.openDrawer()}>
-          <IOSIcon name="ios-menu" size={35} style={{ marginLeft: 10 }} />
+          {/* <IOSIcon name="ios-menu" size={35} style={{ marginLeft: 10 }} /> */}
         </TouchableOpacity>
       )
     })
@@ -25,7 +26,7 @@ const stackNav = StackNavigator({
       title: "Detalhes",
       headerLeft: (
         <TouchableOpacity onPress={() => navigation.openDrawer()}>
-          <IOSIcon name="ios-menu" size={35} style={{ marginLeft: 10 }} />
+          {/* <IOSIcon name="ios-menu" size={35} style={{ marginLeft: 10 }} /> */}
         </TouchableOpacity>
       )
     })
@@ -36,7 +37,7 @@ const stackNav = StackNavigator({
       title: "Perfil",
       headerLeft: (
         <TouchableOpacity onPress={() => navigation.openDrawer()}>
-          <IOSIcon name="ios-menu" size={35} style={{ marginLeft: 10 }} />
+          {/* <IOSIcon name="ios-menu" size={35} style={{ marginLeft: 10 }} /> */}
         </TouchableOpacity>
       )
     })

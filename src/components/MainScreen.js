@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import { Text, View, StyleSheet, Button } from "react-native";
 
-import firebase from "react-native-firebase";
+// import firebase from "@react-native-firebase/app";
+import auth from '@react-native-firebase/auth';
+import analytics from '@react-native-firebase/analytics';
 
 // Import para evitar o erro
 import "core-js/es6/map";
@@ -12,7 +14,7 @@ import "core-js/fn/symbol/iterator";
 class MainScreen extends Component {
   constructor() {
     super();
-    firebase.crashlytics().setUserIdentifier(firebase.auth().currentUser.uid);
+    analytics().setUserId(auth().currentUser.uid);
   }
 
   render() {

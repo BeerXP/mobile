@@ -9,12 +9,14 @@ import {
   ScrollView
 } from "react-native";
 
-import { Button, Input, SocialIcon } from "react-native-elements";
+// import Icon from 'react-native-vector-icons/FontAwesome';
+import { Button, Input } from "react-native-elements";
 import LinearGradient from "react-native-linear-gradient";
 
 import { AccessToken, LoginManager } from "react-native-fbsdk";
 
-import firebase from "react-native-firebase";
+import auth from '@react-native-firebase/auth';
+import analytics from '@react-native-firebase/analytics';
 
 import { COLOR_PRIMARY, COLOR_SECONDARY } from "./styles/common";
 
@@ -26,8 +28,7 @@ export default class Login extends React.Component {
       loading: true
     });
     // TODO: Firebase stuff...
-    firebase
-      .auth()
+    auth()
       .signInWithEmailAndPassword(this.state.email, this.state.password)
       .then(() => {
         this.props.navigation.navigate("Main");
@@ -58,8 +59,7 @@ export default class Login extends React.Component {
       loading: true
     });
     // TODO: Firebase stuff...
-    firebase
-      .auth()
+    auth()
       .sendPasswordResetEmail(this.state.email)
       .then(() => {
         this.setState({
@@ -108,13 +108,12 @@ export default class Login extends React.Component {
       }
 
       // create a new firebase credential with the token
-      const credential = firebase.auth.FacebookAuthProvider.credential(
+      const credential = auth.auth.FacebookAuthProvider.credential(
         data.accessToken
       );
 
       // login with credential
-      const currentUser = await firebase
-        .auth()
+      const currentUser = await auth()
         .signInWithCredential(credential)
         .then(() => {
           this.props.navigation.navigate("Main");
@@ -134,7 +133,7 @@ export default class Login extends React.Component {
   };
 
   render() {
-    firebase.analytics().setCurrentScreen("Login");
+    analytics().setCurrentScreen("Login");
     return (
       <ImageBackground
         source={require("../assets/background.png")}
@@ -243,22 +242,22 @@ export default class Login extends React.Component {
                 />
               </View>
               <View style={styles.row}>
-                <SocialIcon
+                {/* <SocialIcon
                   title="Entrar com o Facebook"
                   button
                   type="facebook"
                   loading={this.state.FacebookLoading}
                   onPress={this.facebookLogin}
                   style={{ width: "100%" }}
-                />
+                /> */}
               </View>
               <View style={styles.row}>
-                <SocialIcon
+                {/* <SocialIcon
                   title="Entrar com o Twitter"
                   button
                   type="twitter"
                   style={{ width: "100%" }}
-                />
+                /> */}
               </View>
             </View>
           </View>

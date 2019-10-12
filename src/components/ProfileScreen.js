@@ -2,7 +2,7 @@ import React from "react";
 import { Text, View, StyleSheet } from "react-native";
 import { Avatar, Divider, Card, Button, Icon } from "react-native-elements";
 
-import firebase from "react-native-firebase";
+import firebase from "@react-native-firebase/app";
 import { AccessToken, LoginManager } from "react-native-fbsdk";
 
 class ProfileScreen extends React.Component {

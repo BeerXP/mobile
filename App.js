@@ -2,16 +2,17 @@ import React from "react";
 import { Dimensions } from "react-native";
 import {
   createSwitchNavigator,
-  createStackNavigator,
-  createDrawerNavigator,
-  DrawerNavigator
+  createAppContainer
 } from "react-navigation";
+
+import { createStackNavigator } from "react-navigation-stack";
+import { createDrawerNavigator } from "react-navigation-drawer";
 
 import SideMenu from "./src/components/SideMenu/SideMenu";
 import stackNav from "./src/components/stacknav";
 
 // import the different screens
-import Loading from "./src/components/Loading";
+import LoadingScreen from "./src/components/LoadingScreen";
 import SignUp from "./src/components/SignUp";
 import Login from "./src/components/Login";
 
@@ -38,13 +39,15 @@ const AuthStack = createStackNavigator(
 );
 
 // create our app's navigation stack
-export default createSwitchNavigator(
+const App = createSwitchNavigator(
   {
-    Loading: Loading,
+    Loading: LoadingScreen,
     App: AppStack,
     Auth: AuthStack
   },
   {
-    initialRouteName: "Loading"
+    initialRouteName: "Auth"
   }
 );
+
+export default createAppContainer(App);

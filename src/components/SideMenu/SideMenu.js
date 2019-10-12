@@ -11,12 +11,12 @@ import {
 } from "react-native";
 import { Button, Icon, Avatar } from "react-native-elements";
 import styles from "./SideMenu.style";
-import firebase from "react-native-firebase";
+import firebase from "@react-native-firebase/app";
 
 // Import para evitar o erro
-import "core-js/es6/map";
-import "core-js/es6/symbol";
-import "core-js/fn/symbol/iterator";
+// import "core-js/es6/map";
+// import "core-js/es6/symbol";
+// import "core-js/fn/symbol/iterator";
 
 class SideMenu extends Component {
   state = { email: "", password: "", errorMessage: null };

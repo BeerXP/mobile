@@ -1,5 +1,5 @@
 git_url "git@bitbucket.org:beerxp/certs.git" # ssh key
  
 type "development" # The default type, can be: appstore, adhoc, enterprise or development
-app_identifier "com.thebeerxp.mobile.ios.BeerXP"
+app_identifier "com.beerxp.mobile.ios.BeerXP"
 username "eng.gustavosilva@gmail.com" # Your Apple Developer Portal username
