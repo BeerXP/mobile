@@ -39,15 +39,15 @@ const AuthStack = createStackNavigator(
 );
 
 // create our app's navigation stack
-const App = createSwitchNavigator(
+export default createAppContainer(
+   createSwitchNavigator(
   {
     Loading: LoadingScreen,
     App: AppStack,
     Auth: AuthStack
   },
   {
-    initialRouteName: "Auth"
+    initialRouteName: "Loading"
   }
+)
 );
-
-export default createAppContainer(App);
