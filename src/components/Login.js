@@ -10,7 +10,7 @@ import {
 } from "react-native";
 
 // import Icon from 'react-native-vector-icons/FontAwesome';
-import { Button, Input } from "react-native-elements";
+import { Button, Input, SocialIcon } from "react-native-elements";
 import LinearGradient from "react-native-linear-gradient";
 
 import { AccessToken, LoginManager } from "react-native-fbsdk";
@@ -242,22 +242,22 @@ export default class Login extends React.Component {
                 />
               </View>
               <View style={styles.row}>
-                {/* <SocialIcon
+                <SocialIcon
                   title="Entrar com o Facebook"
                   button
                   type="facebook"
                   loading={this.state.FacebookLoading}
                   onPress={this.facebookLogin}
                   style={{ width: "100%" }}
-                /> */}
+                />
               </View>
               <View style={styles.row}>
-                {/* <SocialIcon
+                <SocialIcon
                   title="Entrar com o Twitter"
                   button
                   type="twitter"
                   style={{ width: "100%" }}
-                /> */}
+                />
               </View>
             </View>
           </View>
