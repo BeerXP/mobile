@@ -35,21 +35,21 @@ Include logo/demo screenshot etc.
 
 <b>Built with</b>
 
-- [Visual Studio Code](https://code.visualstudio.com/)
+  - [Visual Studio Code](https://code.visualstudio.com/)
 
-- [Firebase](https://firebase.google.com/docs/)
+  - [Firebase](https://firebase.google.com/docs/)
 
-- [React Native Firebase](https://rnfirebase.io/)
+  - [React Native Firebase](https://rnfirebase.io/)
 
-- [React Native](https://facebook.github.io/react-native/)
+  - [React Native](https://facebook.github.io/react-native/)
 
-- [React Navigation](https://reactnavigation.org/en/)
+  - [React Navigation](https://reactnavigation.org/en/)
 
-- [React Native Elements](https://github.com/react-native-training/react-native-elements)
+  - [React Native Elements](https://github.com/react-native-training/react-native-elements)
 
-- [React Native Gradient](https://github.com/react-native-community/react-native-linear-gradient)
+  - [React Native Gradient](https://github.com/react-native-community/react-native-linear-gradient)
 
-- [Icons](https://oblador.github.io/react-native-vector-icons/)
+  - [Icons](https://oblador.github.io/react-native-vector-icons/)
 
 ## Features
 

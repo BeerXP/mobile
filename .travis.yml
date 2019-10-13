@@ -90,7 +90,6 @@ matrix:
       install:
         - bundle install
         - yarn install #--force
-        - npm ci
 
       script:
         # - bundle exec fastlane android tests
