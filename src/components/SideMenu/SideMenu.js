@@ -11,6 +11,8 @@ import {
 } from "react-native";
 import { Button, Icon, Avatar } from "react-native-elements";
 import styles from "./SideMenu.style";
+
+import auth from '@react-native-firebase/auth';
 import firebase from "@react-native-firebase/app";
 
 // Import para evitar o erro
@@ -22,8 +24,7 @@ class SideMenu extends Component {
   state = { email: "", password: "", errorMessage: null };
   handleLogout = () => {
     // TODO: Firebase stuff...
-    firebase
-      .auth()
+    auth()
       .signOut()
       .then(() => this.props.navigation.navigate("Loading"))
       .catch(error => this.setState({ errorMessage: error.message }));
@@ -53,16 +54,16 @@ class SideMenu extends Component {
                 size="xlarge"
                 rounded
                 source={{
-                  uri: firebase.auth().currentUser.photoURL + "?type=large"
+                  uri: auth().currentUser.photoURL + "?type=large"
                 }}
                 onPress={() => this.props.navigation.navigate("Profile")}
                 activeOpacity={0.7}
               />
               <Text style={styles.headerDisplay}>
-                {firebase.auth().currentUser.displayName}
+                {auth().currentUser.displayName}
               </Text>
               <Text style={styles.headerDisplay}>
-                {firebase.auth().currentUser.email}
+                {auth().currentUser.email}
               </Text>
             </View>
           </ImageBackground>

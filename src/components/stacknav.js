@@ -1,7 +1,7 @@
 import React from "react";
 import { TouchableOpacity } from "react-native";
 import { createStackNavigator } from "react-navigation-stack";
-// import IOSIcon from "react-native-vector-icons/Ionicons";
+import IOSIcon from "react-native-vector-icons/Ionicons";
 
 import MainScreen from "./MainScreen";
 import DetailScreen from "./DetailScreen";
@@ -15,7 +15,7 @@ const stackNav = createStackNavigator({
       title: "Home",
       headerLeft: (
         <TouchableOpacity onPress={() => navigation.openDrawer()}>
-          {/* <IOSIcon name="ios-menu" size={35} style={{ marginLeft: 10 }} /> */}
+          <IOSIcon name="ios-menu" size={35} style={{ marginLeft: 10 }} />
         </TouchableOpacity>
       )
     })
@@ -26,7 +26,7 @@ const stackNav = createStackNavigator({
       title: "Detalhes",
       headerLeft: (
         <TouchableOpacity onPress={() => navigation.openDrawer()}>
-          {/* <IOSIcon name="ios-menu" size={35} style={{ marginLeft: 10 }} /> */}
+          <IOSIcon name="ios-menu" size={35} style={{ marginLeft: 10 }} />
         </TouchableOpacity>
       )
     })
@@ -37,7 +37,7 @@ const stackNav = createStackNavigator({
       title: "Perfil",
       headerLeft: (
         <TouchableOpacity onPress={() => navigation.openDrawer()}>
-          {/* <IOSIcon name="ios-menu" size={35} style={{ marginLeft: 10 }} /> */}
+          <IOSIcon name="ios-menu" size={35} style={{ marginLeft: 10 }} />
         </TouchableOpacity>
       )
     })
