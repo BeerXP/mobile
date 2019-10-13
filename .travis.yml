@@ -61,9 +61,9 @@ matrix:
           - tools
           - platform-tools
           # The BuildTools version used by your project
-          - build-tools-$ANDROID_BUILD_TOOLS_VERSION
+          # - build-tools-$ANDROID_BUILD_TOOLS_VERSION
           # The SDK version used to compile your project
-          - android-$ANDROID_API_LEVEL
+          # - android-$ANDROID_API_LEVEL
           # Additional components
           - extra-google-google_play_services
           - extra-google-m2repository
@@ -81,8 +81,8 @@ matrix:
         - curl -o- -L https://yarnpkg.com/install.sh | bash
         - export PATH=$HOME/.yarn/bin:$PATH
         - chmod +x ./android/gradlew
-        # - yes | sdkmanager "platforms;android-{{ $ANDROID_API_LEVEL }}"
-        # - yes | sdkmanager "build-tools;{{ $ANDROID_BUILD_TOOLS_VERSION }}"
+        - yes | sdkmanager "platforms;android-29"
+        - yes | sdkmanager "build-tools;29.0.2"
         # - nvm install && nvm use
         # - npm install -g "npm@$(jq -r '.engines.npm' package.json)"
         #- gem install fastlane --no-rdoc --no-ri --no-document --quiet
