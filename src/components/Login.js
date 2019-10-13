@@ -3,14 +3,13 @@ import {
   StyleSheet,
   Image,
   ImageBackground,
-  Text,
   View,
   Dimensions,
   ScrollView
 } from "react-native";
 
 // import Icon from 'react-native-vector-icons/FontAwesome';
-import { Button, Input, SocialIcon } from "react-native-elements";
+import { Button, Input, SocialIcon, Text } from "react-native-elements";
 import LinearGradient from "react-native-linear-gradient";
 
 import { AccessToken, LoginManager } from "react-native-fbsdk";
@@ -21,7 +20,7 @@ import analytics from '@react-native-firebase/analytics';
 
 import { COLOR_PRIMARY, COLOR_SECONDARY } from "./styles/common";
 
-const Login = ({navigation}) => {
+const Login = ({ navigation }) => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -30,7 +29,7 @@ const Login = ({navigation}) => {
   const [isFacebookLoading, setIsFacebookLoading] = useState(false);
 
   useEffect(() => {
-    analytics().setCurrentScreen("Login");
+    analytics().setCurrentScreen("LoginView");
   }, []);
 
   handleLogin = () => {
@@ -39,13 +38,18 @@ const Login = ({navigation}) => {
     auth()
       .signInWithEmailAndPassword(email, password)
       .then(() => {
-        navigation.navigate("Main");
+        //Grava o evento de Login no Analytics
+        analytics().logLogin({
+          method: 'email',
+        });
         if (credential) {
           console.log("default app user ->", credential.user.toJSON());
         }
         // Clear out the fields when the user logs in and hide the progress indicator.
         setEmail("");
         setPassword("");
+        //natigate to Main
+        navigation.navigate("Main");
       })
       .catch(error => {
         setErrorMessage(error.message);
@@ -83,7 +87,7 @@ const Login = ({navigation}) => {
       }
 
       console.log(
-        "Login success with permissions: ${result.grantedPermissions.toString()}"
+        "Login success with permissions: " + `${result.grantedPermissions.toString()}`
       );
 
       // get the access token
@@ -103,6 +107,15 @@ const Login = ({navigation}) => {
         .signInWithCredential(credential)
         .then(() => {
           setIsFacebookLoading(true);
+          //Grava o evento de SignUp Facebook no Analytics
+          analytics().logLogin({
+            method: 'facebook.com',
+          });
+          analytics().logSignUp({
+            method: 'facebook.com',
+          });
+
+          //Navega para a tela principal
           navigation.navigate("Main");
           // Clear out the fields when the user logs in and hide the progress indicator.
         })
@@ -122,9 +135,7 @@ const Login = ({navigation}) => {
     >
       <ScrollView>
         <View>
-          {errorMessage && (
-            <Text style={{ color: "red" }}>{errorMessage}</Text>
-          )}
+
           <View style={{ alignSelf: "center" }}>
             <Image
               style={styles.image}
@@ -133,6 +144,7 @@ const Login = ({navigation}) => {
               loadingIndicatorSource={require("../assets/loading.gif")}
             />
           </View>
+
           <View style={styles.container}>
             <View style={styles.row}>
               <Input
@@ -155,6 +167,7 @@ const Login = ({navigation}) => {
                 value={password}
               />
             </View>
+
             <View style={styles.row}>
               <View style={styles.cell}>
                 <Button
@@ -241,11 +254,14 @@ const Login = ({navigation}) => {
               />
             </View>
           </View>
+          {errorMessage && (
+            <Text style={{ color: "red" }}>{errorMessage}</Text>
+          )}
         </View>
       </ScrollView>
-    </ImageBackground>
+    </ImageBackground >
   );
-} 
+}
 
 const win = Dimensions.get("window");
 
