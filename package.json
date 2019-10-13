@@ -43,5 +43,10 @@
   },
   "jest": {
     "preset": "react-native"
+  },
+  "engines": {
+    "node": "12.11.1",
+    "npm": "6.11.3",
+    "yarn": "1.19.1"
   }
 }
