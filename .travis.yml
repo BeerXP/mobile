@@ -22,7 +22,8 @@ matrix:
       xcode_scheme: BeerXP
 
       cache:
-        yarn: true
+        - yarn
+        - cocoapods
 
       before_install:
         - nvm install node
