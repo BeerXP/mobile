@@ -83,7 +83,7 @@ matrix:
         # - yes | sdkmanager "platforms;android-{{ $ANDROID_API_LEVEL }}"
         # - yes | sdkmanager "build-tools;{{ $ANDROID_BUILD_TOOLS_VERSION }}"
         # - nvm install && nvm use
-        - npm install -g "npm@$(jq -r '.engines.npm' package.json)"
+        # - npm install -g "npm@$(jq -r '.engines.npm' package.json)"
         #- gem install fastlane --no-rdoc --no-ri --no-document --quiet
 
       install:
