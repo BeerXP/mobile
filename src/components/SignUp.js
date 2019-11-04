@@ -15,6 +15,7 @@ import { COLOR_PRIMARY, COLOR_SECONDARY } from "./styles/common";
 
 import auth from '@react-native-firebase/auth';
 import analytics from '@react-native-firebase/analytics';
+import database from '@react-native-firebase/database';
 
 const SignUp = ({ navigation }) => {
   const [name, setName] = useState("");
@@ -42,6 +43,7 @@ const SignUp = ({ navigation }) => {
           analytics().logSignUp({
             method: 'Email',
           });
+
           // Navega para tela principal
           navigation.navigate("Main");
         })
@@ -61,7 +63,6 @@ const SignUp = ({ navigation }) => {
       style={{ width: "100%", height: "100%" }}
     >
       <View style={styles.container}>
-
         <View style={{ alignSelf: "center" }}>
           <Image
             style={styles.image}
@@ -70,7 +71,6 @@ const SignUp = ({ navigation }) => {
             loadingIndicatorSource={require("../assets/loading.gif")}
           />
         </View>
-
         <Input
           placeholder="Nome completo"
           autoCapitalize="words"

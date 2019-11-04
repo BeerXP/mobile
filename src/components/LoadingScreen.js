@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, ActivityIndicator, StyleSheet } from "react-native";
 import auth from '@react-native-firebase/auth';
 
-const LoadingScreen = ({navigation}) => {
+const LoadingScreen = ({ navigation }) => {
 
   // Set an initilizing state whilst Firebase connects
   const [initilizing, setInitilizing] = useState(true);
@@ -21,7 +21,7 @@ const LoadingScreen = ({navigation}) => {
 
   if (initilizing) return null;
 
-  return navigation.navigate(user ? "Main" : "Login");
+  return navigation.navigate(user ? "App" : "Login");
 
 }
 

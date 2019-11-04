@@ -43,7 +43,7 @@ matrix:
     - language: android
       os: linux
       jdk: oraclejdk8
-      node_js: 12
+      node_js: 13
 
       before_cache:
         - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock

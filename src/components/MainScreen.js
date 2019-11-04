@@ -1,15 +1,11 @@
 import React, { Component } from "react";
-import { Text, View, StyleSheet, Button } from "react-native";
+import { SafeAreaView, StyleSheet } from "react-native";
+import { Avatar, Divider, Card, Button, Icon, ListItem, SearchBar } from "react-native-elements";
+import Icons from 'react-native-vector-icons/FontAwesome';
 
 // import firebase from "@react-native-firebase/app";
 import auth from '@react-native-firebase/auth';
 import analytics from '@react-native-firebase/analytics';
-
-// Import para evitar o erro
-import "core-js/es6/map";
-import "core-js/es6/symbol";
-import "core-js/fn/symbol/iterator";
-// Import para evitar o erro
 
 class MainScreen extends Component {
   constructor() {
@@ -19,23 +15,19 @@ class MainScreen extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        <Text>Main</Text>
-        <Button
-          onPress={() => this.props.navigation.navigate("Detail")}
-          title="Detail Page"
-        />
-      </View>
+      <SafeAreaView style={styles.container}>
+
+      </SafeAreaView>
     );
   }
 }
 
+export default MainScreen;
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center"
+    alignItems: 'center',
+    justifyContent: 'center'
   }
 });
-
-export default MainScreen;

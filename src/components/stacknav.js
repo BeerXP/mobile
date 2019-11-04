@@ -5,8 +5,9 @@ import IOSIcon from "react-native-vector-icons/Ionicons";
 
 import MainScreen from "./MainScreen";
 import DetailScreen from "./DetailScreen";
-import ProfileScreen from "./ProfileScreen";
-import ProfileEditScreen from "./ProfileEditScreen";
+import ProfileScreen from "./Profile/ProfileScreen";
+import ProfileEditScreen from "./Profile/ProfileEditScreen";
+import FriendsScreen from "./Friends/FriendsScreen";
 
 const stackNav = createStackNavigator({
   Main: {
@@ -46,6 +47,12 @@ const stackNav = createStackNavigator({
     screen: ProfileEditScreen,
     navigationOptions: ({ navigation }) => ({
       title: "Edit"
+    })
+  },
+  Friends: {
+    screen: FriendsScreen,
+    navigationOptions: ({ navigation }) => ({
+      title: "Amigos"
     })
   }
 });

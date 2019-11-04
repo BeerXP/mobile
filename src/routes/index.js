@@ -3,7 +3,7 @@ import { Dimensions } from "react-native";
 import { createDrawerNavigator } from "react-navigation-drawer";
 
 import Drawer from "./../components/Drawer";
-import ProfileScreen from "../components/ProfileScreen";
+import ProfileScreen from "../components/Profile/ProfileScreen";
 
 const DEVICE_WIDTH = Dimensions.get("window").width;
 
