@@ -21,7 +21,7 @@ const LoadingScreen = ({ navigation }) => {
 
   if (initilizing) return null;
 
-  return navigation.navigate(user ? "App" : "Login");
+  return navigation.navigate(user !== null ? "App" : "Login");
 
 }
 

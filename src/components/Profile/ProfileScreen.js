@@ -3,14 +3,14 @@ import { Text, View, StyleSheet } from "react-native";
 import { Avatar, Divider, Card, Button, Icon } from "react-native-elements";
 import Icons from 'react-native-vector-icons/FontAwesome';
 
-import firebase from "@react-native-firebase/app";
+import auth from '@react-native-firebase/auth';
 import analytics from '@react-native-firebase/analytics';
 import { AccessToken, LoginManager } from "react-native-fbsdk";
 
 const ProfileScreen = ({ navigation }) => {
 
   const [isLoading, setIsLoading] = useState(false);
-  const [user] = useState(firebase.auth().currentUser);
+  const [user] = useState(auth().currentUser);
 
   useEffect(() => {
     analytics().setCurrentScreen("ProfileView");
@@ -47,7 +47,6 @@ const ProfileScreen = ({ navigation }) => {
     </View>
   );
 }
-
 
 const styles = StyleSheet.create({
   container: {

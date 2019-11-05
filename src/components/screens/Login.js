@@ -10,7 +10,6 @@ import { AccessToken, LoginManager } from "react-native-fbsdk";
 import { firebase } from '@react-native-firebase/auth';
 import auth from '@react-native-firebase/auth';
 import analytics from '@react-native-firebase/analytics';
-import database from '@react-native-firebase/database';
 
 const { width, height } = Dimensions.get('window');
 
@@ -283,10 +282,9 @@ class Login extends Component {
                                 </Animated.Text>
                             </Animated.View>
                         </TapGestureHandler>
-
                         <TextInput
                             placeholder="E-mail"
-                            autoCapitalize={false}
+                            autoCapitalize="none"
                             style={styles.textInput}
                             placeholderTextColor="black"
                             value={this.state.email}

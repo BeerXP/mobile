@@ -12,6 +12,11 @@ import { createMaterialBottomTabNavigator } from 'react-navigation-material-bott
 
 import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
 
+import {
+  COLOR_PRIMARY,
+  COLOR_SECONDARY
+} from "./src/components/styles/common";
+
 import SideMenu from "./src/components/SideMenu/SideMenu";
 import stackNav from "./src/components/stacknav";
 
@@ -23,6 +28,7 @@ import SearchTab from "./src/components/appTabNavigator/SearchTab";
 import LoadingScreen from "./src/components/LoadingScreen";
 import SignUp from "./src/components/SignUp";
 import Login from "./src/components/screens/Login";
+import ProfileEditScreen from "./src/components/Profile/ProfileEditScreen";
 
 const getTabBarIcon = (navigation, focused, tintColor) => {
   const { routeName } = navigation.state;
@@ -33,7 +39,7 @@ const getTabBarIcon = (navigation, focused, tintColor) => {
     // We want to add badges to home tab icon
     // IconComponent = HomeIconWithBadge;
   } else if (routeName === 'Search') {
-    iconName = `search${focused ? '' : '-outline'}`;
+    iconName = `magnify${focused ? '' : '-outline'}`;
   } else if (routeName === 'Profile') {
     iconName = `account-circle${focused ? '' : '-outline'}`;
   }
@@ -42,35 +48,60 @@ const getTabBarIcon = (navigation, focused, tintColor) => {
   return <IconComponent name={iconName} size={25} color={tintColor} />;
 };
 
+const ProfileStack = createStackNavigator(
+  {
+    ProfileHome: {
+      screen: ProfileTab,
+      navigationOptions: ({ navigation }) => {
+        return {
+          header: null,
+        };
+      },
+    },
+    ProfileEdit: {
+      screen: ProfileEditScreen,
+      navigationOptions: ({ navigation }) => {
+        return {
+          header: null,
+        };
+      },
+    }
+  },
+  {
+    initialRouteName: "ProfileHome"
+  }
+);
+
 const AppTabNavigator = createBottomTabNavigator(
   {
     Home: { screen: HomeTab },
     Search: { screen: SearchTab },
-    Profile: { screen: ProfileTab },
+    Profile: { screen: ProfileStack },
   },
+
   {
     defaultNavigationOptions: ({ navigation }) => ({
       tabBarIcon: ({ focused, tintColor }) =>
         getTabBarIcon(navigation, focused, tintColor),
     }),
     tabBarOptions: {
-      activeTintColor: 'darkorange',
+      activeTintColor: COLOR_PRIMARY,
       inactiveTintColor: 'gray',
     },
   }
-)
-
-const AppStack = createDrawerNavigator(
-  {
-    Item1: {
-      screen: stackNav
-    }
-  },
-  {
-    contentComponent: SideMenu,
-    drawerWidth: Dimensions.get("window").width - 80
-  }
 );
+
+// const AppStack = createDrawerNavigator(
+//   {
+//     Item1: {
+//       screen: stackNav
+//     }
+//   },
+//   {
+//     contentComponent: SideMenu,
+//     drawerWidth: Dimensions.get("window").width - 80
+//   }
+// );
 
 const AuthStack = createStackNavigator(
   {
