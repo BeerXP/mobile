@@ -18,14 +18,14 @@
         <item name="android:actionBarWidgetTheme">@style/MyActionBarWidgetTheme</item>
     </style>
 
-    <style name="DefaultExplainingPermissionsTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
-        <!-- Used for the buttons -->
-        <item name="colorAccent">@color/your_color</item>
+<!--    <style name="DefaultExplainingPermissionsTheme" parent="Theme.AppCompat.Light.Dialog.Alert">-->
+<!--        &lt;!&ndash; Used for the buttons &ndash;&gt;-->
+<!--        <item name="colorAccent">@color/your_color</item>-->
 
-        <!-- Used for the title and text -->
-        <item name="android:textColorPrimary">@color/your_color</item>
+<!--        &lt;!&ndash; Used for the title and text &ndash;&gt;-->
+<!--        <item name="android:textColorPrimary">@color/your_color</item>-->
 
-        <!-- Used for the background -->
-        <item name="android:background">@color/your_color</item>
-    </style>
+<!--        &lt;!&ndash; Used for the background &ndash;&gt;-->
+<!--        <item name="android:background">@color/your_color</item>-->
+<!--    </style>-->
 </resources>

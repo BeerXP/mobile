@@ -31,9 +31,6 @@ const Login = ({ navigation }) => {
   const [errorMessage, setErrorMessage] = useState();
   const [isFacebookLoading, setIsFacebookLoading] = useState(false);
 
-  const [isReady, setIsReady] = useState(false);
-
-
   useEffect(() => {
     analytics().setCurrentScreen("LoginView");
   }, []);

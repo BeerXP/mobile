@@ -20,7 +20,7 @@ import analytics from '@react-native-firebase/analytics';
 
 // More info on all the options is below in the API Reference... just some common use cases shown here
 const options = {
-  title: 'Select Avatar',
+  title: 'Change Profile Photo',
   customButtons: [{ name: 'fb', title: 'Choose Photo from Facebook' }],
   storageOptions: {
     skipBackup: true,
@@ -88,8 +88,6 @@ const ProfileEditScreen = ({ navigation }) => {
 
         // You can also display the image using data:
         // const source = { uri: 'data:image/jpeg;base64,' + response.data };
-
-        // setImage(source.uri);
       }
     });
   };

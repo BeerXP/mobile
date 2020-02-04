@@ -35,11 +35,7 @@ const ProfileTab = ({ navigation }) => {
             .signOut()
             .then(() => navigation.navigate("Loading"))
             .catch(error => setErrorMessage(error.message));
-
-        console.log("handleLogin");
     };
-
-
 
     return (
         <View style={{ flex: 1, backgroundColor: 'white' }}>
@@ -58,10 +54,9 @@ const ProfileTab = ({ navigation }) => {
                             <Avatar
                                 size="large"
                                 rounded
-
-                                source={{
-                                    uri: user.photoURL + "?type=large"
-                                }}
+                                source={
+                                    (user.photoURL ? { uri: user.photoURL } : require('./../../assets/homer.png'))
+                                }
                                 activeOpacity={0.7}
                             />
                         </View>
