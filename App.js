@@ -1,14 +1,12 @@
 import React from "react";
-import { Dimensions } from "react-native";
 import {
   createSwitchNavigator,
   createAppContainer
 } from "react-navigation";
 
 import { createStackNavigator } from "react-navigation-stack";
-import { createDrawerNavigator } from "react-navigation-drawer";
 import { createBottomTabNavigator } from "react-navigation-tabs";
-import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
+import { createMaterialTopTabNavigator } from 'react-navigation-tabs';
 
 import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
 
@@ -16,9 +14,6 @@ import {
   COLOR_PRIMARY,
   COLOR_SECONDARY
 } from "./src/components/styles/common";
-
-import SideMenu from "./src/components/SideMenu/SideMenu";
-import stackNav from "./src/components/stacknav";
 
 import HomeTab from "./src/components/appTabNavigator/HomeTab";
 import ProfileTab from "./src/components/appTabNavigator/ProfileTab";
@@ -30,6 +25,11 @@ import SignUp from "./src/components/SignUp";
 import Login from "./src/components/screens/Login";
 import ProfileEditScreen from "./src/components/Profile/ProfileEditScreen";
 
+import Followers from './src/components/Friends/Followers';
+import Followings from './src/components/Friends/Followers';
+
+import FriendsScreen from "./src/components/Friends/FriendsScreen";
+
 const getTabBarIcon = (navigation, focused, tintColor) => {
   const { routeName } = navigation.state;
   let IconComponent = Icons;
@@ -39,7 +39,11 @@ const getTabBarIcon = (navigation, focused, tintColor) => {
     // We want to add badges to home tab icon
     // IconComponent = HomeIconWithBadge;
   } else if (routeName === 'Search') {
-    iconName = `magnify${focused ? '' : '-outline'}`;
+    iconName = `magnify${focused ? '' : ''}`;
+  } else if (routeName === 'Drinkin') {
+    iconName = `plus${focused ? '' : '-outline'}`;
+  } else if (routeName === 'Activities') {
+    iconName = `beer${focused ? '' : ''}`;
   } else if (routeName === 'Profile') {
     iconName = `account-circle${focused ? '' : '-outline'}`;
   }
@@ -47,6 +51,28 @@ const getTabBarIcon = (navigation, focused, tintColor) => {
   // You can return any component that you like here!
   return <IconComponent name={iconName} size={25} color={tintColor} />;
 };
+
+// const FriendsStack = createStackNavigator(
+//   {
+//     Friends: {
+//       screen: FriendsScreen,
+//       navigationOptions: ({ navigation }) => {
+//         return {
+//           header: null,
+//         };
+//       },
+//     }
+
+//   },
+//   {
+//     tabBarPosition: 'top',
+//     swipeEnabled: true,
+//     animationEnabled: true,
+//     activeTintColor: COLOR_PRIMARY,
+//     inactiveTintColor: 'gray',
+//     pressColor: COLOR_SECONDARY,
+
+//   });;
 
 const ProfileStack = createStackNavigator(
   {
@@ -65,6 +91,14 @@ const ProfileStack = createStackNavigator(
           header: null,
         };
       },
+    },
+    Friends: {
+      screen: FriendsScreen,
+      navigationOptions: ({ navigation }) => {
+        return {
+          header: null,
+        };
+      },
     }
   },
   {
@@ -76,9 +110,10 @@ const AppTabNavigator = createBottomTabNavigator(
   {
     Home: { screen: HomeTab },
     Search: { screen: SearchTab },
+    Drinkin: { screen: SearchTab },
+    Activities: { screen: SearchTab },
     Profile: { screen: ProfileStack },
   },
-
   {
     defaultNavigationOptions: ({ navigation }) => ({
       tabBarIcon: ({ focused, tintColor }) =>

@@ -72,8 +72,6 @@ const FriendsSearchScreen = ({ navigation }) => {
         setLoading(false);
     }
 
-
-
     return (
         <SafeAreaView style={styles.container}>
             <SearchBar

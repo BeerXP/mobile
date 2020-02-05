@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, Image, Dimensions, TextInput } from 'react-native';
-import { SocialIcon } from "react-native-elements";
+import { Button, Input, SocialIcon } from "react-native-elements";
 
 import Animated, { Easing } from 'react-native-reanimated';
 import { TapGestureHandler, State } from 'react-native-gesture-handler';
@@ -62,20 +62,14 @@ function runTiming(clock, value, dest) {
 class Login extends Component {
 
     //state object
-    // state = { isLoading: false, isFacebookLoading: false, email: "", password: "" };
+    state = { isLoading: false, isFacebookLoading: false, email: "", password: "" };
     // const[isFacebookLoading, setIsFacebookLoading] = useState(false);
 
     constructor() {
         super();
 
-        this.state = ({
-            email: '',
-            password: '',
-            sLoading: false, isFacebookLoading: false
-        })
-
-        // this.handleLogin = this.handleLogin.bind(this);
-        // this.facebookLogin = this.facebookLogin.bind(this);
+        this.handleLogin = this.handleLogin.bind(this);
+        this.facebookLogin = this.facebookLogin.bind(this);
         // this.onChange = this.onChange.bind(this);
 
         this.buttonOpacity = new Value(1);
@@ -141,113 +135,41 @@ class Login extends Component {
         });
     }
 
-    loginUser = () => {
-        const { navigate } = this.props.navigation;
-        try {
-            firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password).then(function (user) {
-                console.log(user);
+
+    handleLogin() {
+        this.setState({ isLoading: true });
+        // TODO: Firebase stuff...
+        auth()
+            .signInWithEmailAndPassword(this.state.email, this.state.password)
+            .then(() => {
                 //Grava o evento de Login no Analytics
                 analytics().logLogin({
                     method: 'email',
                 });
-
-                //natigate to Main
-                navigate("App");
-            })
-        }
-        catch (error) {
-            console.log(error.toString())
-        }
-    }
-
-    // handleLogin = () => {
-    //     const { navigate } = this.props.navigation;
-
-    //     this.setState({ isLoading: true });
-    //     // TODO: Firebase stuff...
-    //     auth().signInWithEmailAndPassword(this.state.email, this.state.password)
-    //         .then(() => {
-    //             if (credential) {
-    //                 console.log("default app user ->", credential.user.toJSON());
-    //             }
-    //             // Clear out the fields when the user logs in and hide the progress indicator.
-    //             this.setState({ email: "", password: "" });
-
-    //             //Grava o evento de Login no Analytics
-    //             analytics().logLogin({
-    //                 method: 'email',
-    //             });
-
-    //             //natigate to Main
-    //             navigate("App");
-    //         })
-    //         .catch(error => {
-    //             this.setState({ error: error.message });
-    //             // setErrorMessage(error.message);
-    //         }).finally(() => this.setState({ isLoading: false }));
-    // };
-
-    async loginWithFacebook() {
-        // const { navigate } = this.props.navigation;
-
-        // Login with permissions
-        const result = await LoginManager.logInWithPermissions(['public_profile', 'email']);
-
-        if (result.isCancelled) {
-            throw new Error('User cancelled the login process');
-        }
-
-        console.log(
-            "Login success with permissions: " + `${result.grantedPermissions.toString()}`
-        );
-
-        // get the access token
-        const data = await AccessToken.getCurrentAccessToken();
-
-        if (!data) {
-            throw new Error(
-                "Something went wrong obtaining the users access token"
-            ); // Handle this however fits the flow of your app
-        }
-
-        // create a new firebase credential with the token
-        const credential = firebase.auth.FacebookAuthProvider.credential(data.accessToken);
-
-        // login with credential
-        const currentUser = await auth()
-            .signInWithCredential(credential)
-            .then(() => {
-                // this.setState({ isFacebookLoading: true });
-
-                //Grava o evento de SignUp Facebook no Analytics
-                analytics().logLogin({
-                    method: 'facebook.com',
-                });
-                analytics().logSignUp({
-                    method: 'facebook.com',
-                });
-
-                //Navega para a tela principal
-                // navigate("App");
+                if (credential) {
+                    console.log("default app user ->", credential.user.toJSON());
+                }
                 // Clear out the fields when the user logs in and hide the progress indicator.
-                console.log("Logado!");
+                this.setState({ email: "", password: "" });
+                // setEmail("");
+                // setPassword("");
+                //natigate to Main
+                navigation.navigate("Main");
             })
             .catch(error => {
-                // Leave the fields filled when an error occurs and hide the progress indicator.
-                setErrorMessage(error.message);
-            }).finally(() => this.setState({ isFacebookLoading: false }));;
-    }
+                this.setState({ error: error.message });
+                // setErrorMessage(error.message);
+            }).finally(() => this.setState({ isLoading: false }));
+    };
 
     // Calling the following function will open the FB login dialogue:
     async facebookLogin() {
-        const { navigate } = this.props.navigation;
-
         // When waiting for the firebase server show the loading indicator.
         this.setState({ isFacebookLoading: true });
         // setIsFacebookLoading(true);
         try {
             // Login with permissions
-            const result = await LoginManager.logInWithPermissions(['public_profile', 'email']);
+            const result = LoginManager.logInWithPermissions(['public_profile', 'email']);
 
             if (result.isCancelled) {
                 throw new Error('User cancelled the login process');
@@ -273,7 +195,7 @@ class Login extends Component {
             const currentUser = await auth()
                 .signInWithCredential(credential)
                 .then(() => {
-                    // this.setState({ isFacebookLoading: true });
+                    this.setState({ isFacebookLoading: true });
                     //Grava o evento de SignUp Facebook no Analytics
                     analytics().logLogin({
                         method: 'facebook.com',
@@ -283,7 +205,7 @@ class Login extends Component {
                     });
 
                     //Navega para a tela principal
-                    navigate("App");
+                    navigation.navigate("Main");
                     // Clear out the fields when the user logs in and hide the progress indicator.
                 })
                 .catch(error => {
@@ -320,7 +242,7 @@ class Login extends Component {
                         <Animated.View
                             style={{
                                 ...styles.buttonSignUp,
-                                opacity: thioeos.buttonOpacity,
+                                opacity: this.buttonOpacity,
                                 transform: [{ translateY: this.buttonY }]
                             }}
                         >
@@ -338,36 +260,7 @@ class Login extends Component {
                             <Text style={{ fontSize: 20, fontWeight: 'bold' }}>ENTRAR</Text>
                         </Animated.View>
                     </TapGestureHandler>
-                    <TapGestureHandler>
-                        <Animated.View
-                            style={{
-                                ...styles.button,
-                                backgroundColor: '#2E71DC',
-                                opacity: this.buttonOpacity,
-                                transform: [{ translateY: this.buttonY }]
-                            }}
-                        >
-                            <SocialIcon
-                                title="Entrar com o Facebook"
-                                button
-                                type="facebook"
-                                loading={this.state.isFacebookLoading}
-                                onPress={this.loginWithFacebook}
-                                style={{
-                                    height: 70,
-                                    marginHorizontal: 20,
-                                    borderRadius: 35,
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                    marginVertical: 5,
-                                    shadowOffset: { width: 2, height: 2 },
-                                    shadowColor: 'black',
-                                    shadowOpacity: 0.2,
-                                }}
-                            />
-                        </Animated.View>
-                    </TapGestureHandler>
-                    {/* <TapGestureHandler onHandlerStateChange={this.loginWithFacebook}>
+                    <TapGestureHandler onHandlerStateChange={this.facebookLogin}>
                         <Animated.View
                             style={{
                                 ...styles.button,
@@ -380,7 +273,7 @@ class Login extends Component {
                                 SIGN IN WITH FACEBOOK
                             </Text>
                         </Animated.View>
-                    </TapGestureHandler> */}
+                    </TapGestureHandler>
                     <Animated.View style={{ zIndex: this.textInputZindex, opacity: this.textOpacity, transform: [{ translateY: this.textInputY }], height: height / 3, ...StyleSheet.absoluteFill, top: null, justifyContent: 'center' }}>
                         <TapGestureHandler onHandlerStateChange={this.onCloseState}>
                             <Animated.View style={styles.closeButton}>
@@ -392,23 +285,20 @@ class Login extends Component {
                         <TextInput
                             placeholder="E-mail"
                             autoCapitalize="none"
-                            autoCorrect={false}
                             style={styles.textInput}
                             placeholderTextColor="black"
                             value={this.state.email}
-                            onChangeText={(email) => this.setState({ email })}
+                            onChangeText={email => this.setState({ email })}
                         />
                         <TextInput
                             secureTextEntry
                             placeholder="Senha"
-                            autoCapitalize="none"
-                            autoCorrect={false}
                             style={styles.textInput}
                             placeholderTextColor="black"
                             value={this.state.password}
-                            onChangeText={(password) => this.setState({ password })}
+                            onChangeText={password => this.setState({ password })}
                         />
-                        <TapGestureHandler onHandlerStateChange={this.loginUser} disabled={this.state.isLoading} >
+                        <TapGestureHandler onHandlerStateChange={this.handleLogin}>
                             <Animated.View style={styles.buttonSignUp} >
                                 <Text style={{ fontSize: 20, fontWeight: 'bold' }} disabled={this.state.isLoading}>
                                     ACESSAR

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {
+    TouchableOpacity,
     SafeAreaView,
     View,
     Text,
@@ -18,15 +19,34 @@ import {
 
 import auth from '@react-native-firebase/auth';
 import analytics from '@react-native-firebase/analytics';
+import firestore from '@react-native-firebase/firestore';
 
 const ProfileTab = ({ navigation }) => {
 
     const [isLoading, setIsLoading] = useState(false);
     const [user] = useState(auth().currentUser);
     const [errorMessage, setErrorMessage] = useState("");
+    const [following, setFollowing] = useState([]);
+    const [followers, setFollowers] = useState([]);
+    const [drinkins, setDrinkins] = useState([]);
 
     useEffect(() => {
         analytics().setCurrentScreen("ProfileView");
+
+        setIsLoading(true);
+
+        firestore()
+            .collection('Users')
+            .doc(user.uid)
+            .get()
+            .then(doc => {
+                setFollowers(doc._data.followers);
+                setFollowing(doc._data.following);
+                setDrinkins(doc._data.drinkins);
+            });
+
+        setIsLoading(false);
+
     }, []);
 
     handleLogout = () => {
@@ -62,9 +82,21 @@ const ProfileTab = ({ navigation }) => {
                         </View>
                         <View style={{ flex: 3 }}>
                             <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
-                                <View style={{ alignItems: 'center' }}><Text>20</Text><Text style={{ fontSize: 10, color: 'gray' }}>Posts</Text></View>
-                                <View style={{ alignItems: 'center' }}><Text>123</Text><Text style={{ fontSize: 10, color: 'gray' }}>Seguidores</Text></View>
-                                <View style={{ alignItems: 'center' }}><Text>321</Text><Text style={{ fontSize: 10, color: 'gray' }}>Seguindo</Text></View>
+                                <TouchableOpacity onPress={() => navigation.navigate('Friends', { name: 'Jane' })}>
+                                    <View style={{ alignItems: 'center' }} >
+                                        <Text>{drinkins.length}</Text><Text style={{ fontSize: 10, color: 'gray' }}>Posts</Text>
+                                    </View>
+                                </TouchableOpacity>
+                                <TouchableOpacity onPress={() => navigation.navigate('Followers', { name: 'Jane' })}>
+                                    <View style={{ alignItems: 'center' }}>
+                                        <Text>{followers.length}</Text><Text style={{ fontSize: 10, color: 'gray' }}>Seguidores</Text>
+                                    </View>
+                                </TouchableOpacity>
+                                <TouchableOpacity onPress={() => navigation.navigate('Friends', { name: 'Jane' })}>
+                                    <View style={{ alignItems: 'center' }} >
+                                        <Text>{following.length}</Text><Text style={{ fontSize: 10, color: 'gray' }}>Seguindo</Text>
+                                    </View>
+                                </TouchableOpacity>
                             </View>
                             <View style={{ flexDirection: 'row', paddingTop: 10 }}>
                                 <Button
