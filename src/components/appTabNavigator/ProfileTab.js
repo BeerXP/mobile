@@ -40,9 +40,9 @@ const ProfileTab = ({ navigation }) => {
             .doc(user.uid)
             .get()
             .then(doc => {
-                setFollowers(doc._data.followers);
-                setFollowing(doc._data.following);
-                setDrinkins(doc._data.drinkins);
+                setFollowers(doc.data().followers);
+                setFollowing(doc.data().following);
+                setDrinkins(doc.data().drinkins);
             });
 
         setIsLoading(false);
@@ -82,17 +82,17 @@ const ProfileTab = ({ navigation }) => {
                         </View>
                         <View style={{ flex: 3 }}>
                             <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
-                                <TouchableOpacity onPress={() => navigation.navigate('Friends', { name: 'Jane' })}>
+                                {/* <TouchableOpacity onPress={() => navigation.navigate('Common', { count: '0' })}>
                                     <View style={{ alignItems: 'center' }} >
                                         <Text>{drinkins.length}</Text><Text style={{ fontSize: 10, color: 'gray' }}>Posts</Text>
                                     </View>
-                                </TouchableOpacity>
-                                <TouchableOpacity onPress={() => navigation.navigate('Followers', { name: 'Jane' })}>
+                                </TouchableOpacity> */}
+                                <TouchableOpacity onPress={() => navigation.navigate('Followers', { followersList: followers })}>
                                     <View style={{ alignItems: 'center' }}>
                                         <Text>{followers.length}</Text><Text style={{ fontSize: 10, color: 'gray' }}>Seguidores</Text>
                                     </View>
                                 </TouchableOpacity>
-                                <TouchableOpacity onPress={() => navigation.navigate('Friends', { name: 'Jane' })}>
+                                <TouchableOpacity onPress={() => navigation.navigate('Following', { followingList: following })}>
                                     <View style={{ alignItems: 'center' }} >
                                         <Text>{following.length}</Text><Text style={{ fontSize: 10, color: 'gray' }}>Seguindo</Text>
                                     </View>

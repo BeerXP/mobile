@@ -28,7 +28,7 @@ const SideMenu = ({ navigation }) => {
       .then(() => this.props.navigation.navigate("Loading"))
       .catch(error => setErrorMessage(error.message));
 
-    console.log("handleLogin");
+    // console.log("handleLogin");
   };
 
   // navigateToScreen = route => () => {

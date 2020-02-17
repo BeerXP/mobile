@@ -5,43 +5,48 @@ import { Avatar, Divider, Card, Button, Icon, ListItem, SearchBar } from "react-
 import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import analytics from '@react-native-firebase/analytics';
-import database from '@react-native-firebase/database';
+import firestore from '@react-native-firebase/firestore';
 
-const SearchTab = ({ navigation, focused, tintColor }) => {
+const SearchTab = ({ navigation }) => {
 
     const [isLoading, setIsLoading] = useState(true);
     const [searchName, setSearchName] = useState("");
     const [list, setList] = useState([]);
 
-    keyExtractor = item => item.id;
+    useEffect(() => {
+        analytics().setCurrentScreen("FriendsSearchView");
+
+
+    }, []);
 
     useEffect(() => {
         setIsLoading(true);
-        // Create reference
-        const ref = database().ref(`/users`);
-        ref.once('value', onSnapshot);
-        // setIsLoading(false);
-    }, [searchName]);
 
-    useEffect(() => {
-        analytics().setCurrentScreen("FriendsSearchView");
-    }, []);
+        const unsubscribe = firestore()
+            .collection('Users')
+            // .where('name', '>=', searchName)
+            .orderBy('name')
+            .onSnapshot((querySnapshot) => {
+                // Add users into an array
+                const users = querySnapshot.docs.map((documentSnapshot) => {
+                    return {
+                        ...documentSnapshot.data(),
+                        key: documentSnapshot.id, // required for FlatList
+                    };
+                });
 
-    // Handle snapshot response
-    function onSnapshot(snapshot) {
-        const list = [];
+                // Update state with the users array
+                setList(users);
 
-        // Create our own array of games in order
-        snapshot.forEach(user => {
-            list.push({
-                key: user.key, // Add custom key for FlatList usage
-                ...user.val(),
+                // As this can trigger multiple times, only update loading after the first update
+                if (isLoading) {
+                    setIsLoading(false);
+                }
             });
-        });
 
-        setList(list);
-        setIsLoading(false);
-    }
+        return () => unsubscribe(); // Stop listening for updates whenever the component unmounts
+
+    }, [searchName]);
 
     return (
         <SafeAreaView style={styles.container}>
@@ -55,16 +60,11 @@ const SearchTab = ({ navigation, focused, tintColor }) => {
             />
             <View>
                 {
-                    // <FlatList
-                    //     keyExtractor={keyExtractor}
-                    //     data={list}
-                    //     renderItem={this.renderItemCustom} />
-
                     list.map((user, i) => (
                         <ListItem
                             key={i}
                             leftAvatar={{ source: { uri: user.photoURL } }}
-                            title={user.displayName}
+                            title={user.name}
                             subtitle={user.email}
                             rightIcon={<Icons name="account-plus" color="green" size={32} />}
                             bottomDivider

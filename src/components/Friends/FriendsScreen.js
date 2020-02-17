@@ -11,24 +11,51 @@ import {
     COLOR_SECONDARY
 } from "./../styles/common";
 
-import Common from './Followers';
-import Followers from './Followers';
-import Followings from './Following';
+// import Common from './FollowersScreen';
+import FollowingScreen from './FollowingScreen';
+import FollowersScreen from './FollowersScreen';
 
-import auth from '@react-native-firebase/auth';
 import analytics from '@react-native-firebase/analytics';
-import database from '@react-native-firebase/database';
 
-export default createMaterialTopTabNavigator(
-    {
-        Common: { screen: Common },
-        Followers: { screen: Followers },
-        Followings: { screen: Followings }
+
+// const FriendsScreen = ({ navigation }) => {
+export default createMaterialTopTabNavigator({
+
+    // return createMaterialTopTabNavigator({
+    // Common: {
+    //     screen: Common,
+    //     navigationOptions: ({ navigation }) => {
+    //         return {
+    //             headerShown: false,
+    //             title: 'Em comum'
+    //         };
+    //     },
+    // },
+    Followers: {
+        screen: FollowersScreen,
+        navigationOptions: ({ navigation }) => {
+            const { followersList } = navigation.state.params;
+            return {
+                headerShown: false,
+                title: `${followersList.length} Seguidores`
+            };
+        },
     },
+    Following: {
+        screen: FollowingScreen,
+        navigationOptions: ({ navigation }) => {
+            const { followingList } = navigation.state.params;
+            return {
+                headerShown: false,
+                title: `${followingList.length} Seguindo`
+            };
+        },
+    }
+},
     {
-        initialRouteName: 'Followers',
-        backBehavior: 'initialRoute',
-        tabBarPosition: 'bottom',
+        // initialRouteName: 'Followers',
+        // backBehavior: 'initialRoute',
+        tabBarPosition: 'top',
         swipeEnabled: true,
         animationEnabled: true,
         lazy: true,
@@ -39,4 +66,7 @@ export default createMaterialTopTabNavigator(
             scrollEnabled: true,
         }
     },
-);
+)
+
+// };
+// export default FriendsScreen;

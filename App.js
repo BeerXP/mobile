@@ -25,9 +25,6 @@ import SignUp from "./src/components/SignUp";
 import Login from "./src/components/screens/Login";
 import ProfileEditScreen from "./src/components/Profile/ProfileEditScreen";
 
-import Followers from './src/components/Friends/Followers';
-import Followings from './src/components/Friends/Followers';
-
 import FriendsScreen from "./src/components/Friends/FriendsScreen";
 
 const getTabBarIcon = (navigation, focused, tintColor) => {
@@ -52,35 +49,13 @@ const getTabBarIcon = (navigation, focused, tintColor) => {
   return <IconComponent name={iconName} size={25} color={tintColor} />;
 };
 
-// const FriendsStack = createStackNavigator(
-//   {
-//     Friends: {
-//       screen: FriendsScreen,
-//       navigationOptions: ({ navigation }) => {
-//         return {
-//           header: null,
-//         };
-//       },
-//     }
-
-//   },
-//   {
-//     tabBarPosition: 'top',
-//     swipeEnabled: true,
-//     animationEnabled: true,
-//     activeTintColor: COLOR_PRIMARY,
-//     inactiveTintColor: 'gray',
-//     pressColor: COLOR_SECONDARY,
-
-//   });;
-
 const ProfileStack = createStackNavigator(
   {
     ProfileHome: {
       screen: ProfileTab,
       navigationOptions: ({ navigation }) => {
         return {
-          header: null,
+          headerShown: false,
         };
       },
     },
@@ -88,7 +63,7 @@ const ProfileStack = createStackNavigator(
       screen: ProfileEditScreen,
       navigationOptions: ({ navigation }) => {
         return {
-          header: null,
+          headerShown: false,
         };
       },
     },
@@ -96,7 +71,12 @@ const ProfileStack = createStackNavigator(
       screen: FriendsScreen,
       navigationOptions: ({ navigation }) => {
         return {
-          header: null,
+          headerShown: true,
+          title: 'Amigos',
+          headerTintColor: 'white',
+          headerStyle: {
+            backgroundColor: COLOR_PRIMARY,
+          },
         };
       },
     }
@@ -125,18 +105,6 @@ const AppTabNavigator = createBottomTabNavigator(
     },
   }
 );
-
-// const AppStack = createDrawerNavigator(
-//   {
-//     Item1: {
-//       screen: stackNav
-//     }
-//   },
-//   {
-//     contentComponent: SideMenu,
-//     drawerWidth: Dimensions.get("window").width - 80
-//   }
-// );
 
 const AuthStack = createStackNavigator(
   {

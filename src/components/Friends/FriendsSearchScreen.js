@@ -10,16 +10,7 @@ const FriendsSearchScreen = ({ navigation }) => {
 
     const [isLoading, setIsLoading] = useState(true);
     const [search, setSearch] = useState("");
-    const [list, setList] = useState([{
-        name: 'Amy Farha',
-        avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
-        subtitle: 'Vice President'
-    },
-    {
-        name: 'Chris Jackson',
-        avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
-        subtitle: 'Vice Chairman'
-    }]);
+    const [list, setList] = useState([]);
 
 
     useEffect(() => {
@@ -41,7 +32,7 @@ const FriendsSearchScreen = ({ navigation }) => {
         // Fetch the data snapshot
         const snapshot = await ref.once('value');
 
-        console.log('User data: ', snapshot.val());
+        // console.log('User data: ', snapshot.val());
 
         // Create our own array of games in order
         snapshot.forEach(user => {

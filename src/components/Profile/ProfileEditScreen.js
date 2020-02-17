@@ -73,7 +73,7 @@ const ProfileEditScreen = ({ navigation }) => {
  * The second arg is the callback which sends object: response (more info in the API Reference)
  */
     ImagePicker.showImagePicker(options, (response) => {
-      console.log('Response = ', response);
+      // console.log('Response = ', response);
 
       if (response.didCancel) {
         console.log('User cancelled image picker');

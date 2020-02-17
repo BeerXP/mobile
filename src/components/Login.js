@@ -46,7 +46,7 @@ const Login = ({ navigation }) => {
           method: 'email',
         });
         if (credential) {
-          console.log("default app user ->", credential.user.toJSON());
+          // console.log("default app user ->", credential.user.toJSON());
         }
         // Clear out the fields when the user logs in and hide the progress indicator.
         setEmail("");
