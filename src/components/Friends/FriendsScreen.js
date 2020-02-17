@@ -9,7 +9,7 @@ import { createMaterialTopTabNavigator } from 'react-navigation-tabs';
 import {
     COLOR_PRIMARY,
     COLOR_SECONDARY
-} from "./../styles/common";
+} from "../styles/common";
 
 // import Common from './FollowersScreen';
 import FollowingScreen from './FollowingScreen';
@@ -17,8 +17,9 @@ import FollowersScreen from './FollowersScreen';
 
 import analytics from '@react-native-firebase/analytics';
 
-
 // const FriendsScreen = ({ navigation }) => {
+
+// return createMaterialTopTabNavigator({
 export default createMaterialTopTabNavigator({
 
     // return createMaterialTopTabNavigator({
@@ -34,7 +35,7 @@ export default createMaterialTopTabNavigator({
     Followers: {
         screen: FollowersScreen,
         navigationOptions: ({ navigation }) => {
-            const { followersList } = navigation.state.params;
+            const { followersList, followingList } = navigation.state.params;
             return {
                 headerShown: false,
                 title: `${followersList.length} Seguidores`
@@ -44,7 +45,7 @@ export default createMaterialTopTabNavigator({
     Following: {
         screen: FollowingScreen,
         navigationOptions: ({ navigation }) => {
-            const { followingList } = navigation.state.params;
+            const { followingList, followersList } = navigation.state.params;
             return {
                 headerShown: false,
                 title: `${followingList.length} Seguindo`
@@ -58,7 +59,7 @@ export default createMaterialTopTabNavigator({
         tabBarPosition: 'top',
         swipeEnabled: true,
         animationEnabled: true,
-        lazy: true,
+        // lazy: true,
         tabBarOptions: {
             activeTintColor: 'white',
             inactiveTintColor: 'gray',
@@ -67,6 +68,5 @@ export default createMaterialTopTabNavigator({
         }
     },
 )
-
 // };
 // export default FriendsScreen;

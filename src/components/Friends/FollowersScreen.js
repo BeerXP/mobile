@@ -19,100 +19,33 @@ const FollowersScreen = ({ navigation }) => {
     const [user] = useState(auth().currentUser);
     const [errorMessage, setErrorMessage] = useState("");
     const [followersUsers, setFollowersUsers] = useState([]);
-    const [users, setUsers] = useState([]);
 
     useEffect(() => {
         analytics().setCurrentScreen("FollowersView");
 
         setIsLoading(true);
 
-        const { followersList } = navigation.state.params;
-        console.log("FollowersList", followersList);
+        const { followersList, followingList } = navigation.state.params;
 
-        // // Using an IIFE
-        // (async function getFollowers() {
-
-        //     const userDocRef = firestore()
-        //         .collection('Users')
-        //         .doc(user.uid);
-
-        //     const files = await firebase
-        //         .firestore()
-        //         .collection('Users')
-        //         .where('category', '==', userDocRef)
-        //         .get();
-        // })
-
-        // Using an IIFE
-        (async function getFollowers() {
-            const userFriends = await firestore()
-                .doc(`Users/${user.uid}`)
-                // .collection('followers')
-                .get();
-
-            // console.log('Followers', userFriends.get('followers'));
-
-            userFriends.get('followers')
-                .then(res => {
-                    setUsers([]);
-
-                    // console.log("Seguidores:", res._data);
-
-
-
-                    // const unsubscribe = res.data().followers
-                    //     // .orderBy('name')
-                    //     .onSnapshot((querySnapshot) => {
-                    //         // Add users into an array
-                    //         const users = querySnapshot.docs.map((documentSnapshot) => {
-                    //             return {
-                    //                 ...documentSnapshot.data(),
-                    //                 key: documentSnapshot.id, // required for FlatList
-                    //             };
-                    //         });
-
-                    //         // Update state with the users array
-                    //         setFollowersUsers(users);
-
-                    //         // As this can trigger multiple times, only update loading after the first update
-                    //         if (isLoading) {
-                    //             setIsLoading(false);
-                    //         }
-                    //     });
-
-                    // return () => unsubscribe(); // Stop listening for updates whenever the component unmounts
-
-
-
-
-                    res._data.followers.map((item, key) => {
-                        item.get().then(followersUsersList => {
-                            users.push(followersUsersList._data);
-                        });
-                    });
-                    setIsLoading(false);
-                });;
-        })();
-
-        // firestore()
-        //     .doc(`Users/${user.uid}`)
-        //     .get().then(res => {
-        //         res._data.followers.map((item, key) => {
-        //             item.get().then(followersUsersList => {
-        //                 users.push(followersUsersList._data);
-        //             });
-        //         });
-        //         setIsLoading(false);
-        //     });
-
-        // while (isLoading);
-
-        // Update state with the users array
-        setFollowersUsers(users);
-
-        // setIsLoading(false);
+        followersList.map((item, key) => {
+            item.get().then(followersUsersList => {
+                followersUsers.push(followersUsersList.data());
+            });
+            setFollowersUsers(followersUsers);
+            setIsLoading(false);
+        });
 
     }, []);
+
+    let renderItem = ({ item }) => (
+        <ListItem
+            leftAvatar={{ source: { uri: item.photoURL } }}
+            title={item.name}
+            subtitle={item.email}
+            rightIcon={<Icons name="account-plus" color="green" size={32} />}
+            bottomDivider
+        />
+    )
 
     return (
         <View style={{ flex: 1, backgroundColor: 'white' }}>
@@ -125,18 +58,11 @@ const FollowersScreen = ({ navigation }) => {
                 showLoading={isLoading}
             />
             <SafeAreaView style={styles.container}>
-                {
-                    followersUsers.map((followUser, i) => (
-                        <ListItem
-                            key={i}
-                            leftAvatar={{ source: { uri: followUser.photoURL } }}
-                            title={followUser.name}
-                            subtitle={followUser.email}
-                            rightIcon={<Icons name="account-plus" color="green" size={32} />}
-                            bottomDivider
-                        />
-                    ))
-                }
+                <FlatList
+                    keyExtractor={item => item.uid}
+                    data={followersUsers}
+                    renderItem={renderItem}
+                />
             </SafeAreaView>
         </View>
     );

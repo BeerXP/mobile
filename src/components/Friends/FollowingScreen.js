@@ -13,47 +13,39 @@ import auth from '@react-native-firebase/auth';
 import analytics from '@react-native-firebase/analytics';
 import firestore from '@react-native-firebase/firestore';
 
-const Following = ({ navigation }) => {
+const FollowingScreen = ({ navigation }) => {
 
     const [isLoading, setIsLoading] = useState(false);
     const [user] = useState(auth().currentUser);
     const [errorMessage, setErrorMessage] = useState("");
     const [followingUsers, setFollowingUsers] = useState([]);
-    const [users, setUsers] = useState([]);
 
     useEffect(() => {
         analytics().setCurrentScreen("FollowingView");
 
         setIsLoading(true);
 
-        firestore()
-            .collection('Users')
-            .doc(user.uid)
-            .get()
-            .then(doc => {
-                setUsers([]);
-                setUsers(doc._data.following);
+        const { followingList, followersList } = navigation.state.params;
+
+        followingList.map((item, key) => {
+            item.get().then(followingUserList => {
+                followingUsers.push(followingUserList.data());
             });
-
-        // console.log(users);
-
-        let aux = []
-
-        users.forEach(function (key, index) {
-            // setFollowersUsers(...followingUsers, key.get())
-            key.get().then(res => {
-                // console.log(res._data);
-                aux.push(res._data);
-            });
-
+            setFollowingUsers(followingUsers);
+            setIsLoading(false);
         });
 
-        setFollowingUsers(aux);
-        // console.log(followingUsers);
-
-        setIsLoading(false);
-
     }, []);
+
+    let renderItem = ({ item }) => (
+        <ListItem
+            leftAvatar={{ source: { uri: item.photoURL } }}
+            title={item.name}
+            subtitle={item.email}
+            rightIcon={<Icons name="account-minus" color="green" size={32} />}
+            bottomDivider
+        />
+    )
 
     return (
         <View style={{ flex: 1, backgroundColor: 'white' }}>
@@ -66,24 +58,17 @@ const Following = ({ navigation }) => {
                 showLoading={isLoading}
             />
             <SafeAreaView style={styles.container}>
-                {
-                    followingUsers.map((followUser, i) => (
-                        <ListItem
-                            key={i}
-                            leftAvatar={{ source: { uri: followUser.photoURL } }}
-                            title={followUser.name}
-                            subtitle={followUser.email}
-                            rightIcon={<Icons name="account-plus" color="green" size={32} />}
-                            bottomDivider
-                        />
-                    ))
-                }
+                <FlatList
+                    keyExtractor={item => item.uid}
+                    data={followingUsers}
+                    renderItem={renderItem}
+                />
             </SafeAreaView>
         </View >
     );
 
 }
-export default Following;
+export default FollowingScreen;
 
 const styles = StyleSheet.create({
     container: {

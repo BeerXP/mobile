@@ -24,7 +24,6 @@ import LoadingScreen from "./src/components/LoadingScreen";
 import SignUp from "./src/components/SignUp";
 import Login from "./src/components/screens/Login";
 import ProfileEditScreen from "./src/components/Profile/ProfileEditScreen";
-
 import FriendsScreen from "./src/components/Friends/FriendsScreen";
 
 const getTabBarIcon = (navigation, focused, tintColor) => {

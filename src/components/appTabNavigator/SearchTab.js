@@ -48,6 +48,16 @@ const SearchTab = ({ navigation }) => {
 
     }, [searchName]);
 
+    let renderItem = ({ item }) => (
+        <ListItem
+            leftAvatar={{ source: { uri: item.photoURL } }}
+            title={item.name}
+            subtitle={item.email}
+            rightIcon={<Icons name="account-plus" color="green" size={32} />}
+            bottomDivider
+        />
+    )
+
     return (
         <SafeAreaView style={styles.container}>
             <SearchBar
@@ -59,7 +69,12 @@ const SearchTab = ({ navigation }) => {
                 showLoading={isLoading}
             />
             <View>
-                {
+                <FlatList
+                    keyExtractor={item => item.id}
+                    data={list}
+                    renderItem={renderItem}
+                />
+                {/* {
                     list.map((user, i) => (
                         <ListItem
                             key={i}
@@ -70,7 +85,7 @@ const SearchTab = ({ navigation }) => {
                             bottomDivider
                         />
                     ))
-                }
+                } */}
             </View>
         </SafeAreaView>);
 }

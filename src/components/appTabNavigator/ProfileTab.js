@@ -82,17 +82,17 @@ const ProfileTab = ({ navigation }) => {
                         </View>
                         <View style={{ flex: 3 }}>
                             <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
-                                {/* <TouchableOpacity onPress={() => navigation.navigate('Common', { count: '0' })}>
+                                <TouchableOpacity onPress={() => navigation.navigate('Common', { count: '0' })}>
                                     <View style={{ alignItems: 'center' }} >
                                         <Text>{drinkins.length}</Text><Text style={{ fontSize: 10, color: 'gray' }}>Posts</Text>
                                     </View>
-                                </TouchableOpacity> */}
-                                <TouchableOpacity onPress={() => navigation.navigate('Followers', { followersList: followers })}>
+                                </TouchableOpacity>
+                                <TouchableOpacity onPress={() => navigation.navigate('Followers', { followersList: followers, followingList: following })}>
                                     <View style={{ alignItems: 'center' }}>
                                         <Text>{followers.length}</Text><Text style={{ fontSize: 10, color: 'gray' }}>Seguidores</Text>
                                     </View>
                                 </TouchableOpacity>
-                                <TouchableOpacity onPress={() => navigation.navigate('Following', { followingList: following })}>
+                                <TouchableOpacity onPress={() => navigation.navigate('Following', { followingList: following, followersList: followers })}>
                                     <View style={{ alignItems: 'center' }} >
                                         <Text>{following.length}</Text><Text style={{ fontSize: 10, color: 'gray' }}>Seguindo</Text>
                                     </View>
