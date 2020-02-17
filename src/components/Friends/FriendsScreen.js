@@ -44,13 +44,13 @@ export default createMaterialTopTabNavigator({
     },
     Following: {
         screen: FollowingScreen,
-        navigationOptions: ({ navigation }) => {
-            const { followingList, followersList } = navigation.state.params;
-            return {
-                headerShown: false,
-                title: `${followingList.length} Seguindo`
-            };
-        },
+        // navigationOptions: ({ navigation }) => {
+        //     const { followingList, followersList } = navigation.state.params;
+        //     return {
+        //         headerShown: false,
+        //         title: `${followingList.length} Seguindo`
+        //     };
+        // },
     }
 },
     {

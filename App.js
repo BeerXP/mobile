@@ -71,7 +71,8 @@ const ProfileStack = createStackNavigator(
       navigationOptions: ({ navigation }) => {
         return {
           headerShown: true,
-          title: 'Amigos',
+          headerBackTitle: "Profile",
+          headerTitle: "Amigos",
           headerTintColor: 'white',
           headerStyle: {
             backgroundColor: COLOR_PRIMARY,

@@ -25,15 +25,15 @@ const FollowingScreen = ({ navigation }) => {
 
         setIsLoading(true);
 
-        const { followingList, followersList } = navigation.state.params;
+        // const { followingList, followersList } = navigation.state.params;
 
-        followingList.map((item, key) => {
-            item.get().then(followingUserList => {
-                followingUsers.push(followingUserList.data());
-            });
-            setFollowingUsers(followingUsers);
-            setIsLoading(false);
-        });
+        // followingList.map((item, key) => {
+        //     item.get().then(followingUserList => {
+        //         followingUsers.push(followingUserList.data());
+        //     });
+        //     setFollowingUsers(followingUsers);
+        //     setIsLoading(false);
+        // });
 
     }, []);
 
