@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import { View, SafeAreaView, Text, StyleSheet } from "react-native";
 import { Avatar, Divider, Card, Button, Icon, Image, Header } from "react-native-elements";
 import Icons from 'react-native-vector-icons/FontAwesome';
 
 // import ViewPagerAdapter from 'react-native-tab-view-viewpager-adapter';
-import { createMaterialTopTabNavigator } from 'react-navigation-tabs';
+import { createMaterialTopTabNavigator } from "react-navigation-tabs";
 
 import {
     COLOR_PRIMARY,
@@ -15,12 +15,25 @@ import {
 import FollowingScreen from './FollowingScreen';
 import FollowersScreen from './FollowersScreen';
 
-import analytics from '@react-native-firebase/analytics';
+import auth from "@react-native-firebase/auth";
+import analytics from "@react-native-firebase/analytics";
+import firestore from "@react-native-firebase/firestore";
 
-// const FriendsScreen = ({ navigation }) => {
 
-// return createMaterialTopTabNavigator({
-export default createMaterialTopTabNavigator({
+
+function getFollowers() {
+    firestore()
+        .collection('Users')
+        .doc(auth().currentUser.uid)
+        .get()
+        .then(doc => {
+            console.log("Followers:", doc.data().followers.length);
+            return doc.data().followers.length;
+        });
+}
+
+const FriendsScreen = createMaterialTopTabNavigator({
+    // export default createMaterialTopTabNavigator({
 
     // return createMaterialTopTabNavigator({
     // Common: {
@@ -35,22 +48,24 @@ export default createMaterialTopTabNavigator({
     Followers: {
         screen: FollowersScreen,
         navigationOptions: ({ navigation }) => {
-            const { followersList, followingList } = navigation.state.params;
+            // console.log("Navigation Followers:", navigation.state.params);
+            // const { followersList, followingList } = navigation.state.params;
             return {
                 headerShown: false,
-                title: `${followersList.length} Seguidores`
+                title: `${getFollowers()} Seguidores`
             };
         },
     },
     Following: {
         screen: FollowingScreen,
-        // navigationOptions: ({ navigation }) => {
-        //     const { followingList, followersList } = navigation.state.params;
-        //     return {
-        //         headerShown: false,
-        //         title: `${followingList.length} Seguindo`
-        //     };
-        // },
+        navigationOptions: ({ navigation }) => {
+            console.log("Navigation Folowing:", navigation.state.params);
+            // const { followingList, followersList } = navigation.state.params;
+            return {
+                headerShown: false,
+                // title: `${followingList.length} Seguindo`
+            };
+        },
     }
 },
     {
@@ -59,7 +74,7 @@ export default createMaterialTopTabNavigator({
         tabBarPosition: 'top',
         swipeEnabled: true,
         animationEnabled: true,
-        // lazy: true,
+        lazy: true,
         tabBarOptions: {
             activeTintColor: 'white',
             inactiveTintColor: 'gray',
@@ -67,6 +82,6 @@ export default createMaterialTopTabNavigator({
             scrollEnabled: true,
         }
     },
-)
-// };
-// export default FriendsScreen;
+);
+
+export default FriendsScreen;

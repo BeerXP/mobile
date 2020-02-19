@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import { View, SafeAreaView, FlatList, StyleSheet } from "react-native";
 import { Avatar, Divider, Card, Button, Icon, Image, Header, ListItem, SearchBar } from "react-native-elements";
 
@@ -9,9 +9,9 @@ import {
     COLOR_SECONDARY
 } from "../styles/common";
 
-import auth from '@react-native-firebase/auth';
-import analytics from '@react-native-firebase/analytics';
-import firestore from '@react-native-firebase/firestore';
+import auth from "@react-native-firebase/auth";
+import analytics from "@react-native-firebase/analytics";
+import firestore from "@react-native-firebase/firestore";
 
 const FollowersScreen = ({ navigation }) => {
 
@@ -24,16 +24,17 @@ const FollowersScreen = ({ navigation }) => {
         analytics().setCurrentScreen("FollowersView");
 
         setIsLoading(true);
+        // setFollowersUsers([]);
 
-        const { followersList, followingList } = navigation.state.params;
+        // const { followersList, followingList } = navigation.state.params;
 
-        followersList.map((item, key) => {
-            item.get().then(followersUsersList => {
-                followersUsers.push(followersUsersList.data());
-            });
-            setFollowersUsers(followersUsers);
-            setIsLoading(false);
-        });
+        // followersList.map((item, key) => {
+        //     item.get().then(followersUsersList => {
+        //         followersUsers.push(followersUsersList.data());
+        //     });
+        //     // setFollowersUsers(followersUsers);
+        //     setIsLoading(false);
+        // });
 
     }, []);
 

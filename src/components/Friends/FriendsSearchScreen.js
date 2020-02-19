@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import { SafeAreaView, View, StyleSheet } from "react-native";
 import { Avatar, Divider, Card, Button, Icon, ListItem, SearchBar } from "react-native-elements";
 import Icons from 'react-native-vector-icons/FontAwesome';
 
-import analytics from '@react-native-firebase/analytics';
-import database from '@react-native-firebase/database';
+import analytics from "@react-native-firebase/analytics";
+import database from "@react-native-firebase/database";
 
 const FriendsSearchScreen = ({ navigation }) => {
 

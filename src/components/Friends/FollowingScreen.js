@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import { View, SafeAreaView, FlatList, StyleSheet } from "react-native";
 import { Avatar, Divider, Card, Button, Icon, Image, Header, ListItem, SearchBar } from "react-native-elements";
 
@@ -9,9 +9,9 @@ import {
     COLOR_SECONDARY
 } from "../styles/common";
 
-import auth from '@react-native-firebase/auth';
-import analytics from '@react-native-firebase/analytics';
-import firestore from '@react-native-firebase/firestore';
+import auth from "@react-native-firebase/auth";
+import analytics from "@react-native-firebase/analytics";
+import firestore from "@react-native-firebase/firestore";
 
 const FollowingScreen = ({ navigation }) => {
 
@@ -31,7 +31,7 @@ const FollowingScreen = ({ navigation }) => {
         //     item.get().then(followingUserList => {
         //         followingUsers.push(followingUserList.data());
         //     });
-        //     setFollowingUsers(followingUsers);
+        //     // setFollowingUsers(followingUsers);
         //     setIsLoading(false);
         // });
 
@@ -42,7 +42,7 @@ const FollowingScreen = ({ navigation }) => {
             leftAvatar={{ source: { uri: item.photoURL } }}
             title={item.name}
             subtitle={item.email}
-            rightIcon={<Icons name="account-minus" color="green" size={32} />}
+            rightIcon={<Icons name="account-minus" color="red" size={32} />}
             bottomDivider
         />
     )

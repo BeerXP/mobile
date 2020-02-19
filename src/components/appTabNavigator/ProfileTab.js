@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import {
     TouchableOpacity,
     SafeAreaView,
@@ -17,9 +17,9 @@ import {
     COLOR_SECONDARY
 } from "./../styles/common";
 
-import auth from '@react-native-firebase/auth';
-import analytics from '@react-native-firebase/analytics';
-import firestore from '@react-native-firebase/firestore';
+import auth from "@react-native-firebase/auth";
+import analytics from "@react-native-firebase/analytics";
+import firestore from "@react-native-firebase/firestore";
 
 const ProfileTab = ({ navigation }) => {
 

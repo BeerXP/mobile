@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import { SafeAreaView, View, StyleSheet, FlatList, Text } from "react-native";
 import { Avatar, Divider, Card, Button, Icon, ListItem, SearchBar } from "react-native-elements";
 
 import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import analytics from '@react-native-firebase/analytics';
-import firestore from '@react-native-firebase/firestore';
+import analytics from "@react-native-firebase/analytics";
+import firestore from "@react-native-firebase/firestore";
 
 const SearchTab = ({ navigation }) => {
 

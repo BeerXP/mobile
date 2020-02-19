@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   ImageBackground,
@@ -15,8 +15,8 @@ import ImagePicker from 'react-native-image-picker';
 
 import { COLOR_PRIMARY, COLOR_SECONDARY } from "../styles/common";
 
-import auth from '@react-native-firebase/auth';
-import analytics from '@react-native-firebase/analytics';
+import auth from "@react-native-firebase/auth";
+import analytics from "@react-native-firebase/analytics";
 
 // More info on all the options is below in the API Reference... just some common use cases shown here
 const options = {
@@ -53,7 +53,7 @@ const ProfileEditScreen = ({ navigation }) => {
     user.updateProfile({
       displayName: name,
       email: email,
-      photoURL: image
+      photoURL: image,
     })
       .then(() => {
         // Update successful.

@@ -6,7 +6,7 @@ import {
 
 import { createStackNavigator } from "react-navigation-stack";
 import { createBottomTabNavigator } from "react-navigation-tabs";
-import { createMaterialTopTabNavigator } from 'react-navigation-tabs';
+// import { createMaterialTopTabNavigator } from 'react-navigation-tabs';
 
 import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
 
@@ -71,7 +71,7 @@ const ProfileStack = createStackNavigator(
       navigationOptions: ({ navigation }) => {
         return {
           headerShown: true,
-          headerBackTitle: "Profile",
+          headerBackTitle: 'Profile',
           headerTitle: "Amigos",
           headerTintColor: 'white',
           headerStyle: {

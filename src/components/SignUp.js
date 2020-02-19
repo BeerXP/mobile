@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   Image,
@@ -13,9 +13,9 @@ import LinearGradient from "react-native-linear-gradient";
 
 import { COLOR_PRIMARY, COLOR_SECONDARY } from "./styles/common";
 
-import auth from '@react-native-firebase/auth';
-import analytics from '@react-native-firebase/analytics';
-import database from '@react-native-firebase/database';
+import auth from "@react-native-firebase/auth";
+import analytics from "@react-native-firebase/analytics";
+import database from "@react-native-firebase/database";
 
 const SignUp = ({ navigation }) => {
   const [name, setName] = useState("");

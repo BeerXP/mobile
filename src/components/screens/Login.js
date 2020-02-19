@@ -7,9 +7,9 @@ import { TapGestureHandler, State } from 'react-native-gesture-handler';
 
 import { AccessToken, LoginManager } from "react-native-fbsdk";
 
-import { firebase } from '@react-native-firebase/auth';
-import auth from '@react-native-firebase/auth';
-import analytics from '@react-native-firebase/analytics';
+import { firebase } from "@react-native-firebase/auth";
+import auth from "@react-native-firebase/auth";
+import analytics from "@react-native-firebase/analytics";
 
 const { width, height } = Dimensions.get('window');
 

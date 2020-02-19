@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import { Text, View, StyleSheet } from "react-native";
 import { Avatar, Divider, Card, Button, Icon } from "react-native-elements";
 import Icons from 'react-native-vector-icons/FontAwesome';
 
-import auth from '@react-native-firebase/auth';
-import analytics from '@react-native-firebase/analytics';
+import auth from "@react-native-firebase/auth";
+import analytics from "@react-native-firebase/analytics";
+
 import { AccessToken, LoginManager } from "react-native-fbsdk";
 
 const ProfileScreen = ({ navigation }) => {

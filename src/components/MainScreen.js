@@ -4,8 +4,8 @@ import { Avatar, Divider, Card, Button, Icon, ListItem, SearchBar } from "react-
 import Icons from 'react-native-vector-icons/FontAwesome';
 
 // import firebase from "@react-native-firebase/app";
-import auth from '@react-native-firebase/auth';
-import analytics from '@react-native-firebase/analytics';
+import auth from "@react-native-firebase/auth";
+import analytics from "@react-native-firebase/analytics";
 
 class MainScreen extends Component {
   constructor() {

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   Image,
@@ -14,10 +14,10 @@ import LinearGradient from "react-native-linear-gradient";
 
 import { AccessToken, LoginManager } from "react-native-fbsdk";
 
-import { firebase } from '@react-native-firebase/auth';
-import auth from '@react-native-firebase/auth';
-import analytics from '@react-native-firebase/analytics';
-import database from '@react-native-firebase/database';
+import { firebase } from "@react-native-firebase/auth";
+import auth from "@react-native-firebase/auth";
+import analytics from "@react-native-firebase/analytics";
+import database from "@react-native-firebase/database";
 
 import { COLOR_PRIMARY, COLOR_SECONDARY } from "./styles/common";
 
@@ -73,7 +73,7 @@ const Login = ({ navigation }) => {
       .catch(error => {
         // Leave the fields filled when an error occurs and hide the progress indicator.
         setErrorMessage(error.message);
-      }).finally(() => setIsLoading(false));;
+      }).finally(() => setIsLoading(false));
     console.log("resetPassowrd");
   };
 

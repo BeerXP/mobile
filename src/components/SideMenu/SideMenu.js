@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import { NavigationActions } from "react-navigation";
 import {
   TouchableOpacity,
@@ -12,8 +12,7 @@ import {
 import { Button, Icon, Avatar } from "react-native-elements";
 import styles from "./SideMenu.style";
 
-import auth from '@react-native-firebase/auth';
-import firebase from "@react-native-firebase/app";
+import auth from "@react-native-firebase/auth";
 
 const SideMenu = ({ navigation }) => {
 
