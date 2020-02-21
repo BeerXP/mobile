@@ -5,6 +5,8 @@
 [![Build Status](https://travis-ci.com/BeerXP/mobile.svg?branch=master)](https://travis-ci.com/BeerXP/mobile)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/d74c426e21f44e74bbf0afaed84d253d)](https://www.codacy.com/app/BeerXP/mobile?utm_source=github.com&utm_medium=referral&utm_content=BeerXP/mobile&utm_campaign=Badge_Grade)
 [![code factor](https://www.codefactor.io/repository/github/beerxp/mobile/badge?style=flat-square)](https://www.codefactor.io/repository/github/beerxp/mobile/badge?style=flat-square)
+[![Maintainability](https://api.codeclimate.com/v1/badges/67f8d6dbe9f77d3a94e6/maintainability)](https://codeclimate.com/github/BeerXP/mobile/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/67f8d6dbe9f77d3a94e6/test_coverage)](https://codeclimate.com/github/BeerXP/mobile/test_coverage)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 
 <a href='https://play.google.com/store/apps/details?id=com.thebeerxp.android&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png'/></a>

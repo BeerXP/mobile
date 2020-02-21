@@ -1,0 +1,12 @@
+plugins:
+
+  nodesecurity:
+    enabled: true
+
+  fixme:
+    enabled: true
+    
+  eslint:
+    enabled: true
+    config:
+      config: .eslintrc.js

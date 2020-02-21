@@ -87,12 +87,12 @@ const ProfileTab = ({ navigation }) => {
                                         <Text>{drinkins.length}</Text><Text style={{ fontSize: 10, color: 'gray' }}>Posts</Text>
                                     </View>
                                 </TouchableOpacity>
-                                <TouchableOpacity onPress={() => navigation.navigate('Followers', { followersList: followers, followingList: following })}>
+                                <TouchableOpacity onPress={() => navigation.navigate('Friends')}>
                                     <View style={{ alignItems: 'center' }}>
                                         <Text>{followers.length}</Text><Text style={{ fontSize: 10, color: 'gray' }}>Seguidores</Text>
                                     </View>
                                 </TouchableOpacity>
-                                <TouchableOpacity onPress={() => navigation.navigate('Following', { followingList: following, followersList: followers })}>
+                                <TouchableOpacity onPress={() => navigation.navigate('Friends')}>
                                     <View style={{ alignItems: 'center' }} >
                                         <Text>{following.length}</Text><Text style={{ fontSize: 10, color: 'gray' }}>Seguindo</Text>
                                     </View>
