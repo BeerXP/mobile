@@ -49,13 +49,13 @@ const ProfileTab = ({ navigation }) => {
 
     }, []);
 
-    handleLogout = () => {
-        // TODO: Firebase stuff...
-        auth()
-            .signOut()
-            .then(() => navigation.navigate("Loading"))
-            .catch(error => setErrorMessage(error.message));
-    };
+    // handleLogout(() => {
+    //     // TODO: Firebase stuff...
+    //     auth()
+    //         .signOut()
+    //         .then(() => navigation.navigate("Loading"))
+    //         .catch(error => setErrorMessage(error.message));
+    // });
 
     return (
         <View style={{ flex: 1, backgroundColor: 'white' }}>
@@ -65,7 +65,10 @@ const ProfileTab = ({ navigation }) => {
                     icon: 'account-plus', type: "material-community", color: '#fff'
                 }}
                 centerComponent={{ text: user.displayName, style: { color: '#fff' } }}
-                rightComponent={{ icon: 'sign-out', type: "font-awesome", color: '#fff', onPress: handleLogout }}>
+                rightComponent={{
+                    icon: 'sign-out', type: "font-awesome", color: '#fff',
+                    //  onPress: handleLogout() 
+                }}>
             </Header>
             <SafeAreaView >
                 <View style={{ paddingTop: 10 }}>
@@ -87,12 +90,12 @@ const ProfileTab = ({ navigation }) => {
                                         <Text>{drinkins.length}</Text><Text style={{ fontSize: 10, color: 'gray' }}>Posts</Text>
                                     </View>
                                 </TouchableOpacity>
-                                <TouchableOpacity onPress={() => navigation.navigate('Friends')}>
+                                <TouchableOpacity onPress={() => navigation.navigate('Friends', { activeTab: 'Followers' })}>
                                     <View style={{ alignItems: 'center' }}>
                                         <Text>{followers.length}</Text><Text style={{ fontSize: 10, color: 'gray' }}>Seguidores</Text>
                                     </View>
                                 </TouchableOpacity>
-                                <TouchableOpacity onPress={() => navigation.navigate('Friends')}>
+                                <TouchableOpacity onPress={() => navigation.navigate('Friends', { activeTab: 'Following' })}>
                                     <View style={{ alignItems: 'center' }} >
                                         <Text>{following.length}</Text><Text style={{ fontSize: 10, color: 'gray' }}>Seguindo</Text>
                                     </View>

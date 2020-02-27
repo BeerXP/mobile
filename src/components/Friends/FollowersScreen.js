@@ -13,37 +13,69 @@ import auth from "@react-native-firebase/auth";
 import analytics from "@react-native-firebase/analytics";
 import firestore from "@react-native-firebase/firestore";
 
-const FollowersScreen = ({ navigation }) => {
+const FollowersScreen = ({ route, navigation }) => {
 
     const [isLoading, setIsLoading] = useState(false);
     const [user] = useState(auth().currentUser);
     const [errorMessage, setErrorMessage] = useState("");
     const [followersUsers, setFollowersUsers] = useState([]);
+    const [followingUsers, setFollowingUsers] = useState([]);
 
     useEffect(() => {
         analytics().setCurrentScreen("FollowersView");
 
         setIsLoading(true);
-        // setFollowersUsers([]);
+        setFollowersUsers([]);
 
-        // const { followersList, followingList } = navigation.state.params;
+        firestore()
+            .collection('Users')
+            .doc(user.uid)
+            .get()
+            .then(doc => {
+                let followers = doc.data().followers;
+                let following = doc.data().following;
 
-        // followersList.map((item, key) => {
-        //     item.get().then(followersUsersList => {
-        //         followersUsers.push(followersUsersList.data());
-        //     });
-        //     // setFollowersUsers(followersUsers);
-        //     setIsLoading(false);
-        // });
+                followers.map((item, key) => {
+                    item.get().then(followersUsersList => {
+                        followersUsers.push(followersUsersList.data());
+                    });
+                    setFollowersUsers(followersUsers);
+                    setIsLoading(false);
+                });
+
+                following.map((item, key) => {
+                    item.get().then(followingUsersList => {
+                        followingUsers.push(followingUsersList.data());
+                    });
+                    setFollowingUsers(followingUsers);
+                });
+            });
 
     }, []);
+
+    addFollower = (item) => {
+        firestore()
+            .collection('Users')
+            .doc(user.uid)
+            .get()
+            .then(doc => {
+                doc.data().following.map((item, key) => {
+                    item.get().then(followingUserList => {
+                        followingUsers.push(followingUserList.data());
+                    });
+                    setFollowingUsers(followingUsers);
+                    setIsLoading(false);
+                });
+            });
+
+    }
 
     let renderItem = ({ item }) => (
         <ListItem
             leftAvatar={{ source: { uri: item.photoURL } }}
             title={item.name}
             subtitle={item.email}
-            rightIcon={<Icons name="account-plus" color="green" size={32} />}
+            rightIcon={followingUsers.find(param => param.uid == item.uid) ? null : < Icons name="account-plus" color="green" size={32} onPress={() => addFollower(item)} />}
             bottomDivider
         />
     )

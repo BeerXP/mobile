@@ -13,7 +13,7 @@ import auth from "@react-native-firebase/auth";
 import analytics from "@react-native-firebase/analytics";
 import firestore from "@react-native-firebase/firestore";
 
-const FollowingScreen = ({ navigation }) => {
+const FollowingScreen = ({ route, navigation }) => {
 
     const [isLoading, setIsLoading] = useState(false);
     const [user] = useState(auth().currentUser);
@@ -25,15 +25,19 @@ const FollowingScreen = ({ navigation }) => {
 
         setIsLoading(true);
 
-        // const { followingList, followersList } = navigation.state.params;
-
-        // followingList.map((item, key) => {
-        //     item.get().then(followingUserList => {
-        //         followingUsers.push(followingUserList.data());
-        //     });
-        //     // setFollowingUsers(followingUsers);
-        //     setIsLoading(false);
-        // });
+        firestore()
+            .collection('Users')
+            .doc(user.uid)
+            .get()
+            .then(doc => {
+                doc.data().following.map((item, key) => {
+                    item.get().then(followingUserList => {
+                        followingUsers.push(followingUserList.data());
+                    });
+                    setFollowingUsers(followingUsers);
+                    setIsLoading(false);
+                });
+            });
 
     }, []);
 

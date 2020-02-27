@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, ActivityIndicator, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 import auth from "@react-native-firebase/auth";
 
 const LoadingScreen = ({ navigation }) => {
@@ -21,8 +21,9 @@ const LoadingScreen = ({ navigation }) => {
 
   if (initilizing) return null;
 
-  return navigation.navigate(user !== null ? "App" : "Login");
+  navigation.navigate(user !== null ? 'App' : 'Login');
 
+  return null;
 }
 
 const styles = StyleSheet.create({
