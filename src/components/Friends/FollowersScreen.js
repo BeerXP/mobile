@@ -54,20 +54,14 @@ const FollowersScreen = ({ route, navigation }) => {
     }, []);
 
     addFollower = (item) => {
+        let friend = firestore().doc(`Users/${item.uid}`);
+
         firestore()
             .collection('Users')
             .doc(user.uid)
-            .get()
-            .then(doc => {
-                doc.data().following.map((item, key) => {
-                    item.get().then(followingUserList => {
-                        followingUsers.push(followingUserList.data());
-                    });
-                    setFollowingUsers(followingUsers);
-                    setIsLoading(false);
-                });
+            .update({
+                following: firestore.FieldValue.arrayUnion(friend)
             });
-
     }
 
     let renderItem = ({ item }) => (

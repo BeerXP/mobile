@@ -4,18 +4,35 @@ import { Avatar, Divider, Card, Button, Icon, ListItem, SearchBar } from "react-
 
 import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
 
+import auth from "@react-native-firebase/auth";
 import analytics from "@react-native-firebase/analytics";
 import firestore from "@react-native-firebase/firestore";
 
 const SearchTab = ({ navigation }) => {
 
     const [isLoading, setIsLoading] = useState(true);
+    const [user] = useState(auth().currentUser);
     const [searchName, setSearchName] = useState("");
+    const [followingUsers, setFollowingUsers] = useState([]);
     const [list, setList] = useState([]);
 
     useEffect(() => {
         analytics().setCurrentScreen("FriendsSearchView");
 
+        firestore()
+            .collection('Users')
+            .doc(user.uid)
+            .get()
+            .then(doc => {
+                let following = doc.data().following;
+
+                following.map((item, key) => {
+                    item.get().then(followingUsersList => {
+                        followingUsers.push(followingUsersList.data());
+                    });
+                    setFollowingUsers(followingUsers);
+                });
+            });
 
     }, []);
 
@@ -48,12 +65,23 @@ const SearchTab = ({ navigation }) => {
 
     }, [searchName]);
 
+    addFollower = (item) => {
+        let friend = firestore().doc(`Users/${item.uid}`);
+
+        firestore()
+            .collection('Users')
+            .doc(user.uid)
+            .update({
+                following: firestore.FieldValue.arrayUnion(friend)
+            });
+    }
+
     let renderItem = ({ item }) => (
         <ListItem
             leftAvatar={{ source: { uri: item.photoURL } }}
             title={item.name}
             subtitle={item.email}
-            rightIcon={<Icons name="account-plus" color="green" size={32} />}
+            rightIcon={followingUsers.find(param => param.uid == item.uid) ? null : item.uid == user.uid ? null : < Icons name="account-plus" color="green" size={32} onPress={() => addFollower(item)} />}
             bottomDivider
         />
     )
