@@ -67,7 +67,7 @@ function runTiming(clock, value, dest) {
 	]);
 }
 class Login extends Component {
-	//state object
+	// state object
 	state = {
 		isLoading: false,
 		isFacebookLoading: false,
@@ -158,7 +158,7 @@ class Login extends Component {
 		auth()
 			.signInWithEmailAndPassword(this.state.email, this.state.password)
 			.then(() => {
-				//Grava o evento de Login no Analytics
+				// Grava o evento de Login no Analytics
 				analytics().logLogin({
 					method: "email"
 				});
@@ -172,7 +172,7 @@ class Login extends Component {
 				this.setState({ email: "", password: "" });
 				// setEmail("");
 				// setPassword("");
-				//natigate to Main
+				// natigate to Main
 				navigation.navigate("Main");
 			})
 			.catch(error => {
@@ -222,7 +222,7 @@ class Login extends Component {
 				.signInWithCredential(credential)
 				.then(() => {
 					this.setState({ isFacebookLoading: true });
-					//Grava o evento de SignUp Facebook no Analytics
+					// Grava o evento de SignUp Facebook no Analytics
 					analytics().logLogin({
 						method: "facebook.com"
 					});
@@ -230,7 +230,7 @@ class Login extends Component {
 						method: "facebook.com"
 					});
 
-					//Navega para a tela principal
+					// Navega para a tela principal
 					navigation.navigate("Main");
 					// Clear out the fields when the user logs in and hide the progress indicator.
 				})

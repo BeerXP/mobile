@@ -6,7 +6,7 @@ const devConfig = {
   databaseURL: "DATABASE_URL",
   projectId: "PROJECT_ID",
   storageBucket: "STORAGE_BUCKET",
-  messagingSenderId: "MESSAGING_SENDER_ID"
+  messagingSenderId: "MESSAGING_SENDER_ID",
 };
 
 const prodConfig = {
@@ -15,7 +15,7 @@ const prodConfig = {
   databaseURL: "DATABASE_URL",
   projectId: "PROJECT_ID",
   storageBucket: "STORAGE_BUCKET",
-  messagingSenderId: "MESSAGING_SENDER_ID"
+  messagingSenderId: "MESSAGING_SENDER_ID",
 };
 
-export { devConfig, prodConfig };
+export {devConfig, prodConfig};

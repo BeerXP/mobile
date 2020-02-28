@@ -1,8 +1,8 @@
 export default class IconWithBadge extends React.Component {
     render() {
-        const { name, badgeCount, color, size } = this.props;
+        const {name, badgeCount, color, size} = this.props;
         return (
-            <View style={{ width: 24, height: 24, margin: 5 }}>
+            <View style={{width: 24, height: 24, margin: 5}}>
                 <Ionicons name={name} size={size} color={color} />
                 {badgeCount > 0 && (
                     <View
@@ -20,7 +20,7 @@ export default class IconWithBadge extends React.Component {
                             alignItems: 'center',
                         }}
                     >
-                        <Text style={{ color: 'white', fontSize: 10, fontWeight: 'bold' }}>
+                        <Text style={{color: 'white', fontSize: 10, fontWeight: 'bold'}}>
                             {badgeCount}
                         </Text>
                     </View>
