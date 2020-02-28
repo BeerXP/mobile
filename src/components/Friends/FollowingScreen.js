@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { View, SafeAreaView, FlatList, StyleSheet } from "react-native";
+import React, {useState, useEffect} from "react";
+import {View, SafeAreaView, FlatList, StyleSheet} from "react-native";
 import {
 	Avatar,
 	Divider,
@@ -9,18 +9,18 @@ import {
 	Image,
 	Header,
 	ListItem,
-	SearchBar
+	SearchBar,
 } from "react-native-elements";
 
 import Icons from "react-native-vector-icons/MaterialCommunityIcons";
 
-import { COLOR_PRIMARY, COLOR_SECONDARY } from "../styles/common";
+import {COLOR_PRIMARY, COLOR_SECONDARY} from "../styles/common";
 
 import auth from "@react-native-firebase/auth";
 import analytics from "@react-native-firebase/analytics";
 import firestore from "@react-native-firebase/firestore";
 
-const FollowingScreen = ({ route, navigation }) => {
+const FollowingScreen = ({route, navigation}) => {
 	const [isLoading, setIsLoading] = useState(false);
 	const [user] = useState(auth().currentUser);
 	const [errorMessage, setErrorMessage] = useState("");
@@ -39,9 +39,9 @@ const FollowingScreen = ({ route, navigation }) => {
 			.doc(user.uid)
 			// .orderBy("name")
 			.get()
-			.then(doc => {
+			.then((doc) => {
 				doc.data().following.map((item, key) => {
-					item.get().then(followingUserList => {
+					item.get().then((followingUserList) => {
 						followingUsers.push(followingUserList.data());
 					});
 					setFollowingUsers(followingUsers);
@@ -50,22 +50,22 @@ const FollowingScreen = ({ route, navigation }) => {
 			});
 	}, [followingUsers]);
 
-	removeFollower = item => {
-		let friend = firestore().doc(`Users/${item.uid}`);
+	removeFollower = (item) => {
+		const friend = firestore().doc(`Users/${item.uid}`);
 
 		firestore()
 			.collection("Users")
 			.doc(user.uid)
 			.update({
-				following: firestore.FieldValue.arrayRemove(friend)
+				following: firestore.FieldValue.arrayRemove(friend),
 			});
 
 		// setFollowingUsers([]);
 	};
 
-	let renderItem = ({ item }) => (
+	const renderItem = ({item}) => (
 		<ListItem
-			leftAvatar={{ source: { uri: item.photoURL } }}
+			leftAvatar={{source: {uri: item.photoURL}}}
 			title={item.name}
 			subtitle={item.email}
 			rightIcon={
@@ -81,7 +81,7 @@ const FollowingScreen = ({ route, navigation }) => {
 	);
 
 	return (
-		<View style={{ flex: 1, backgroundColor: "white" }}>
+		<View style={{flex: 1, backgroundColor: "white"}}>
 			<SearchBar
 				placeholder=" "
 				// onChangeText={searchName => setSearchName({ searchName })}
@@ -92,7 +92,7 @@ const FollowingScreen = ({ route, navigation }) => {
 			/>
 			<SafeAreaView style={styles.container}>
 				<FlatList
-					keyExtractor={item => item.uid}
+					keyExtractor={(item) => item.uid}
 					data={followingUsers}
 					renderItem={renderItem}
 				/>
@@ -105,6 +105,6 @@ export default FollowingScreen;
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		backgroundColor: "white"
-	}
+		backgroundColor: "white",
+	},
 });

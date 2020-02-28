@@ -1,30 +1,29 @@
-import React, { useState, useEffect } from "react";
+import React, {useState, useEffect} from "react";
 import {
   StyleSheet,
   Image,
   ImageBackground,
   View,
   Dimensions,
-  ScrollView
+  ScrollView,
 } from "react-native";
 
 // import Icon from 'react-native-vector-icons/FontAwesome';
-import { Button, Input, SocialIcon, Text } from "react-native-elements";
+import {Button, Input, SocialIcon, Text} from "react-native-elements";
 import LinearGradient from "react-native-linear-gradient";
 
-import { AccessToken, LoginManager } from "react-native-fbsdk";
+import {AccessToken, LoginManager} from "react-native-fbsdk";
 
-import { firebase } from "@react-native-firebase/auth";
+import {firebase} from "@react-native-firebase/auth";
 import auth from "@react-native-firebase/auth";
 import analytics from "@react-native-firebase/analytics";
 import database from "@react-native-firebase/database";
 
-import { COLOR_PRIMARY, COLOR_SECONDARY } from "./styles/common";
+import {COLOR_PRIMARY, COLOR_SECONDARY} from "./styles/common";
 
-const { width, height } = Dimensions.get('window');
+const {width, height} = Dimensions.get('window');
 
-const Login = ({ navigation }) => {
-
+const Login = ({navigation}) => {
   const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -41,7 +40,7 @@ const Login = ({ navigation }) => {
     auth()
       .signInWithEmailAndPassword(email, password)
       .then(() => {
-        //Grava o evento de Login no Analytics
+        // Grava o evento de Login no Analytics
         analytics().logLogin({
           method: 'email',
         });
@@ -51,10 +50,10 @@ const Login = ({ navigation }) => {
         // Clear out the fields when the user logs in and hide the progress indicator.
         setEmail("");
         setPassword("");
-        //natigate to Main
+        // natigate to Main
         navigation.navigate("Main");
       })
-      .catch(error => {
+      .catch((error) => {
         setErrorMessage(error.message);
       }).finally(() => setIsLoading(false));
   };
@@ -70,7 +69,7 @@ const Login = ({ navigation }) => {
         // Clear out the fields when the user logs in and hide the progress indicator.
         setPassword("");
       })
-      .catch(error => {
+      .catch((error) => {
         // Leave the fields filled when an error occurs and hide the progress indicator.
         setErrorMessage(error.message);
       }).finally(() => setIsLoading(false));
@@ -90,7 +89,7 @@ const Login = ({ navigation }) => {
       }
 
       console.log(
-        "Login success with permissions: " + `${result.grantedPermissions.toString()}`
+        "Login success with permissions: " + `${result.grantedPermissions.toString()}`,
       );
 
       // get the access token
@@ -98,7 +97,7 @@ const Login = ({ navigation }) => {
 
       if (!data) {
         throw new Error(
-          "Something went wrong obtaining the users access token"
+          "Something went wrong obtaining the users access token",
         ); // Handle this however fits the flow of your app
       }
 
@@ -110,7 +109,7 @@ const Login = ({ navigation }) => {
         .signInWithCredential(credential)
         .then(() => {
           setIsFacebookLoading(true);
-          //Grava o evento de SignUp Facebook no Analytics
+          // Grava o evento de SignUp Facebook no Analytics
           analytics().logLogin({
             method: 'facebook.com',
           });
@@ -118,28 +117,28 @@ const Login = ({ navigation }) => {
             method: 'facebook.com',
           });
 
-          //Navega para a tela principal
+          // Navega para a tela principal
           navigation.navigate("Main");
           // Clear out the fields when the user logs in and hide the progress indicator.
         })
-        .catch(error => {
+        .catch((error) => {
           // Leave the fields filled when an error occurs and hide the progress indicator.
           setErrorMessage(error.message);
-        }).finally(() => setIsFacebookLoading(false));;
+        }).finally(() => setIsFacebookLoading(false)); ;
     } catch (e) {
       console.error(e);
     }
-  }
+  };
 
   return (
     <ImageBackground
       source={require("../assets/background.png")}
-      style={{ width: "100%", height: "100%" }}
+      style={{width: "100%", height: "100%"}}
     >
       <View style={styles.container}>
         <ScrollView>
           <View>
-            <View style={{ alignSelf: "center" }}>
+            <View style={{alignSelf: "center"}}>
               <Image
                 style={styles.image}
                 resizeMode={"contain"}
@@ -154,8 +153,8 @@ const Login = ({ navigation }) => {
                   placeholder="E-mail"
                   autoCapitalize="none"
                   shake={true}
-                  leftIcon={{ name: "email" }}
-                  onChangeText={email => setEmail(email)}
+                  leftIcon={{name: "email"}}
+                  onChangeText={(email) => setEmail(email)}
                   value={email}
                 />
               </View>
@@ -165,8 +164,8 @@ const Login = ({ navigation }) => {
                   placeholder="Senha"
                   autoCapitalize="none"
                   shake={true}
-                  leftIcon={{ name: "lock" }}
-                  onChangeText={password => setPassword(password)}
+                  leftIcon={{name: "lock"}}
+                  onChangeText={(password) => setPassword(password)}
                   value={password}
                 />
               </View>
@@ -176,20 +175,20 @@ const Login = ({ navigation }) => {
                   <Button
                     title="Entrar"
                     onPress={handleLogin}
-                    icon={{ name: "login", type: "material-community" }}
+                    icon={{name: "login", type: "material-community"}}
                     loading={isLoading}
-                    loadingProps={{ size: "large" }}
+                    loadingProps={{size: "large"}}
                     buttonStyle={{
                       height: 45,
                       borderColor: "transparent",
                       borderWidth: 0,
-                      borderRadius: 25
+                      borderRadius: 25,
                     }}
                     ViewComponent={LinearGradient}
                     linearGradientProps={{
                       colors: [COLOR_PRIMARY, COLOR_SECONDARY],
-                      start: { x: 0, y: 0.5 },
-                      end: { x: 1, y: 0.5 }
+                      start: {x: 0, y: 0.5},
+                      end: {x: 1, y: 0.5},
                     }}
                   />
                 </View>
@@ -198,28 +197,28 @@ const Login = ({ navigation }) => {
                     title="Cadastrar"
                     icon={{
                       name: "account-plus",
-                      type: "material-community"
+                      type: "material-community",
                     }}
                     onPress={() => navigation.navigate("SignUp")}
                     buttonStyle={{
                       height: 45,
                       borderColor: "transparent",
                       borderWidth: 0,
-                      borderRadius: 25
+                      borderRadius: 25,
                     }}
                     ViewComponent={LinearGradient}
                     linearGradientProps={{
                       colors: [COLOR_PRIMARY, COLOR_SECONDARY],
-                      start: { x: 0, y: 0.5 },
-                      end: { x: 1, y: 0.5 }
+                      start: {x: 0, y: 0.5},
+                      end: {x: 1, y: 0.5},
                     }}
                   />
                 </View>
               </View>
-              <View style={{ width: "100%", flexGrow: 1 }}>
+              <View style={{width: "100%", flexGrow: 1}}>
                 <Button
                   title="Esqueci minha senha"
-                  icon={{ name: "account-key", type: "material-community" }}
+                  icon={{name: "account-key", type: "material-community"}}
                   onPress={() =>
                     navigation.navigate(resetPassword)
                   }
@@ -228,13 +227,13 @@ const Login = ({ navigation }) => {
                     height: 40,
                     borderColor: "transparent",
                     borderWidth: 0,
-                    borderRadius: 25
+                    borderRadius: 25,
                   }}
                   ViewComponent={LinearGradient}
                   linearGradientProps={{
                     colors: [COLOR_PRIMARY, COLOR_SECONDARY],
-                    start: { x: 0, y: 0.5 },
-                    end: { x: 1, y: 0.5 }
+                    start: {x: 0, y: 0.5},
+                    end: {x: 1, y: 0.5},
                   }}
                 />
               </View>
@@ -245,7 +244,7 @@ const Login = ({ navigation }) => {
                   type="facebook"
                   loading={isFacebookLoading}
                   onPress={facebookLogin}
-                  style={{ width: "100%" }}
+                  style={{width: "100%"}}
                 />
               </View>
               <View style={styles.row}>
@@ -253,19 +252,19 @@ const Login = ({ navigation }) => {
                   title="Entrar com o Twitter"
                   button
                   type="twitter"
-                  style={{ width: "100%" }}
+                  style={{width: "100%"}}
                 />
               </View>
             </View>
             {errorMessage && (
-              <Text style={{ color: "red" }}>{errorMessage}</Text>
+              <Text style={{color: "red"}}>{errorMessage}</Text>
             )}
           </View>
         </ScrollView>
       </View>
     </ImageBackground >
   );
-}
+};
 
 const win = Dimensions.get("window");
 
@@ -285,7 +284,7 @@ const styles = StyleSheet.create({
     alignContent: "center",
     flexBasis: 1,
     flexGrow: 1,
-    padding: 3
+    padding: 3,
   },
   cell: {
     justifyContent: "space-around",
@@ -293,12 +292,12 @@ const styles = StyleSheet.create({
     padding: 3,
     flexBasis: 0.5,
     flexGrow: 0.5,
-    flexShrink: 0.5
+    flexShrink: 0.5,
   },
   image: {
     alignSelf: "stretch",
-    width: win.width - 50
-  }
+    width: win.width - 50,
+  },
 });
 
 export default Login;

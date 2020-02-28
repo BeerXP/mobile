@@ -1,13 +1,13 @@
 import "react-native-gesture-handler";
 import * as React from "react";
-import { NavigationContainer } from "@react-navigation/native";
+import {NavigationContainer} from "@react-navigation/native";
 
-import { createStackNavigator } from "@react-navigation/stack";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import {createStackNavigator} from "@react-navigation/stack";
+import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 
 import Icons from "react-native-vector-icons/MaterialCommunityIcons";
 
-import { COLOR_PRIMARY, COLOR_SECONDARY } from "./src/components/styles/common";
+import {COLOR_PRIMARY, COLOR_SECONDARY} from "./src/components/styles/common";
 
 import HomeTab from "./src/components/appTabNavigator/HomeTab";
 import ProfileTab from "./src/components/appTabNavigator/ProfileTab";
@@ -21,8 +21,8 @@ import ProfileEditScreen from "./src/components/Profile/ProfileEditScreen";
 import FriendsScreen from "./src/components/Friends/FriendsScreen";
 
 const getTabBarIcon = (route, focused, tintColor) => {
-	let routeName = route.name;
-	let IconComponent = Icons;
+	const routeName = route.name;
+	const IconComponent = Icons;
 	let iconName;
 	if (routeName === "Home") {
 		iconName = `home${focused ? "" : "-outline"}`;
@@ -48,12 +48,12 @@ function ProfileStackFunc() {
 			<ProfileStack.Screen
 				name="ProfileHome"
 				component={ProfileTab}
-				options={{ headerShown: false }}
+				options={{headerShown: false}}
 			/>
 			<ProfileStack.Screen
 				name="ProfileEdit"
 				component={ProfileEditScreen}
-				options={{ headerShown: false }}
+				options={{headerShown: false}}
 			/>
 			<ProfileStack.Screen
 				name="Friends"
@@ -64,8 +64,8 @@ function ProfileStackFunc() {
 					headerTitle: "Amigos",
 					headerTintColor: "white",
 					headerStyle: {
-						backgroundColor: COLOR_PRIMARY
-					}
+						backgroundColor: COLOR_PRIMARY,
+					},
 				}}
 			/>
 		</ProfileStack.Navigator>
@@ -115,14 +115,14 @@ const AppTabNavigator = createBottomTabNavigator();
 function AppTabs() {
 	return (
 		<AppTabNavigator.Navigator
-			screenOptions={({ route }) => ({
-				tabBarIcon: ({ focused, color }) => {
+			screenOptions={({route}) => ({
+				tabBarIcon: ({focused, color}) => {
 					return getTabBarIcon(route, focused, color);
-				}
+				},
 			})}
 			tabBarOptions={{
 				activeTintColor: COLOR_PRIMARY,
-				inactiveTintColor: "gray"
+				inactiveTintColor: "gray",
 			}}
 		>
 			<AppTabNavigator.Screen name="Home" component={HomeTab} />

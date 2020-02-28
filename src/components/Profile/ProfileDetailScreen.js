@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from "react";
-import { Text, View, StyleSheet } from "react-native";
-import { Avatar, Divider, Card, Button, Icon } from "react-native-elements";
+import React, {useState, useEffect} from "react";
+import {Text, View, StyleSheet} from "react-native";
+import {Avatar, Divider, Card, Button, Icon} from "react-native-elements";
 import Icons from "react-native-vector-icons/FontAwesome";
 
 import auth from "@react-native-firebase/auth";
 import analytics from "@react-native-firebase/analytics";
 
-const ProfileScreen = ({ route, navigation }) => {
+const ProfileScreen = ({route, navigation}) => {
 	const [isLoading, setIsLoading] = useState(false);
 	const [user] = useState(auth().currentUser);
 
@@ -19,11 +19,11 @@ const ProfileScreen = ({ route, navigation }) => {
 			<Card
 				style={styles.card}
 				title={user.displayName}
-				image={{ uri: user.photoURL + "?type=large" }}
-				imageProps={{ resizeMode: "cover", resizeMethod: "auto" }}
+				image={{uri: user.photoURL + "?type=large"}}
+				imageProps={{resizeMode: "cover", resizeMethod: "auto"}}
 				loadingIndicatorSource={require("../../assets/homer.png")}
 			>
-				<Text style={{ marginBottom: 10 }}>
+				<Text style={{marginBottom: 10}}>
 					Name: {user.displayName} {"\n"}
 					E-mail: {user.email} {"\n"}
 					Photo: {user.photoURL + "?type=large"} {"\n"}
@@ -41,7 +41,7 @@ const ProfileScreen = ({ route, navigation }) => {
 						borderRadius: 0,
 						marginLeft: 0,
 						marginRight: 0,
-						marginBottom: 0
+						marginBottom: 0,
 					}}
 				/>
 			</Card>
@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
 		flex: 1,
 		justifyContent: "flex-start",
 		alignItems: "center",
-		padding: 5
+		padding: 5,
 	},
 	card: {
 		flex: 1,
@@ -62,8 +62,8 @@ const styles = StyleSheet.create({
 		alignContent: "space-between",
 		alignItems: "flex-start",
 		flexWrap: "wrap",
-		flexGrow: 1
-	}
+		flexGrow: 1,
+	},
 });
 
 export default ProfileScreen;

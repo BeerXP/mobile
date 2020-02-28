@@ -1,13 +1,12 @@
-import React, { useState, useEffect } from "react";
-import { SafeAreaView, View, StyleSheet } from "react-native";
-import { Avatar, Divider, Card, Button, Icon, ListItem, SearchBar } from "react-native-elements";
+import React, {useState, useEffect} from "react";
+import {SafeAreaView, View, StyleSheet} from "react-native";
+import {Avatar, Divider, Card, Button, Icon, ListItem, SearchBar} from "react-native-elements";
 import Icons from 'react-native-vector-icons/FontAwesome';
 
 import analytics from "@react-native-firebase/analytics";
 import database from "@react-native-firebase/database";
 
-const FriendsSearchScreen = ({ navigation }) => {
-
+const FriendsSearchScreen = ({navigation}) => {
     const [isLoading, setIsLoading] = useState(true);
     const [search, setSearch] = useState("");
     const [list, setList] = useState([]);
@@ -21,11 +20,9 @@ const FriendsSearchScreen = ({ navigation }) => {
         // ref.once('value', onSnapshot);
 
         // onSignIn();
-
     }, []);
 
     async function onSignIn() {
-
         // Create a reference
         const ref = database().ref(`/users`);
 
@@ -35,7 +32,7 @@ const FriendsSearchScreen = ({ navigation }) => {
         // console.log('User data: ', snapshot.val());
 
         // Create our own array of games in order
-        snapshot.forEach(user => {
+        snapshot.forEach((user) => {
             list.push({
                 key: user.uid, // Add custom key for FlatList usage
                 ...user,
@@ -52,7 +49,7 @@ const FriendsSearchScreen = ({ navigation }) => {
         const list = [];
 
         // Create our own array of games in order
-        snapshot.forEach(user => {
+        snapshot.forEach((user) => {
             list.push({
                 key: user.uid, // Add custom key for FlatList usage
                 ...user,
@@ -67,7 +64,7 @@ const FriendsSearchScreen = ({ navigation }) => {
         <SafeAreaView style={styles.container}>
             <SearchBar
                 placeholder="Pesquisar por nome ou e-mail ... "
-                onChangeText={search => setSearch(search)}
+                onChangeText={(search) => setSearch(search)}
                 value={search}
                 lightTheme={true}
                 round={true}
@@ -78,7 +75,7 @@ const FriendsSearchScreen = ({ navigation }) => {
                     list.map((l, i) => (
                         <ListItem
                             key={i}
-                            leftAvatar={{ source: { uri: l.avatar_url } }}
+                            leftAvatar={{source: {uri: l.avatar_url}}}
                             title={l.name}
                             subtitle={l.subtitle}
                             rightIcon={<Icons name="user-plus" color="green" />}
@@ -88,14 +85,14 @@ const FriendsSearchScreen = ({ navigation }) => {
                 }
             </View>
         </SafeAreaView>);
-}
+};
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: "flex-start",
-        padding: 5
-    }
+        padding: 5,
+    },
 });
 
 export default FriendsSearchScreen;

@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { SafeAreaView, View, StyleSheet, FlatList, Text } from "react-native";
+import React, {useState, useEffect} from "react";
+import {SafeAreaView, View, StyleSheet, FlatList, Text} from "react-native";
 import {
 	Avatar,
 	Divider,
@@ -7,7 +7,7 @@ import {
 	Button,
 	Icon,
 	ListItem,
-	SearchBar
+	SearchBar,
 } from "react-native-elements";
 
 import Icons from "react-native-vector-icons/MaterialCommunityIcons";
@@ -16,7 +16,7 @@ import auth from "@react-native-firebase/auth";
 import analytics from "@react-native-firebase/analytics";
 import firestore from "@react-native-firebase/firestore";
 
-const SearchTab = ({ navigation }) => {
+const SearchTab = ({navigation}) => {
 	const [isLoading, setIsLoading] = useState(true);
 	const [user] = useState(auth().currentUser);
 	const [searchName, setSearchName] = useState("");
@@ -30,11 +30,11 @@ const SearchTab = ({ navigation }) => {
 			.collection("Users")
 			.doc(user.uid)
 			.get()
-			.then(doc => {
-				let following = doc.data().following;
+			.then((doc) => {
+				const following = doc.data().following;
 
 				following.map((item, key) => {
-					item.get().then(followingUsersList => {
+					item.get().then((followingUsersList) => {
 						followingUsers.push(followingUsersList.data());
 					});
 					setFollowingUsers(followingUsers);
@@ -49,12 +49,12 @@ const SearchTab = ({ navigation }) => {
 			.collection("Users")
 			// .where('name', '>=', searchName)
 			.orderBy("name")
-			.onSnapshot(querySnapshot => {
+			.onSnapshot((querySnapshot) => {
 				// Add users into an array
-				const users = querySnapshot.docs.map(documentSnapshot => {
+				const users = querySnapshot.docs.map((documentSnapshot) => {
 					return {
 						...documentSnapshot.data(),
-						key: documentSnapshot.id // required for FlatList
+						key: documentSnapshot.id, // required for FlatList
 					};
 				});
 
@@ -70,25 +70,25 @@ const SearchTab = ({ navigation }) => {
 		return () => unsubscribe(); // Stop listening for updates whenever the component unmounts
 	}, [searchName]);
 
-	addFollower = item => {
-		let friend = firestore().doc(`Users/${item.uid}`);
+	addFollower = (item) => {
+		const friend = firestore().doc(`Users/${item.uid}`);
 
 		firestore()
 			.collection("Users")
 			.doc(user.uid)
 			.update({
-				following: firestore.FieldValue.arrayUnion(friend)
+				following: firestore.FieldValue.arrayUnion(friend),
 			});
 	};
 
-	let renderItem = ({ item }) => (
+	const renderItem = ({item}) => (
 		<ListItem
-			leftAvatar={{ source: { uri: item.photoURL } }}
+			leftAvatar={{source: {uri: item.photoURL}}}
 			title={item.name}
 			subtitle={item.email}
 			rightIcon={
 				followingUsers.find(
-					param => param.uid == item.uid
+					(param) => param.uid == item.uid,
 				) ? null : item.uid == user.uid ? null : (
 					<Icons
 						name="account-plus"
@@ -106,7 +106,7 @@ const SearchTab = ({ navigation }) => {
 		<SafeAreaView style={styles.container}>
 			<SearchBar
 				placeholder="Pesquisar por nome ou e-mail ... "
-				onChangeText={searchName => setSearchName({ searchName })}
+				onChangeText={(searchName) => setSearchName({searchName})}
 				value={searchName}
 				lightTheme={true}
 				round={true}
@@ -114,7 +114,7 @@ const SearchTab = ({ navigation }) => {
 			/>
 			<View>
 				<FlatList
-					keyExtractor={item => item.id}
+					keyExtractor={(item) => item.id}
 					data={list}
 					renderItem={renderItem}
 				/>
@@ -127,8 +127,8 @@ const styles = StyleSheet.create({
 	container: {
 		flex: 1,
 		justifyContent: "flex-start",
-		padding: 5
-	}
+		padding: 5,
+	},
 });
 
 export default SearchTab;
