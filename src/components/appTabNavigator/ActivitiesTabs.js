@@ -1,19 +1,18 @@
-import React, { useState, useEffect } from "react";
-import { SafeAreaView, View, StyleSheet, FlatList, Text } from "react-native";
-import { Avatar, Divider, Card, Button, Icon, ListItem, SearchBar } from "react-native-elements";
+import React, {useState, useEffect} from "react";
+import {SafeAreaView, View, StyleSheet, FlatList, Text} from "react-native";
+import {Avatar, Divider, Card, Button, Icon, ListItem, SearchBar} from "react-native-elements";
 
 import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import analytics from "@react-native-firebase/analytics";
 import database from "@react-native-firebase/database";
 
-const SearchTab = ({ navigation, focused, tintColor }) => {
-
+const SearchTab = ({navigation, focused, tintColor}) => {
     const [isLoading, setIsLoading] = useState(true);
     const [searchName, setSearchName] = useState("");
     const [list, setList] = useState([]);
 
-    keyExtractor = item => item.id;
+    keyExtractor = (item) => item.id;
 
     useEffect(() => {
         setIsLoading(true);
@@ -32,7 +31,7 @@ const SearchTab = ({ navigation, focused, tintColor }) => {
         const list = [];
 
         // Create our own array of games in order
-        snapshot.forEach(user => {
+        snapshot.forEach((user) => {
             list.push({
                 key: user.key, // Add custom key for FlatList usage
                 ...user.val(),
@@ -47,7 +46,7 @@ const SearchTab = ({ navigation, focused, tintColor }) => {
         <SafeAreaView style={styles.container}>
             <SearchBar
                 placeholder="Pesquisar por nome ou e-mail ... "
-                onChangeText={searchName => setSearchName({ searchName })}
+                onChangeText={(searchName) => setSearchName({searchName})}
                 value={searchName}
                 lightTheme={true}
                 round={true}
@@ -63,7 +62,7 @@ const SearchTab = ({ navigation, focused, tintColor }) => {
                     list.map((user, i) => (
                         <ListItem
                             key={i}
-                            leftAvatar={{ source: { uri: user.photoURL } }}
+                            leftAvatar={{source: {uri: user.photoURL}}}
                             title={user.displayName}
                             subtitle={user.email}
                             rightIcon={<Icons name="account-plus" color="green" size={32} />}
@@ -73,14 +72,14 @@ const SearchTab = ({ navigation, focused, tintColor }) => {
                 }
             </View>
         </SafeAreaView>);
-}
+};
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: "flex-start",
-        padding: 5
-    }
+        padding: 5,
+    },
 });
 
 export default SearchTab;

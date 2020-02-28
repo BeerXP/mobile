@@ -1,5 +1,5 @@
-import { StyleSheet } from "react-native";
-import { COLOR_PRIMARY, BORDER_RADIUS } from "./../styles/common";
+import {StyleSheet} from "react-native";
+import {COLOR_PRIMARY, BORDER_RADIUS} from "./../styles/common";
 
 export default StyleSheet.create({
   button: {
@@ -7,6 +7,6 @@ export default StyleSheet.create({
     backgroundColor: COLOR_PRIMARY,
     borderRadius: BORDER_RADIUS,
     marginLeft: 20,
-    marginRight: 20
-  }
+    marginRight: 20,
+  },
 });
