@@ -62,8 +62,8 @@
 		"preset": "react-native"
 	},
 	"engines": {
-		"node": "13.10.0",
+		"node": "13.10.1",
 		"npm": "6.11.3",
-		"yarn": "1.22.0"
+		"yarn": "1.22.1"
 	}
 }
