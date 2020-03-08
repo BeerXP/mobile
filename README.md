@@ -7,6 +7,7 @@
 [![code factor](https://www.codefactor.io/repository/github/beerxp/mobile/badge?style=flat-square)](https://www.codefactor.io/repository/github/beerxp/mobile/badge?style=flat-square)
 [![Maintainability](https://api.codeclimate.com/v1/badges/67f8d6dbe9f77d3a94e6/maintainability)](https://codeclimate.com/github/BeerXP/mobile/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/67f8d6dbe9f77d3a94e6/test_coverage)](https://codeclimate.com/github/BeerXP/mobile/test_coverage)
+[![Known Vulnerabilities](https://snyk.io/test/github/BeerXP/mobile/badge.svg)](https://snyk.io/test/github/BeerXP/mobile)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 
 <a href='https://play.google.com/store/apps/details?id=com.thebeerxp.android&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png'/></a>
@@ -37,21 +38,21 @@ Include logo/demo screenshot etc.
 
 <b>Built with</b>
 
-- [Visual Studio Code](https://code.visualstudio.com/)
+-   [Visual Studio Code](https://code.visualstudio.com/)
 
-- [Firebase](https://firebase.google.com/docs/)
+-   [Firebase](https://firebase.google.com/docs/)
 
-- [React Native Firebase](https://rnfirebase.io/)
+-   [React Native Firebase](https://rnfirebase.io/)
 
-- [React Native](https://facebook.github.io/react-native/)
+-   [React Native](https://facebook.github.io/react-native/)
 
-- [React Navigation](https://reactnavigation.org/en/)
+-   [React Navigation](https://reactnavigation.org/en/)
 
-- [React Native Elements](https://github.com/react-native-training/react-native-elements)
+-   [React Native Elements](https://github.com/react-native-training/react-native-elements)
 
-- [React Native Gradient](https://github.com/react-native-community/react-native-linear-gradient)
+-   [React Native Gradient](https://github.com/react-native-community/react-native-linear-gradient)
 
-- [Icons](https://oblador.github.io/react-native-vector-icons/)
+-   [Icons](https://oblador.github.io/react-native-vector-icons/)
 
 ## Features
 
