@@ -4,8 +4,8 @@
 
 source "https://rubygems.org"
 
-gem 'fastlane'
-gem "fastlane-plugin-badge"
+gem 'fastlane', '>= 2.142.0'
+gem "fastlane-plugin-badge", ">= 1.4.0"
 gem 'coveralls', require: false
 
 plugins_path = File.join(File.dirname(__FILE__), 'fastlane', 'Pluginfile')
